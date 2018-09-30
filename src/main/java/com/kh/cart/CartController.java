@@ -173,12 +173,12 @@ public class CartController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("redirect:/cart/cartList");
 		HttpSession session = request.getSession();
-		System.out.println("선택삭제11"+commandMap.get("GOODS_KIND_NUMBER"));
+		System.out.println("선택삭제"+commandMap.get("GOODS_KIND_NUMBER"));
 		
 		List<Map<String, Object>> cartSession = new ArrayList<Map<String, Object>>();
 		Map<String, Object> cartMap = new HashMap<String, Object>();
 		
-		//상품 선택삭제
+		//상품 선택삭제로 넘어온 상품번호 처리
 		List<String> GKN = new ArrayList<String>();
 		String[] cart_number= (String[]) arrayParams;
 		
@@ -204,7 +204,7 @@ public class CartController {
 		}
 		}
 		
-		//상품 삭제버튼
+		//상품 삭제버튼으로 넘어온 상품번호 처리
 		if(commandMap.get("GOODS_KIND_NUMBER") instanceof String) {
 			System.out.println("카트 선택 삭제2");
 			String a =   (String) commandMap.get("GOODS_KIND_NUMBER");
@@ -213,20 +213,12 @@ public class CartController {
 			GKN.add(total[0]);
 			System.out.println("GKN:"+GKN);
 		}
-		else if(commandMap.get("GOODS_KIND_NUMBER") instanceof String[]) {
-			System.out.println("카트 선택 삭제3");
-		String[] a =   (String[]) commandMap.get("GOODS_KIND_NUMBER");
+
 		
-		for(int i=0; i<a.length; i++) {
-			String[] total;
-			total =a[i].split(",");
-			System.out.println("total:"+total);
-			GKN.add(total[0]);
-			}
-		}
-		
-		if (session.getAttribute("MEMBER_NUMBER") != null) {// 회원 장바구니 삭제
-	         if (commandMap.get("GOODS_KIND_NUMBER") instanceof String) { // 장바구니 한개 선택해서 삭제
+		//상품 삭제 시작
+		//회원
+		if (session.getAttribute("MEMBER_NUMBER") != null) {
+	         if (commandMap.get("GOODS_KIND_NUMBER") instanceof String) {
 	        	 System.out.println("장바구니 한개 선택");
 	            cartMap = new HashMap<String, Object>();
 	            cartMap.put("MEMBER_NUMBER", session.getAttribute("MEMBER_NUMBER"));
@@ -234,7 +226,15 @@ public class CartController {
 	            System.out.println("MEMBER_NUMBER:"+session.getAttribute("MEMBER_NUMBER"));
 	            System.out.println("GOODS_KIND_NUMBER:"+commandMap.get("GOODS_KIND_NUMBER"));
 	            cartService.deleteMyCart(cartMap);
-	         } else { // 장바구니 여러개 선택해서 삭제
+	            
+    			commandMap.put("MEMBER_NUMBER", session.getAttribute("MEMBER_NUMBER"));
+    			List<Map<String, Object>> cartList = new ArrayList<Map<String, Object>>();
+    			commandMap.put("MEMBER_NUMBER", session.getAttribute("MEMBER_NUMBER"));
+    			cartList = cartService.cartList(commandMap.getMap());
+	            mv.addObject("cartList", cartList);
+	            mv.setViewName("store/cartGoods");
+	            
+	         } else { // 장바구니 여러개 선택 삭제
 	        	 System.out.println("장바구니 여러개 선택");
 	        	 System.out.println("arrayParams:"+cart_number);
 	            
@@ -244,9 +244,15 @@ public class CartController {
 	               cartMap.put("MEMBER_NUMBER", session.getAttribute("MEMBER_NUMBER"));
 	               cartMap.put("GOODS_KIND_NUMBER", cart_number[j]);
 	               cartService.deleteMyCart(cartMap);
+		           List<Map<String, Object>> cartList = new ArrayList<Map<String, Object>>();
+		           commandMap.put("MEMBER_NUMBER", session.getAttribute("MEMBER_NUMBER"));
+		           cartList = cartService.cartList(commandMap.getMap());
+		           mv.addObject("cartList", cartList);
+		           mv.setViewName("store/cartGoods");
 	            }
 	         }
-		} else { // 비회원 장바구니 삭제
+	         //비회원
+		} else { 
 			cartSession = (List<Map<String, Object>>) session.getAttribute("cartSession");
 			System.out.println("cartSession2:"+cartSession);
 			

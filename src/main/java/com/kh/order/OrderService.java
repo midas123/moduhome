@@ -11,6 +11,8 @@ public interface OrderService {
 	
 	Map<String, Object> orderGoods2(Map<String, Object> map) throws Exception;
 	
+	public Object orderGoodsAction(Map<String, Object> map) throws Exception;
+	
 	public Object createDeliveryList(Map<String, Object> map) throws Exception;
 	
 	public Object createOrderList(Map<String, Object> map) throws Exception;

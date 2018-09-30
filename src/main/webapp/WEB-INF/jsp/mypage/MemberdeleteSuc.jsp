@@ -25,7 +25,7 @@
             <h3>그동안 함께해주셔서 감사합니다.</h3>
               </div>
 
-              <a href="/ModuHome/main" >메인으로</a>
+              <a href="/ModuHome/" >메인으로</a>
           </div>
         </div>
         <!-- END row -->

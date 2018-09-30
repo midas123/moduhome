@@ -46,7 +46,7 @@
               <div style="padding-bottom: 20px;"><span style="font-size: 28px;">${MEMBER_NAME}님</span></div>
               <div style="padding-bottom: 20px;"><span style="font-size: 28px;">당신은 모두의집의 가족입니다.</span></div>
             </div>
-            <a href="/ModuHome/home" >메인으로</a>
+            <a href="/ModuHome/" >메인으로</a>
           </div>
         </div>
         <!-- END row -->

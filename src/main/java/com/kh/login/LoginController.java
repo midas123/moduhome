@@ -39,17 +39,7 @@ public class LoginController {
 	@Resource(name = "alarmService")
 	private AlarmService alarmService;
 
-   // 로그인 폼
-   // 로그인 폼
-   
-   
-/*   @RequestMapping("/main")
-   public ModelAndView main() {
-      ModelAndView mv = new ModelAndView("/main");
-   
-      return mv;
-   }*/
-	
+  
 	
    @RequestMapping(value = "/loginForm")
    public ModelAndView loginForm() {
@@ -113,7 +103,7 @@ public class LoginController {
          if (chk.get("MEMBER_PASSWORD").equals(commandMap.get("MEMBER_PASSWORD"))) {
             session.setAttribute("MEMBER_ID", commandMap.get("MEMBER_ID"));	//세션에 아이디를 넣어라
             mv.addObject("MEMBER", chk);	//
-            mv.setViewName("redirect:home");
+            mv.setViewName("redirect:/");
             session.setAttribute("MEMBER_NAME", chk.get("MEMBER_NAME"));
             session.setAttribute("MEMBER_NICKNAME", chk.get("MEMBER_NICKNAME"));
             session.setAttribute("MEMBER_NUMBER", chk.get("MEMBER_NUMBER"));

@@ -38,7 +38,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/ModuHome/home" title="uiCookies:FineOak">FineOak</a>
+          <a class="navbar-brand" href="/ModuHome/" title="uiCookies:FineOak">FineOak</a>
         </div>
 
         <div id="navbar-collapse" class="navbar-collapse collapse">

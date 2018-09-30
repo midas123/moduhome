@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.moduhome.AbstractDAO;
 
 @Repository("orderDAO")
+
 public class OrderDAO extends AbstractDAO {
 	
 	

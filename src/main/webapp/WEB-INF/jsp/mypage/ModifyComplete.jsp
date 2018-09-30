@@ -28,7 +28,7 @@
             	<span style="font-size: 28px;">회원님의 정보가 수정 완료되었습니다.</span>
             </div>
 
-            <a href="/ModuHome/home" >메인으로</a>
+            <a href="/ModuHome/" >메인으로</a>
           </div>
         </div>
         <!-- END row -->

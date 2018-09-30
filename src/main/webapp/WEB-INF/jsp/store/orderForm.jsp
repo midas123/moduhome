@@ -259,7 +259,7 @@ function copydata2() {
                		<dl class="loc-navi">
                         <dt class="blind">현재 위치</dt>
                         <dd>
-                            <a href="/ModuHome/home">home</a> &gt; 주문서 작성
+                            <a href="/ModuHome/">home</a> &gt; 주문서 작성
                         </dd>
                     </dl>
                     <div class="page-body">

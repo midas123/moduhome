@@ -149,7 +149,7 @@ function checkedRows(index){
 			<span style="font-size: 28px; color:black;">장바구니</span>
 		</div>
 		<hr style="color:#999999; width:90%; padding:20px;">
-		<div class="section-body col-md-12" style="background-color:#fff; !important;">
+		<div id="changeCartGoodlist" class="section-body col-md-12" style="background-color:#fff; !important;">
 			<form name="fmCart" action="/ModuHome/cart/cartDelete">
 			<input type="hidden" name="mode" value="del"><!-- 
 			<div class="container" style="margin: 0px 0px 0px 0px; padding:0px;">	 -->
@@ -429,7 +429,8 @@ $("#btn-checked-one").click(function(){
 	       data: {"GOODS_KIND_NUMBER":goodsNum},
 	       success:function(data){
 	    	   console.log("선택삭제 에이작스");
-	    	  location.href="/ModuHome/cart/cartList";
+	    	  //location.href="/ModuHome/cart/cartList";
+	    	  $("#changeCartGoodlist").html(data);
 	       }
 	    });  
 	

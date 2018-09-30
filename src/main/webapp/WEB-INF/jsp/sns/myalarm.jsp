@@ -86,7 +86,7 @@
 							</div>
 			</div>
 
-              <a href="/ModuHome/main" >메인으로</a>
+              <a href="/ModuHome/" >메인으로</a>
           </div>
         </div>
         <!-- END row -->

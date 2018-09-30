@@ -96,23 +96,12 @@ public class OrderController {
 		commandMap.put("MEMBER_NUMBER", request.getParameter("MEMBER_NUMBER"));
 		
 		Map<String, Object> orderMember = orderService.orderMember(commandMap.getMap());
-		
-		StringBuffer temp = new StringBuffer();
-		Random rnd = new Random();
-
-		for (int i = 0; i < 5; i++) {
-			temp.append((char) ((rnd.nextInt(26)) + 65));
-		}
 
 		List<Map<String, Object>> goods = new ArrayList<Map<String, Object>>();
 
 		String[] goods_kinds_number = request.getParameterValues("kinds[]");
 		String[] ea = request.getParameterValues("ea[]");
-		//포인트 사용 후 총 포인트
-		//String[] goods_total = request.getParameterValues("goods_total[]");
 		String[] goods_number = request.getParameterValues("GOODS_NUMBER");
-
-		int total = 0;
 
 		for (int i = 0; i < goods_kinds_number.length; i++) {
 
@@ -126,29 +115,32 @@ public class OrderController {
 
 			goods.add(orderGoods);
 
-			System.out.println("goods : " + goods);
-
-			//total += Integer.parseInt(goods_total[i]);
+			System.out.println("주문한 상품목록 : " + goods);
 		}
-		System.out.println("total:"+total);
+		
+		
+		//주문코드 생성
+		StringBuffer temp = new StringBuffer();
+		Random rnd = new Random();
+
+		for (int i = 0; i < 5; i++) {
+			temp.append((char) ((rnd.nextInt(26)) + 65));
+		}
 		Date d = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String date = sdf.format(d);
-
 		String ORDER_CODE = ("S" + date + temp);
+		System.out.println("ORDER_CODE:"+ORDER_CODE);
 
-		System.out.println(ORDER_CODE);
-
-		commandMap.put("ORDER_CODE", ORDER_CODE);
 		
-
+		//배송정보 저장
+		commandMap.put("ORDER_CODE", ORDER_CODE);
 		commandMap.put("BUYER_ZIPCODE", orderMember.get("MEMBER_ZIPCODE"));
 		commandMap.put("BUYER_ADDRESS1", orderMember.get("MEMBER_ADDRESS1"));
 		commandMap.put("BUYER_ADDRESS2", orderMember.get("MEMBER_ADDRESS2"));
 		commandMap.put("BUYER_NAME", orderMember.get("MEMBER_NAME"));
 		commandMap.put("BUYER_EMAIL", orderMember.get("MEMBER_EMAIL"));
 		commandMap.put("BUYER_NUMBER", orderMember.get("MEMBER_PHONE"));
-
 		
 		if (request.getParameter("DELIVERY_MESSAGE").isEmpty()) {
 			commandMap.put("DELIVERY_MESSAGE", " ");
@@ -163,10 +155,12 @@ public class OrderController {
 		commandMap.put("DELIVERY_MESSAGE", request.getParameter("DELIVERY_MESSAGE"));
 		commandMap.put("RECEIVER_NUMBER", request.getParameter("RECEIVER_PHONE"));
 		commandMap.put("TOTALPRICE", request.getParameter("TOTALPRICE"));
-	
 
-		orderService.createDeliveryList(commandMap.getMap());
 		
+		
+		
+		
+		//주문정보 저장
 		for (int i = 0; i < goods_kinds_number.length; i++) {
 
 			commandMap.put("GOODS_KIND_NUMBER", goods_kinds_number[i]);
@@ -180,22 +174,28 @@ public class OrderController {
 			System.out.println("ORDER_AMOUNT : " + commandMap.get("ORDER_AMOUNT"));
 			System.out.println("ORDER_CODE : " + commandMap.get("ORDER_CODE"));
 			
-			orderService.createOrderList(commandMap.getMap());
-			orderService.goodsCountDown(commandMap.getMap());
-
 		}
 
+		//orderService.createDeliveryList(commandMap.getMap());
+		//orderService.createOrderList(commandMap.getMap());
+		//orderService.goodsCountDown(commandMap.getMap());
+		
+		//상품 구매 트랜잭션 처리
+		orderService.orderGoodsAction(commandMap.getMap());
 
 		mv.addObject("orderMember", orderMember);
-
 		System.out.println("TOTALPRICE : " + commandMap.get("TOTALPRICE"));
-
 		mv.addObject("goods", goods);
-
 		mv.addObject("goods_kind_number", goods_kinds_number);
 		mv.addObject("ea", ea);
-		System.out.println("포인트 사용");
-		//포인트 사용
+		
+		//포인트
+		if (commandMap.getMap().get("usePoint") != null) {
+		int usePoint = Integer.parseInt((String) commandMap.getMap().get("usePoint"));
+		mv.addObject("usePoint", usePoint);
+		}
+		
+	/*	System.out.println("포인트 사용 시작");
 		if (commandMap.getMap().get("usePoint") != null) {
 			if(!((String)commandMap.getMap().get("usePoint")).isEmpty()){
 			int usePoint = Integer.parseInt((String) commandMap.getMap().get("usePoint"));
@@ -212,23 +212,22 @@ public class OrderController {
 				commandMap.getMap().put("POINT_CONTENT", "상품 구매");
 
 				orderService.insertPoint(commandMap.getMap());
-
 			}
-
 			mv.addObject("usePoint", usePoint);
 		  }
-			
-		}
+		}*/
+		
 		mv.addObject("ORDER_CODE", ORDER_CODE);
 		mv.addObject("BUYER_NUMBER", commandMap.get("BUYER_NUMBER"));
 		mv.addObject("TOTALPRICE", commandMap.get("TOTALPRICE"));
-		System.out.println(commandMap.get("TOTALPRICE"));
 		mv.addObject("RECEIVER_NAME", commandMap.get("RECEIVER_NAME"));
 		mv.addObject("RECEIVER_ZIPCODE", commandMap.get("RECEIVER_ZIPCODE"));
 		mv.addObject("RECEIVER_ADDRESS1", commandMap.get("RECEIVER_ADDRESS1"));
 		mv.addObject("RECEIVER_ADDRESS2", commandMap.get("RECEIVER_ADDRESS2"));
 		mv.addObject("DELIVERY_MESSAGE", commandMap.get("DELIVERY_MESSAGE"));
 		mv.addObject("RECEIVER_PHONE", commandMap.get("RECEIVER_NUMBER"));
+		
+		System.out.println(commandMap.get("TOTALPRICE"));
 		System.out.println("주소1:"+commandMap.get("RECEIVER_ADDRESS1"));
 		System.out.println("주소2:"+commandMap.get("RECEIVER_ADDRESS2"));
 		

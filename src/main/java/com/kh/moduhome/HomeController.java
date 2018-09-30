@@ -33,7 +33,7 @@ public class HomeController {
 	private GoodsService goodsService;
 	
 	// 홈
-	@RequestMapping(value = "home")
+	@RequestMapping(value = "/")
 	public ModelAndView home(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		

@@ -34,7 +34,7 @@
 
               <div class="form-group" align="center">
                 <input type="submit" class="btn btn-primary btn-lg" id="memDelete" name="memDelete" value="회원탈퇴" onclick="javascript:checkSubmit()">
-                <input type="button" class="btn btn-primary btn-lg" id="goMain" name="goMain" value="메인으로" onclick="location.href='/ModuHome/main'">
+                <input type="button" class="btn btn-primary btn-lg" id="goMain" name="goMain" value="메인으로" onclick="location.href='/ModuHome/'">
               </div>
 			  
 			 
