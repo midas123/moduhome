@@ -91,33 +91,18 @@ $("li").on("click", function(){
 <section id="category-section" style="background: #fff">
 
 	<div class="upper-menu" style=" background: #fff; width:100%; height:50px;">
-		<!-- <div class="commerce-menu" style="margin-left: 160px;">
-			<ul>
-				<li class=""><a href="/ModuHome/goods/category?CATEGORY=전체">전체상품</a></li>
-				<li class=""><a
-					href="/ModuHome/goods/category?CATEGORY=가구">가구</a></li>
-				<li class=""><a href="/ModuHome/goods/category?CATEGORY=가전">가전</a></li>
-				<li class=""><a href="/ModuHome/goods/category?CATEGORY=패브릭">패브릭</a></li>
-				<li class=""><a href="/ModuHome/goods/category?CATEGORY=주방">주방</a></li>
-				<li class=""><a href="/ModuHome/goods/category?CATEGORY=생활·수납">생활·수납</a></li>
-			</ul>
-		</div>
-	</div> -->
-	
 	<div class="container">
 			<div class="row">
 	<div class="commerce-menu" >
-		
-	
-			<div class="col-md-8 col-md-offset-2" style="margin-bottom:80px;">
+			<div class="col-md-8 col-md-offset-2" style="margin-bottom:5px;">
 				<div class="col-md-2" ><a href="/ModuHome/goods/category?CATEGORY=전체" style="color: black;">전체상품</a></div>
 				<div class="col-md-2"><a href="/ModuHome/goods/category?CATEGORY=가구" style="color: black;">가구</a></div>
 				<div class="col-md-2"><a href="/ModuHome/goods/category?CATEGORY=가전" style="color: black;">가전</a></div>	
 				<div class="col-md-2"><a href="/ModuHome/goods/category?CATEGORY=패브릭" style="color: black;">패브릭</a></div>
 				<div class="col-md-2"><a href="/ModuHome/goods/category?CATEGORY=주방" style="color: black;">주방</a></div>
 				<div class="col-md-2"><a href="/ModuHome/goods/category?CATEGORY=생활·수납" style="color: black;">생활·수납</a></div>
+	<hr style="color:#99999; width:90%; padding:20px;">
 			</div>
-	
 		</div>
 		</div>
 		</div>
@@ -138,19 +123,9 @@ $("li").on("click", function(){
 						<a href="/ModuHome/goods/category?CATEGORY=${categoryName}&SUBCATEGORY=${subCategorys}" style="color: black;">${subCategorys}</a>
 					</div>
 					</c:forEach>
-				
 				</div>
 				</div>
-<%-- 			<ul>
-				<li><a href="/ModuHome/goods/category?CATEGORY=${categoryName}">전체</a></li>
-				|
-				<c:forEach items="${subCategory}" var="subCategorys">
-				<li><a href="/ModuHome/goods/category?CATEGORY=${categoryName}&SUBCATEGORY=${subCategorys}">${subCategorys}</a></li>
-				|
-				</c:forEach>
-			</ul> --%>
 			</c:if>
-						<!-- <div class="order-selector" style="float:right; margin-right: 200px;"> -->
 			<div class="col-md-8 col-md-offset-3">
 			<div class="col-md-12 col-md-offset-10" style="margin-bottom:20px;">
 			<select id="orderSelector" name="sort" onchange="javascript:ajaxList(${currentPage});">
@@ -158,7 +133,6 @@ $("li").on("click", function(){
 				<option value="2">인기순</option>
 				<option value="3">낮은 가격 순</option>
 				<option value="4">높은 가격 순</option>
-				<!-- <option value="5">후기 순</option> -->
 			</select>
 			</div>
 		</div>
@@ -223,29 +197,31 @@ $("li").on("click", function(){
 	
 	<script>
 		function ajaxList(pageNum) {
+			//대분류
 			var isCategory = '${categoryName}';
+			
+			//소분류
 			var subCategory = '${subCategoryOne}';
 			
-			console.log("ajaxSub:"+subCategory);
-			console.log("isCategory:"+isCategory);
-			
+			//option 태그에서 선택된 값-상품정렬(최신/인기/낮은가격/높은가격 중 1)
 			var sort = $("#orderSelector option:selected").val()
 			
+			//상품 정렬순서
 			if (sort == null) {
+				//정렬 상태에서 페이지 이동시 필요함
 				sort = '${sort}';
-			console.log("sort:"+sort);
 			}
-			console.log("ajaxList");
 
 			if (pageNum != null) {
+				//현재 페이지 번호
 				var currentPage = pageNum;
-				console.log('currentPage :' + currentPage);
 			} else {
+				//기본 페이지 번호
 				var currentPage = 1;
-				console.log('currentPagezz :' + currentPage);
 			}
-	
-			$.ajaxSettings.traditional = true;//배열 형태로 서버쪽 전송을 위한 설정
+			
+			//jquery로 ajax 실행
+			$.ajaxSettings.traditional = true;
 			$.ajax({
 				url : "/ModuHome/goods/category",
 				type : "post",
@@ -255,9 +231,10 @@ $("li").on("click", function(){
 					"SUBCATEGORY" : subCategory,
 					"sort" : sort
 				},
+				//컨트롤러에서 뷰로 설정한 jsp페이지가 data에 담겨 넘어옴
 				success : function(data) {
+					//아래 태그에 jsp페이지를 삽입
 					$("#changeList").html(data);
-					console.log("date?"+data);
 				}
 			});
 		}

@@ -342,10 +342,10 @@ function checkedRows(index){
 <div class="cal-result">
 	<div class="price-order" style="padding: 10px;">
 		<div class="sum">
-			주문금액&nbsp;&nbsp;&nbsp;<strong id="realtotalPrice">0</strong>원
+			-할인 금액&nbsp;&nbsp;&nbsp;<strong id="disCountPirce">0</strong>원
 		</div>
 		<div class="sum">
-			할인 금액&nbsp;&nbsp;&nbsp;<strong id="disCountPirce">0</strong>원
+			총 주문금액&nbsp;&nbsp;&nbsp;<strong id="realtotalPrice">0</strong>원
 		</div>
 		<!-- <div class="sum-order">
 			총 금액 합계&nbsp;&nbsp;&nbsp;<strong id="totalPrice">0</strong>원

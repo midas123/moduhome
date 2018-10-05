@@ -1,6 +1,5 @@
 package com.kh.goods;
 
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.moduhome.CommandMap;
 
 import com.kh.paging.GoodsPaging;
-import com.thoughtworks.xstream.io.path.Path;
 
 
 @Controller
@@ -38,15 +36,10 @@ public class GoodsController {
 	@RequestMapping(value = "/goods")
 	public ModelAndView goodsMain(HttpServletResponse response, HttpServletRequest request, CommandMap Map) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("check:"+request.getSession().getServletContext().getRealPath("/"));
-		System.out.println("user:"+System.getProperty("user.name"));
 		mv.setViewName("goodsMain");
 		//신상품, 인기상품 정렬
 		List<Map<String, Object>> sellBestItem = goodsService.bestSellAll(Map.getMap());
 		List<Map<String, Object>> newItem = goodsService.newItemAll(Map.getMap());
-		
-		//DB에서 넘어오는 값 확인
-		Object test = (String)sellBestItem.get(0).get("GOODS_NAME");
 		
 		mv.addObject("sellBestItem", sellBestItem);
 		mv.addObject("newItem", newItem);
@@ -58,25 +51,25 @@ public class GoodsController {
 	public ModelAndView goodsCategory(HttpServletResponse response, HttpServletRequest request, CommandMap Map) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("goodsCategory");
-		System.out.println("ajaxmap:"+ Map.getMap());
-		
+		//대분류 카테고리
 		String categoryName = (String) Map.getMap().get("CATEGORY");
+		//소분류 카테고리
 		String subCategoryName = (String) Map.getMap().get("SUBCATEGORY");
-		
-		System.out.println("categoryName:"+categoryName);
-		System.out.println("subCategoryName:"+subCategoryName);
-		
+		//상품 정렬 순서
 		String sort = (String) Map.getMap().get("sort");
 		
+		//상품 정렬순서 값
 		if(sort != null) {
-			System.out.println("sort:"+sort);
+			//ajax로 전송되는 상품 정렬 페이지 설정
 			mv.setViewName("store/goodsSort");
 			Map.getMap().put("sort", sort);
 		} else {
+			//상품 정렬 기본 값(최신순)
 			sort = "1";
 			Map.getMap().put("sort", sort);
 		}
 		
+		//요청으로 넘어온 소분류 카테고리가 있을 경우
 		if(subCategoryName == null || subCategoryName == "") {
 			subCategoryName = null;
 			Map.getMap().put("SUBCATEGORY", subCategoryName);
@@ -87,8 +80,8 @@ public class GoodsController {
 			Map.getMap().put("CATEGORY", null);
 		}
 		
+		//상품 게시판에서 메뉴로 출력되는 소분류 카테고리 목록
 		List<String> goodsCategory = new ArrayList<>();
-		
 		 if (categoryName.equals("가구")) {
 	         goodsCategory.add("침실가구");
 	         goodsCategory.add("거실가구");
@@ -97,68 +90,55 @@ public class GoodsController {
 	         goodsCategory.add("테이블");
 	         goodsCategory.add("체어");
 		 }
-		 
 		 if (categoryName.equals("가전")) {
 	         goodsCategory.add("생활가전");
 	         goodsCategory.add("주방가전");
 	         goodsCategory.add("시즌가전");
 		 }
-		 
 		 if (categoryName.equals("패브릭")) {
 	         goodsCategory.add("커튼/블라인드");
 	         goodsCategory.add("매트·러그");
 	         goodsCategory.add("패브릭소품");
 		 }
-		 
 		 if (categoryName.equals("주방")) {
 	         goodsCategory.add("주방용품");
 	         goodsCategory.add("주방수납");
 	         goodsCategory.add("주방소품");
 		 }
-	
 		 if (categoryName.equals("생활·수납")) {
 	         goodsCategory.add("홈케어");
 	         goodsCategory.add("욕실용품");
 	         goodsCategory.add("생활용품");
 		 }
-
-		/* if(Map.getMap().get("SUBCATEGORY")!=null) {
-			 if (!((String) Map.getMap().get("SUBCATEGORY")).equals("")) {
-			 
-			 }
-		 }*/
-		System.out.println("Map.getMap():"+Map.getMap());
 		
+		 //카테고리명, 상품 정렬순서 값이 담긴 Map객체로 DB검색 실행
 		if(Map.getMap() !=null) {
 		List<Map<String, Object>> goodsCategoryList = goodsService.goodsCategory(Map.getMap());
-		System.out.println("goodsCategoryList:"+goodsCategoryList);
 		
-		 //페이징
+		 //상품 게시판 페이징
 	      if (request.getParameter("currentPage") == null || request.getParameter("currentPage").trim().isEmpty()
 	            || request.getParameter("currentPage").equals("0")) {
 	         currentPage = 1;
 	      } else {
 	         currentPage = Integer.parseInt(request.getParameter("currentPage"));
-	         System.out.println("CurrentPage :" + currentPage);
 	      }
-	      System.out.println("CurrentPage :" + currentPage);
-
 	      totalCount = goodsCategoryList.size();
-
+	      
+	      //상품 게시판에서 html형태로 출력되는 페이징 넘버
 	      page = new GoodsPaging(currentPage, totalCount, blockCount, blockPage);
 	      pagingHtml = page.getPagingHtml().toString();
-
+	      
+	      //페이지의 끝부분이 되는 게시글 번호
 	      int lastCount = totalCount;
-
 	      if (page.getEndCount() < totalCount)
 	         lastCount = page.getEndCount() + 1;
-
+	      
+	      //페이지 게시글 시작 번호와 끝 번호로 리스트를 자른다. 
 	      goodsCategoryList = goodsCategoryList.subList(page.getStartCount(), lastCount);
 
 		
 	    mv.addObject("totalCount", totalCount);
 	    mv.addObject("pagingHtml", pagingHtml);
-	     
 		mv.addObject("categoryName", categoryName);
 		mv.addObject("subCategory", goodsCategory);
 		mv.addObject("subCategoryOne", subCategoryName);

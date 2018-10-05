@@ -39,11 +39,11 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Object orderGoodsAction(Map<String, Object> map) throws Exception {
-		
+		//트랜잭션 설정
 		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
 		def.setName("GoodsOrderTx");
 		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-		 
+		//트랜잭션 시작
 		TransactionStatus status = transactionManager.getTransaction(def);
 		try {
 		//배송 정보
@@ -65,7 +65,6 @@ public class OrderServiceImpl implements OrderService {
 				}
 			  }
 		}
-		
 		}catch (Exception ex) {
 			transactionManager.rollback(status);
 			System.out.println("#####주문 처리 중 에러발생");

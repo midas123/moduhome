@@ -701,8 +701,8 @@ function copydata2() {
                                                 2,500원
                                                 </c:otherwise>
                                                 </c:choose>   
-                                                <strong>- 포인트 할인 : <span id="v_coupon">0</span>원</strong>
-                                          = <strong id=totalPirce><c:choose>
+                                                <strong>- 포인트 할인 : <span id="pointDis">0</span>원</strong>
+                                          = <strong id="totalPrice"><c:choose>
                                           <c:when test="${sum >= 30000}">
                                           <fmt:formatNumber value="${sum }" type="number" />
                                           </c:when>
@@ -737,8 +737,6 @@ function copydata2() {
 <br>
 <br>
 <script>
-var oritotalprice = $("#totalPirce").text();
-console.log("oritotalprice:"+oritotalprice);
 
 function changePoint() {
 	$(document).ready(function(){
@@ -747,6 +745,11 @@ function changePoint() {
 	var deliveryfee = 0;
 	var afterpoint = 0;
 	var sumprice = ${sum};
+	
+	//포인트 적용전 가격
+	var oritotalprice = $.trim(rm_comma($("#totalPrice").html()));
+	console.log("oritotalprice:"+oritotalprice);
+	$("#oritotalprice").attr("value", oritotalprice);
 	
 	/* if(mypoint == 0)){
 		alert("사용하실 포인트가 없습니다.");
@@ -774,9 +777,9 @@ function changePoint() {
 	}
 	var aftersumprice = sumprice + deliveryfee - usepoint;
 	
-	$("#v_coupon").html(usepoint);
+	$("#pointDis").html(usepoint);
 	$("#myPoint").val(afterpoint);
-	$("#totalPirce").html(comma(aftersumprice));
+	$("#totalPrice").html(comma(aftersumprice));
 	$(":input[name=TOTALPRICE]").val(aftersumprice);
 	$(":input[name=usePoint]").val(usepoint);
 	
@@ -789,11 +792,13 @@ function changePoint() {
 }
 
 function rollbackPoint() {
+	var oritotalprice = $("#oritotalprice").attr("value");
 	var bkpoint = parseInt($("#backupPoint").val(), 10);
 	var zrpoint = "";
-	$("#totalPirce").html(comma(oritotalprice));
+	$("#totalPrice").html(comma(oritotalprice));
 	$("#myPoint").val(bkpoint);
 	$("#POINT_POINT").val(zrpoint);
+	$("#pointDis").html(0);
 	console.log($("#myPoint").val() + "/" + $(":input[name=usePoint]").val());
 	return false;	
 } 
