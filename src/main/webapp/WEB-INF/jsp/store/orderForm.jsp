@@ -9,10 +9,68 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+
+
 <script src="/ModuHome/dist/jquery/jquery-1.11.0.min.js"></script>
 <script src="/ModuHome/dist/jquery/jquery-ui.js"></script>
 <script src="/ModuHome/dist/jquery/jquery-migrate-1.2.1.min.js"></script>
+
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+<script>
+var IMP = window.IMP; // 생략가능
+IMP.init('imp08080720'); // 'iamport' 대신 부여받은 "가맹점 식별코드"를 사용
+
+</script>
+
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
+<script>
+function sample6_execDaumPostcode() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+            var fullAddr = ''; // 최종 주소 변수
+            var extraAddr = ''; // 조합형 주소 변수
+
+            // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                fullAddr = data.roadAddress;
+
+            } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                fullAddr = data.jibunAddress;
+            }
+
+            // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
+            if(data.userSelectedType === 'R'){
+                //법정동명이 있을 경우 추가
+                if(data.bname !== ''){
+                    extraAddr += data.bname;
+                }
+                // 건물명이 있을 경우 추가
+                if(data.buildingName !== ''){
+                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                }
+                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
+                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
+            }
+
+            // 우편번호와 주소 정보를 해당 필드에 넣는다.
+            document.getElementById('sample6_postcode').value = data.zonecode; 
+            document.getElementById('sample6_address').value = fullAddr;
+
+            //커서를 상세주소 필드로 이동한다.
+            document.getElementById('sample6_address2').focus();
+        }
+    }).open();
+}
+</script>
+
+
+
 <script>
 
 //콤마 추가
@@ -85,6 +143,40 @@ function sendGoods() {
 		 return false;
 	 }
 	 
+	 if ($('input[name=payType]:checked').length == 0) {
+		 alert("결제방법을 선택해주세요.")
+		 return false;
+	 }
+	 if ($('input[name=payType]:checked').val() == "kakaopay") {
+		 IMP.request_pay({
+    pg : 'html5_inicis', // version 1.1.0부터 지원.
+    pay_method : 'card',
+    merchant_uid : '${ORDER_CODE}' + new Date().getTime(),
+    name : '[ModuHome]'+'${GOODS_NAME}',
+    amount : $.trim(rm_comma($("#totalPrice").html())),
+    buyer_email : '${orderMember.MEMBER_EMAIL}',
+    buyer_name : '${orderMember.MEMBER_NAME}',
+    buyer_tel : '${orderMember.MEMBER_PHONE}',
+    buyer_addr : '${orderMember.MEMBER_ADDRESS1}'+'${orderMember.MEMBER_ADDRESS2}',
+    buyer_postcode : $("#sample6_postcode").val(),
+    m_redirect_url : '/ModuHome/orderEnd'
+}, function(rsp) {
+    if ( rsp.success ) {
+        var msg = '결제가 완료되었습니다.';
+        msg += '고유ID : ' + rsp.imp_uid;
+        msg += '상점 거래ID : ' + rsp.merchant_uid;
+        msg += '결제 금액 : ' + rsp.paid_amount;
+        msg += '카드 승인번호 : ' + rsp.apply_num;
+    } else {
+        var msg = '결제에 실패하였습니다.';
+        msg += '에러내용 : ' + rsp.error_msg;
+    }
+    alert(msg);
+});
+		 return false;
+	 }
+	 
+	 
 	$('#frmOrder').submit();
 	  
 	
@@ -105,49 +197,7 @@ window.onload = function (){
    }
  }
 </script>
-<script>
-function sample6_execDaumPostcode() {
-    new daum.Postcode({
-        oncomplete: function(data) {
-            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-            // 각 주소의 노출 규칙에 따라 주소를 조합한다.
-            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            var fullAddr = ''; // 최종 주소 변수
-            var extraAddr = ''; // 조합형 주소 변수
-
-            // 사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
-            if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
-                fullAddr = data.roadAddress;
-
-            } else { // 사용자가 지번 주소를 선택했을 경우(J)
-                fullAddr = data.jibunAddress;
-            }
-
-            // 사용자가 선택한 주소가 도로명 타입일때 조합한다.
-            if(data.userSelectedType === 'R'){
-                //법정동명이 있을 경우 추가한다.
-                if(data.bname !== ''){
-                    extraAddr += data.bname;
-                }
-                // 건물명이 있을 경우 추가한다.
-                if(data.buildingName !== ''){
-                    extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
-                }
-                // 조합형주소의 유무에 따라 양쪽에 괄호를 추가하여 최종 주소를 만든다.
-                fullAddr += (extraAddr !== '' ? ' ('+ extraAddr +')' : '');
-            }
-
-            // 우편번호와 주소 정보를 해당 필드에 넣는다.
-            document.getElementById('sample6_postcode').value = data.zonecode; //5자리 새우편번호 사용
-            document.getElementById('sample6_address').value = fullAddr;
-
-            // 커서를 상세주소 필드로 이동한다.
-            document.getElementById('sample6_address2').focus();
-        }
-    }).open();
-}
-</script>
 <script>
 function copydata2() {
     if ($('input[name="same2"]').prop('checked') === true) {
@@ -252,7 +302,7 @@ function copydata2() {
 <br>
 <br>
 <div id="wrap" style="margin-top: 0px;">
-   <div id="contentWrapper" >
+   <div id="contentWrapper" style="background-color:white;">
         <div id="contentWrap">
            <div id="content">
                 <div id="order">
@@ -270,6 +320,7 @@ function copydata2() {
 					    <input type="hidden" name="GOODS_NUMBER" value="${orderForm.GOODS_NUMBER }">
 					    </c:forEach>
 					    <input type="hidden" name="MEMBER_ID" value="${orderMember.MEMBER_ID }">
+					    <input type="hidden" name="ORDER_CODE" value="${ORDER_CODE}">
                    	<!-- <h3 class="stit"><img src="/MODA/theme/pshp/img_MODA/order_prd_tit.gif" alt="주문할 상품" title="주문할 상품"></h3> -->
                     <div class="table-cart table-order-prd">
                     <table class="order-table">
@@ -368,7 +419,7 @@ function copydata2() {
            </c:forEach>
        </tbody>
        <tfoot>
-                <c:forEach var="orderForm"  items="${goods}" varStatus="stat">
+      <c:forEach var="orderForm"  items="${goods}" varStatus="stat">
       <c:choose>
       <c:when test="${orderForm.GOODS_DISPRICE ne orderForm.GOODS_PRICE}">
       <c:set var= "sum" value="${sum + (orderForm.GOODS_DISPRICE * orderForm.EA)}"/>
@@ -547,8 +598,8 @@ function copydata2() {
                                           <ul>
                                           <li>
                                           <input style="width:100px;" type="text" id="sample6_postcode" name="RECEIVER_ZIPCODE" value="${orderMember.MEMBER_ZIPCODE }" class="MS_input_txt" placeholder="우편번호" maxlength="3" readonly>
-                                          <a class="button button-dimmed" onclick="sample6_execDaumPostcode()" style="background:white; border-style: hidden;"><img
-                                                      src="/ModuHome/images/storeMain/btn_h20_zipcode_sch.gif"
+                                          <a class="button button-dimmed" onclick="sample6_execDaumPostcode()" style="background:white; border-style: hidden;">
+                                          <img src="/ModuHome/images/storeMain/btn_h20_zipcode_sch.gif"
                                                       alt="우편번호 검색" title="우편번호 검색"></a>
                                           
                                           </li>
@@ -679,18 +730,20 @@ function copydata2() {
                            </tbody>
                            </table>
                                  <div class="pointbutton-mid" style="float:left; border: none;">
-                                <!--  <span class="button-dimmed" onclick="javascript:changePoint();" >포인트 적용</span>
-                                 <span class="button-dimmed2" onclick="javascript:rollbackPoint();">적용 취소</span> -->
                                  <button type="button" onclick="javascript:changePoint();" >포인트 적용</button>
                                  <button type="button" onclick="javascript:rollbackPoint();" style="background: #b2b2b2; margin-left:2px;">적용 취소</button>
                                  </div>
                         		</div><!-- table-order-info -->
              		
-                  <h3 class="stit"><h2>결제방법</h2><!-- <img src="/MODA/theme/pshp/img_MODA/order_pay_tit.gif" alt="결제 방법" title="결제 방법"> --></h3>
+                  <h3 class="stit"><h2>결제방법</h2></h3>
                                <div class="cnt-box">
-                                 <p>무통장 입금 : <span style="color: #0054A6;">농협중앙회 301-0548-7870-42 (예금주:(주)모두의집 )) <span id="bankname_banker">${orderMember.MEMBER_NAME}</span></span><br>&nbsp;(입금확인후 배송이 됩니다.)</p>
-                                 </div><!-- .cnt-box -->
-                                
+                                 <div>
+                                 <input type="radio" name="payType" value="cash"><p> 무통장 입금 : <span style="color: #0054A6;">농협중앙회 301-0548-7870-42 (예금주:(주)모두의집 ))</span> 
+                                 </div>
+                                 <div>
+                                <input type="radio" name="payType" value="kakaopay"><p> 이니시스 페이</p>
+                                </div>
+                                 </div>
                            <div class="lastprice-footer">
                                          <strong>총 결제금액 :</strong><fmt:formatNumber value="${sum}" type="number" />원 
                                           + 배송료 : <c:choose>
@@ -740,66 +793,54 @@ function copydata2() {
 
 function changePoint() {
 	$(document).ready(function(){
+	//보유 포인트
 	var mypoint = parseInt($("#myPoint").val(), 10);
+	//사용할 포인트
 	var usepoint = parseInt($("#POINT_POINT").val(), 10);
+	//배송비
 	var deliveryfee = 0;
+	//차감 후 포인트 
 	var afterpoint = 0;
+	//포인트 차감 후 결제금액
+	var aftersumprice =0;
+	//포인트 적용 전 결제금액
 	var sumprice = ${sum};
-	
-	//포인트 적용전 가격
-	var oritotalprice = $.trim(rm_comma($("#totalPrice").html()));
-	console.log("oritotalprice:"+oritotalprice);
-	$("#oritotalprice").attr("value", oritotalprice);
-	
-	/* if(mypoint == 0)){
-		alert("사용하실 포인트가 없습니다.");
-		return false;
-	}  */
-	
+	//사용할 포인트 유효성 검사
 	if(isNaN(usepoint) || usepoint <= 0){
 		alert("포인트는 숫자로 입력해주세요.");
 		return false;
 	}
-	
-	/* if(!usepoint % 10 == 0){
-		alert("포인트는 10점 단위로 사용가능합니다.")
-		return false;
-	}  */
-	
+	//포인트 차감
 	if(mypoint >= usepoint){
 		 afterpoint = mypoint - usepoint;
 	} else {
 		alert("포인트를 다시 입력해주세요.");
 		return false;
 	}
+	//배송비 설정
 	if(sumprice < 30000){
 		deliveryfee = 2500; 
 	}
-	var aftersumprice = sumprice + deliveryfee - usepoint;
+	//결제금액에서 포인트, 배송비 계산
+	aftersumprice = sumprice + deliveryfee - usepoint;
 	
+	//계산 결과 삽입
 	$("#pointDis").html(usepoint);
 	$("#myPoint").val(afterpoint);
 	$("#totalPrice").html(comma(aftersumprice));
 	$(":input[name=TOTALPRICE]").val(aftersumprice);
 	$(":input[name=usePoint]").val(usepoint);
-	
-	console.log("usePoint:"+ $(":input[name=usePoint]").val());
-	console.log("TOTALPRICE:"+ $(":input[name=TOTALPRICE]").val());
-	console.log("mytpoint:"+mypoint + "usepoint:"+usepoint + "afterpoint:"+afterpoint + "sumprice:"+sumprice + "aftersumprice:"+aftersumprice);
-		
 	});
-	
 }
 
 function rollbackPoint() {
-	var oritotalprice = $("#oritotalprice").attr("value");
+	var sumprice = ${sum};
 	var bkpoint = parseInt($("#backupPoint").val(), 10);
 	var zrpoint = "";
-	$("#totalPrice").html(comma(oritotalprice));
+	$("#totalPrice").html(comma(sumprice));
 	$("#myPoint").val(bkpoint);
 	$("#POINT_POINT").val(zrpoint);
 	$("#pointDis").html(0);
-	console.log($("#myPoint").val() + "/" + $(":input[name=usePoint]").val());
 	return false;	
 } 
 

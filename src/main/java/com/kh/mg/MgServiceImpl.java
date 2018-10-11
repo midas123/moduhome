@@ -9,9 +9,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.kh.moduhome.GoodsImageUtils;
 
 @Service("mgService")
@@ -143,11 +140,13 @@ public class MgServiceImpl implements MgService {
 	
 	
 	// 리뷰 검색
+		@Override
 		public List<Map<String, Object>> searchMgList0(Map<String, Object> map) throws Exception {
 			return mgDAO.searchMgList0(map);
 		}
 
 		// 리뷰 검색
+		@Override
 		public List<Map<String, Object>> searchMgList1(Map<String, Object> map) throws Exception {
 			return mgDAO.searchMgList1(map);
 		}

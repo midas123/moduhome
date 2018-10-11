@@ -38,7 +38,7 @@ public class GoodsPaging {
       endCount = startCount + blockCount - 1;
 
       // 시작 페이지와 마지막 페이지 값 구하기.
-      startPage = (int) ((currentPage - 1) / blockPage) * blockPage + 1;
+      startPage = (currentPage - 1) / blockPage * blockPage + 1;
       endPage = startPage + blockPage - 1;
 
       // 마지막 페이지가 전체 페이지 수보다 크면 전체 페이지 수로 설정
@@ -105,7 +105,7 @@ public class GoodsPaging {
 	      endCount = startCount + blockCount - 1;
 
 	      // 시작 페이지와 마지막 페이지 값 구하기.
-	      startPage = (int) ((currentPage - 1) / blockPage) * blockPage + 1;
+	      startPage = (currentPage - 1) / blockPage * blockPage + 1;
 	      endPage = startPage + blockPage - 1;
 
 	      // 마지막 페이지가 전체 페이지 수보다 크면 전체 페이지 수로 설정

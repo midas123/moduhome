@@ -15,7 +15,7 @@ public class PoliceDao extends AbstractDAO{
     
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> policeList() {
-		return (List<Map<String, Object>>) selectList("police.policeList");
+		return selectList("police.policeList");
 	}
 
 	public void PoliceDelete(String police_seq) {

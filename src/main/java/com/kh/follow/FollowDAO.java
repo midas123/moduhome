@@ -64,7 +64,7 @@ public class FollowDAO extends AbstractDAO{
 	
 	public List<FollowListModel> followerViewData(FollowListModel followListModel, int mem_id){
 		
-		List<FollowListModel> followerList = (List<FollowListModel>) selectList("follow.followerViewData", mem_id);
+		List<FollowListModel> followerList = selectList("follow.followerViewData", mem_id);
 		System.out.println("followList의 사이즈" + followerList.size());
 		
 		if(followerList.size() != 0){
@@ -89,7 +89,7 @@ public class FollowDAO extends AbstractDAO{
 	
 	public List<FollowListModel> followingViewData(FollowListModel followListModel, int mem_id){
 		
-		List<FollowListModel> followingList = (List<FollowListModel>) selectList("follow.followingViewData", mem_id);
+		List<FollowListModel> followingList = selectList("follow.followingViewData", mem_id);
 		
 		if(followingList.size() != 0){
 			for(int i = 0; i<followingList.size(); i++){

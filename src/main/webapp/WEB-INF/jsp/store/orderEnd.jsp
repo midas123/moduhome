@@ -157,7 +157,7 @@
                 <tbody>
                 <c:forEach var="orderEnd"  items="${goods}" varStatus="stat">
                 <tr>
-                <c:url var="viewURL" value="/goodsDetail">
+                <c:url var="viewURL" value="/goods/detail">
                 <c:param name="GOODS_NUMBER" value="${orderEnd.GOODS_NUMBER }" />
                 </c:url>
                 
@@ -169,7 +169,7 @@
               	    <td>
                             <div class="tb-left">
                                 <a href="${viewURL}">${orderEnd.GOODS_NAME} <br></a>
-                                <span class="quantity order_table_Td style4"><img src="/MODA/theme/pshp/img_MODA/order1_optionicon.gif"> 옵션1 :  ${orderEnd.GOODS_OPTION1} / 옵션2 :  ${orderEnd.GOODS_OPTION2}</span>
+                                <span class="quantity order_table_Td style4">옵션1 :  ${orderEnd.GOODS_OPTION1} / 옵션2 :  ${orderEnd.GOODS_OPTION2}</span>
                             </div>
                     </td>
                     <td><div class="tb-center">${orderEnd.EA } 개</div></td>

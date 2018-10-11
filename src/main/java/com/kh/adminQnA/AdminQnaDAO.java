@@ -13,7 +13,7 @@ public class AdminQnaDAO extends AbstractDAO {
 	// Q&A 목록
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> qnaList(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("qna.qnaList", map);
+		return selectList("qna.qnaList", map);
 	}
 	
 	// Q&A 상세보기
@@ -40,30 +40,30 @@ public class AdminQnaDAO extends AbstractDAO {
 	// 제목 & 카테고리 검색
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> qnaTitleList(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("qna.qnaTitleList", map);
+		return selectList("qna.qnaTitleList", map);
 	}
 		
 	// 아이디 & 카테고리 검색
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> qnaCategoryList(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("qna.qnaCategoryList", map);
+		return selectList("qna.qnaCategoryList", map);
 	}
 		
 	// 아이디 검색
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> qnaSearchMemberList(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("qna.qnaSearchMemberList", map);
+		return selectList("qna.qnaSearchMemberList", map);
 	}
 		
 	// 제목 검색
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> qnaSearchTitleList(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("qna.qnaSearchTitleList", map);
+		return selectList("qna.qnaSearchTitleList", map);
 	}
 		
 	// 답변 상태 검색
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> qnaRepState(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("qna.qnaRepState", map);
+		return selectList("qna.qnaRepState", map);
 	}
 }

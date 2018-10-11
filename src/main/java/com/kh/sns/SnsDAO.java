@@ -3,8 +3,6 @@ package com.kh.sns;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Repository;
 
 import com.kh.moduhome.AbstractDAO;
@@ -54,7 +52,7 @@ public class SnsDAO extends AbstractDAO {
 	  /*로그인한 회원의 like리스트*/
 	 @SuppressWarnings("unchecked")  
 	public List<Map<String, Object>> snsList(String MEMBER_NUMBER) {
-		return (List<Map<String,Object>>) selectList("snsboard.SNSLIST", MEMBER_NUMBER);
+		return selectList("snsboard.SNSLIST", MEMBER_NUMBER);
 	}
 
 	public void snsDownLike(Map<String, Object> map) {
@@ -67,7 +65,7 @@ public class SnsDAO extends AbstractDAO {
 	}
 
 	public List<Map<String, Object>> snsMyList(int MEMBER_NUMBER) {
-		return (List<Map<String,Object>>) selectList("snsboard.SNSMYLIST", MEMBER_NUMBER);
+		return selectList("snsboard.SNSMYLIST", MEMBER_NUMBER);
 	}
 	
 }

@@ -57,7 +57,6 @@ public class GoodsController {
 		String subCategoryName = (String) Map.getMap().get("SUBCATEGORY");
 		//상품 정렬 순서
 		String sort = (String) Map.getMap().get("sort");
-		
 		//상품 정렬순서 값
 		if(sort != null) {
 			//ajax로 전송되는 상품 정렬 페이지 설정
@@ -68,18 +67,15 @@ public class GoodsController {
 			sort = "1";
 			Map.getMap().put("sort", sort);
 		}
-		
 		//요청으로 넘어온 소분류 카테고리가 있을 경우
 		if(subCategoryName == null || subCategoryName == "") {
 			subCategoryName = null;
 			Map.getMap().put("SUBCATEGORY", subCategoryName);
 		}
-		
 		if(categoryName.equals("전체")) {
 			System.out.println("전체출력");
 			Map.getMap().put("CATEGORY", null);
 		}
-		
 		//상품 게시판에서 메뉴로 출력되는 소분류 카테고리 목록
 		List<String> goodsCategory = new ArrayList<>();
 		 if (categoryName.equals("가구")) {
@@ -110,11 +106,9 @@ public class GoodsController {
 	         goodsCategory.add("욕실용품");
 	         goodsCategory.add("생활용품");
 		 }
-		
 		 //카테고리명, 상품 정렬순서 값이 담긴 Map객체로 DB검색 실행
 		if(Map.getMap() !=null) {
 		List<Map<String, Object>> goodsCategoryList = goodsService.goodsCategory(Map.getMap());
-		
 		 //상품 게시판 페이징
 	      if (request.getParameter("currentPage") == null || request.getParameter("currentPage").trim().isEmpty()
 	            || request.getParameter("currentPage").equals("0")) {
@@ -123,35 +117,25 @@ public class GoodsController {
 	         currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	      }
 	      totalCount = goodsCategoryList.size();
-	      
-	      //상품 게시판에서 html형태로 출력되는 페이징 넘버
 	      page = new GoodsPaging(currentPage, totalCount, blockCount, blockPage);
 	      pagingHtml = page.getPagingHtml().toString();
-	      
-	      //페이지의 끝부분이 되는 게시글 번호
 	      int lastCount = totalCount;
 	      if (page.getEndCount() < totalCount)
 	         lastCount = page.getEndCount() + 1;
-	      
-	      //페이지 게시글 시작 번호와 끝 번호로 리스트를 자른다. 
 	      goodsCategoryList = goodsCategoryList.subList(page.getStartCount(), lastCount);
-
-		
-	    mv.addObject("totalCount", totalCount);
-	    mv.addObject("pagingHtml", pagingHtml);
-		mv.addObject("categoryName", categoryName);
-		mv.addObject("subCategory", goodsCategory);
-		mv.addObject("subCategoryOne", subCategoryName);
-		mv.addObject("goodsCategoryList", goodsCategoryList);
+	      mv.addObject("totalCount", totalCount);
+	      mv.addObject("pagingHtml", pagingHtml);
+		  mv.addObject("categoryName", categoryName);
+		  mv.addObject("subCategory", goodsCategory);
+		  mv.addObject("subCategoryOne", subCategoryName);
+		  mv.addObject("goodsCategoryList", goodsCategoryList);
 		}
 		return mv;
-		
 	}
 	
 	@RequestMapping(value = "/goods/detail")
 	public ModelAndView goodsDetail(HttpServletResponse response, HttpServletRequest request, CommandMap Map, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("pagingReviewOnOff:"+Map.getMap().get("pagingReviewOnOff"));
 		
 		//상품페이지 첫 요청시 (ajax 요청이 아닐 경우)
 		if(Map.getMap().get("pagingReviewOnOff") == null && Map.getMap().get("pagingQnaOnOff") == null) {
@@ -193,10 +177,12 @@ public class GoodsController {
 		     mv.addObject("goodsDetail", goodsDetail);
 		     mv.addObject("relatedGoods", relatedGoods);
 			 mv.addObject("goodsImage", goodsImage);
-			 System.out.println("goodsImage"+ goodsImage);
+		
+		
 		}
 		
 	    //상품후기 리스트
+		
 	    List<Map<String, Object>> reviewList = goodsService.selectReview(Map.getMap());
 	    System.out.println("reviewList:"+reviewList);
 	    
@@ -205,7 +191,6 @@ public class GoodsController {
 	      int reviewNowPage = 1;
 
 	      String pagingReviewOnOff = (String) Map.getMap().get("pagingReviewOnOff");
-	      System.out.println("후기pagingReviewOnOff:"+pagingReviewOnOff);
 	      
 	      //상품 후기 ajax 페이징
 	      if (pagingReviewOnOff != null) {
@@ -216,12 +201,10 @@ public class GoodsController {
 	         if (i.equals("1"))// prev 클릭
 	         {
 	            if (reviewEndPagingNum == pagingSet) {
-	               System.out.println("첫페이지");
 	            } else {
 	               reviewStartPagingNum = reviewStartPagingNum - pagingSet;
 	               reviewEndPagingNum = reviewEndPagingNum - pagingSet;
 	               reviewNowPage = reviewNowPage - 1;
-	               System.out.println("리뷰전페이지이동");
 	            }
 	         } else if (i.equals("2")) // next 클릭
 	         {
@@ -229,12 +212,8 @@ public class GoodsController {
 	               reviewStartPagingNum = reviewStartPagingNum + pagingSet;
 	               reviewEndPagingNum = reviewEndPagingNum + pagingSet;
 	               reviewNowPage = reviewNowPage + 1;
-	               System.out.println("리뷰다음페이지이동");
-	            } else {
-	               System.out.println("마지막페이지");
-	            }
+	            } 
 	         }
-	         System.out.println("페이징 넘연산결과 " + reviewEndPagingNum);
 	         mv.setViewName("store/review/goodsDetail_Review");
 	      }
 	      mv.addObject("reviewEndPagingNum", reviewEndPagingNum);
@@ -288,18 +267,17 @@ public class GoodsController {
 	         mv.setViewName("store/qna/goodsDetail_Qna");
 	      }
 
-	      int totalPage = (int) Math.ceil((double) qnaList.size() / pagingSet);
-	      System.out.println("총 페이지 갯수 :" + totalPage);
+	      int qnaTotalPage = (int) Math.ceil((double) qnaList.size() / pagingSet);
+	      System.out.println("총 페이지 갯수 :" + qnaTotalPage);
 	      mv.addObject("qnaEndPagingNum", qnaEndPagingNum);
 	      mv.addObject("qnaStartPagingNum", qnaStartPagingNum);
 	      mv.addObject("qnaNowPage", qnaNowPage);
 	      mv.addObject("qnaSize", qnaList.size());
-	      mv.addObject("qnaTotalPage", totalPage);
+	      mv.addObject("qnaTotalPage", qnaTotalPage);
 	    
 	     mv.addObject("qnaList", qnaList);
 	     mv.addObject("reviewList", reviewList);
 	     mv.addObject("GOODS_NUMBER", Map.getMap().get("GOODS_NUMBER"));
-		System.out.println("아아:"+Map.getMap().get("GOODS_NUMBER"));
 	     
 		
 		return mv;

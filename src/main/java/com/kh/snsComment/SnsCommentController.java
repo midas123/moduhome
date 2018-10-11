@@ -1,6 +1,5 @@
 package com.kh.snsComment;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -12,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.ui.Model;
-
 import com.kh.alarm.AlarmService;
 import com.kh.moduhome.CommandMap;
 import com.kh.sns.SnsService;

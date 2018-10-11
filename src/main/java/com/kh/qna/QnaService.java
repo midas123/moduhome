@@ -1,11 +1,8 @@
 package com.kh.qna;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
-import javax.servlet.http.*;
 
 public interface QnaService {
 	//qna 작성

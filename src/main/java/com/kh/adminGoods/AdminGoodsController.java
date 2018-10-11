@@ -123,7 +123,7 @@ public class AdminGoodsController {
 
 		mv.addObject("goodsList", goodsList);
 		Integer count = adminGoodsService.goodsCount();
-		int a = (int) count;
+		int a = count;
 		mv.addObject("count", a);
 
 		return mv;

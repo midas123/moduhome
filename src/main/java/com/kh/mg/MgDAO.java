@@ -3,8 +3,6 @@ package com.kh.mg;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Repository;
 
 import com.kh.moduhome.AbstractDAO;
@@ -38,7 +36,7 @@ public class MgDAO extends AbstractDAO {
 	// 사진 게시판
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> glList(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("magazine.GLLIST", map);
+		return selectList("magazine.GLLIST", map);
 	}
 	
 	
@@ -46,7 +44,7 @@ public class MgDAO extends AbstractDAO {
 	//매거진 내용 리스트
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> mgContentList(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("magazine_con.MGCONTENTLIST", map);
+		return selectList("magazine_con.MGCONTENTLIST", map);
 	}
 	
 	//최근 매거진 추출
@@ -65,13 +63,13 @@ public class MgDAO extends AbstractDAO {
 	// 매거진 리스트
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> mgList(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("magazine.MGLIST", map);
+		return selectList("magazine.MGLIST", map);
 	}
 	
 	// ADMIN 매거진 리스트
 		@SuppressWarnings("unchecked")
 		public List<Map<String, Object>> adminMgList(Map<String, Object> map) throws Exception {
-			return (List<Map<String, Object>>) selectList("magazine.ADMINMGLIST", map);
+			return selectList("magazine.ADMINMGLIST", map);
 		}
 	
 	
@@ -106,27 +104,27 @@ public class MgDAO extends AbstractDAO {
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> mgMycollectList(int MEMBER_NUMBER) {
 		// TODO Auto-generated method stub
-		List<Map<String, Object>> mgMycollectList = (List<Map<String, Object>>) selectList("magazine.MGMYCOLLECTLIST", MEMBER_NUMBER);
+		List<Map<String, Object>> mgMycollectList = selectList("magazine.MGMYCOLLECTLIST", MEMBER_NUMBER);
 		return mgMycollectList;
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> mgMoreList(Map<String, Object> map) throws Exception {
 		System.out.println("d");
-		return (List<Map<String, Object>>) selectList("magazine.MGMORELIST", map);
+		return selectList("magazine.MGMORELIST", map);
 	}
 	
 
 	// 매거진 검색(제목)
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> searchMgList0(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("magazine.searchMgList0", map);
+		return selectList("magazine.searchMgList0", map);
 	}
 
 	// 매거진 검색(내용)
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> searchMgList1(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("magazine.searchMgList1", map);
+		return selectList("magazine.searchMgList1", map);
 	}
 	
 }

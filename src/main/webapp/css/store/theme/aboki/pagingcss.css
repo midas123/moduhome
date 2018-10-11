@@ -1,7 +1,7 @@
 <style type="text/css">
     /* Customized Paging */
 .pg_wrap { clear:both; }
-.pg_page { /* ±âº»ÆäÀÌÁö */
+.pg_page { /* ï¿½âº»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     width:30px !important;
     height:30px !important;
     font-size:13px;
@@ -20,7 +20,7 @@
 .pg_page:hover {
     background:#f2f2f2;
 }
-.pg_current { /* ÇöÀçÆäÀÌÁö */
+.pg_current { /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
     width:30px !important;
     height:30px !important;
     font-size:13px;
@@ -38,7 +38,7 @@
     display:inline-block;
     font-size: 16px;
 }
-.pg_start { /* Ã³À½ */
+.pg_start { /* Ã³ï¿½ï¿½ */
     position:relative;
     top:50%;
     width:28px !important;
@@ -81,7 +81,7 @@
     background:#fff;
     border:1px solid #333;
 }
-.pg_prev { /* ÀÌÀü */
+.pg_prev { /* ï¿½ï¿½ï¿½ï¿½ */
     position:relative;
     top:50%;
     width:28px !important;
@@ -112,7 +112,7 @@
     background:#fff;
     border:1px solid #333;
 }
-.pg_next { /* ´ÙÀ½ */
+.pg_next { /* ï¿½ï¿½ï¿½ï¿½ */
     position:relative;
     top:50%;
     width:28px !important;
@@ -143,7 +143,7 @@
     background:#fff;
     border:1px solid #333;
 }
-.pg_end { /* ¸Ç³¡ */
+.pg_end { /* ï¿½Ç³ï¿½ */
     position:relative;
     top:50%;
     width:28px !important;

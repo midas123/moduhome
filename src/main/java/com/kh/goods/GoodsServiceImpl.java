@@ -10,8 +10,6 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.kh.moduhome.CommandMap;
-
 @Service("goodsService")
 public class GoodsServiceImpl implements GoodsService{
 	

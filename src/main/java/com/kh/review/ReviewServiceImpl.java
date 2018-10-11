@@ -89,14 +89,17 @@ public class ReviewServiceImpl implements ReviewService {
 	}
 
 	// 리뷰 검색
+	@Override
 	public List<Map<String, Object>> searchReviewList0(Map<String, Object> map) throws Exception {
 		return reviewDAO.searchReviewList0(map);
 	}
 
+	@Override
 	public List<Map<String, Object>> searchReviewList1(Map<String, Object> map) throws Exception {
 		return reviewDAO.searchReviewList1(map);
 	}
 
+	@Override
 	public List<Map<String, Object>> searchReviewList2(Map<String, Object> map) throws Exception {
 		return reviewDAO.searchReviewList2(map);
 	}

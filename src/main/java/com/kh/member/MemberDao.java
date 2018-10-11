@@ -13,7 +13,7 @@ public class MemberDao extends AbstractDAO {
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> memberList(Map<String, Object> map) throws Exception {
 		System.out.println("memberok");
-		return (List<Map<String, Object>>) selectList("member.memberList", map);
+		return selectList("member.memberList", map);
 	}
 	
 	@SuppressWarnings("unchecked")

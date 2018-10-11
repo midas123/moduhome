@@ -65,6 +65,7 @@ $("li").on("click", function(){
 		$("li").removeClass("selected");
 			$(this).addClass("selected");
 })
+
 </script>
 <title>Insert title here</title>
 </head>

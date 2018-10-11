@@ -5,8 +5,6 @@ package com.kh.mgComment;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Repository;
 
 import com.kh.moduhome.AbstractDAO;
@@ -23,7 +21,7 @@ public class MgCommentDAO extends AbstractDAO {
 	// 매거진 댓글 리스트
 		@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> mgCommentList(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("magazine_cm.MGCOMMENTLIST", map);
+		return selectList("magazine_cm.MGCOMMENTLIST", map);
 	}
 
 

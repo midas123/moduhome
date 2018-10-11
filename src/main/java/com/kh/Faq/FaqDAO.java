@@ -14,7 +14,7 @@ public class FaqDAO extends AbstractDAO{
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectFaqList(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		return (List<Map<String, Object>>)selectList("faq.selectFaqList", map);
+		return selectList("faq.selectFaqList", map);
 	}
 
 	public void insertFaq(Map<String, Object> map) throws Exception {

@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.stereotype.Repository;
 
 import com.kh.moduhome.AbstractDAO;
-import com.kh.moduhome.CommandMap;
 
 @Repository("adminMemberDAO")
 public class AdminMemberDAO extends AbstractDAO{

@@ -3,9 +3,6 @@ package com.kh.alarm;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.springframework.stereotype.Repository;
 import com.kh.moduhome.AbstractDAO;
 
@@ -16,7 +13,7 @@ public class AlarmDAO extends AbstractDAO{
 	
 	public void regAlarm(int writer_id, int reg_id, int alarm_contnum, int alarm_index_no){
 		
-		List<AlarmModel> alarmCheck = (List<AlarmModel>) AlarmCheck(alarm_index_no, alarm_contnum, writer_id, reg_id);
+		List<AlarmModel> alarmCheck = AlarmCheck(alarm_index_no, alarm_contnum, writer_id, reg_id);
 		System.out.println("alarmDAO실행/ alarmCheck은" + alarmCheck.size());
 		
 		if(alarmCheck.size() == 0){
@@ -41,19 +38,19 @@ public class AlarmDAO extends AbstractDAO{
 		param.put("alarm_id", alarm_id);
 		param.put("alarm_reg_id", alarm_reg_id);
 		
-		List<AlarmModel> alarmCheck = (List<AlarmModel>) selectList(NAMESPACE+"alarmCheck", param);
+		List<AlarmModel> alarmCheck = selectList(NAMESPACE+"alarmCheck", param);
 		
 		return alarmCheck;
 	}
 	
 	public int alarmExist(String id){
-		List<AlarmModel> alarmExist = (List<AlarmModel>) selectList(NAMESPACE+"alarmLoad", id);
+		List<AlarmModel> alarmExist = selectList(NAMESPACE+"alarmLoad", id);
 		
 		return alarmExist.size();
 	}
 	
 	public List<AlarmModel> alarmLoad(String id){
-		List<AlarmModel> alarmLoad = (List<AlarmModel>) selectList(NAMESPACE+"alarmLoad", id);
+		List<AlarmModel> alarmLoad = selectList(NAMESPACE+"alarmLoad", id);
 		
 		return alarmLoad;
 	}

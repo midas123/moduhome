@@ -26,9 +26,8 @@
                          <input type="hidden" name="QNA_CATEGORY" value="상품문의">
                          <input type="hidden" name="GOODS_NUMBER" value="${param.GOODS_NUMBER}">
                          <input type="hidden" name="MEMBER_NUMBER" value="${sessionScope.MEMBER_NUMBER}">
-                         <input type="hidden" name="QNA_NUMBER" value="${QNA_NUMBER}">
-					제목: <input type="text" id="is-title" name="QNA_TITLE" class="form-control" maxlength="15" required=""><br />
-					문의 내용: <textarea name="QNA_CONTENT" id="is-contents" rows="4" maxlength="200" class="form-control" required=""></textarea>
+					제목:<input type="text" id="is-title" name="QNA_TITLE" class="form-control" maxlength="20" required=""><br />
+					문의 내용: <textarea name="QNA_CONTENT" id="is-contents" rows="4" maxlength="100" class="form-control" required=""></textarea>
 				    이미지 첨부: <input type="file" id="is-file" name="QNA_IMAGE" class="xx-control" >		
 	                    </div>
 	                 </div>

@@ -5,7 +5,7 @@
 /* gd-dsc */
 #guide .gd-dsc { margin-top: 40px; }
 #guide .gd-dsc dt { position: relative; padding-right: 16px; background: url(/images/d3/modern_simple/common/bull_h13_dw_arw.gif) no-repeat right 45%; }
-#guide .gd-dsc dt span { display: block; padding-bottom: 5px; color: #5b5b5b; font-weight: bold; background: url(/images/d3/modern_simple/common/dot_h1_w10.gif) repeat-x 0 bottom; }
+#guide .gd-dsc dt span { display: block; padding-bottom: 5px; color: #5b5b5b; font-weight: bold; }
 #guide .gd-dsc dt span a { font-weight: normal; }
 #guide .gd-dsc dd { padding-top: 10px; line-height: 16px; }
 #guide .gd-dsc li { margin-top: 3px; }

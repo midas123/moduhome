@@ -15,8 +15,6 @@
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link type="text/css" rel="stylesheet"
 	href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css" />
-<!-- <link type="text/css" rel="stylesheet"
-	href="//cdn.ggumim.co.kr/resource/house_interior_web/ggumim-1.2.05.min.css" /> -->
 <script type="text/javascript"
 	src="//cdn.ggumim.co.kr/resource/house_interior_web/ggumim.stack-1.2.05.min.js"></script>
 	
@@ -245,11 +243,29 @@ function loginCheckOrder(){
 	return false;
 }
 
+function simpleLightbox(imageUrl, bgColor, maxWidth){
+    if(typeof bgColor === 'undefined'){
+        bgColor = '#000';
+    }
+    if(typeof maxWidth === 'undefined'){
+        maxWidth = '400px';
+    }
+    window.open('', 'simpleLightbox').document.write('<html><head><meta name="viewport" content="user-scalable=yes, initial-scale=1.0, maximum-scale=5.0, minimum-scale=1.0, width=device-width" /></head><body style="margin:0;'+bgColor+';height:100%;" onclick="javascript:window.close(\'simpleLightbox\');"><table border="0" width="100%" height="100%"><tr><td valign="middle" align="center"><img style="position:relative;z-index:2;width:100%;max-width:'+maxWidth+';" src="'+imageUrl+'"/></td></tr></table></body></html>');
+}
+
+
+$('.imgScale').on('click', function(){
+    simpleLightbox($(this).attr('src'));
+});
 
 </script>
 
 
 <style>
+body {
+   font-family: 'Nanum Gothic';
+}
+
 .btn-just-buy, .review-write-btn {
 	border: 1px solid #85C8DD;
     background: #85C8DD;
@@ -310,20 +326,7 @@ function loginCheckOrder(){
     /* Customized Paging */
 .pg_wrap { clear:both; }
 .pg_page { /* �⺻������ */
-    width:30px !important;
-    height:30px !important;
-    font-size:13px;
-    color:#333;
-    line-height:33px;
-    padding:0;
-    background:#fff;
-    border:0;
-    border-radius:2px;
-    -moz-border-radius:2px;
-    -webkit-border-radius:2px;
-    text-align:center;
-    display:inline-block;
-    font-size: 16px;
+
 }
 .pg_page:hover {
     background:#f2f2f2;
@@ -422,7 +425,6 @@ function loginCheckOrder(){
 }
 .pg_next { /* ���� */
     position:relative;
-    top:50%;
     width:28px !important;
     height:28px !important;
     background:#fff;
@@ -495,16 +497,15 @@ function loginCheckOrder(){
     border:1px solid #333;
 }
 
+
 </style>
 </head>
 <div class="col-md-12" style="background-color:#85C8DD; height: 90px; width: 100%; margin-top: 0px;">
 </div>
 <body style="background: #fff">
-
 	<form name="fmOrder">
-			<input type="hidden" name="mode"> <input type="hidden"
-				name="goodsno" value="${goodsBasic.GOODS_NUMBER }"> <input
-				type="hidden" name="MEMBER_NUMBER" value="${session.MEMBER_NUMBER }">
+			<input type="hidden" name="mode"> <input type="hidden" name="goodsno" value="${goodsBasic.GOODS_NUMBER }"> 
+				<input type="hidden" name="GOODS_NAME" value="${goodsBasic.GOODS_NAME}">
 	<div class="container" style="margin: auto;">
 		<div class="furniture-view">
 			<div class="row">
@@ -620,32 +621,28 @@ function loginCheckOrder(){
 		<div class="cboth p_review" id="changeReviewList"> 
                         <div id="powerReview">
                            <div class="hd-t">
-                             <c:if test="${sessionScope.MEMBER_ID eq null}">
-                                       <h2 style="margin-bottom: 0px; font-size: 20px;">상품구매 후기</h2>
-                                       <div class="review-write-btn" style="border: 1px solid black; background: #fff; color: black; text-align: center;">
-
-										<a href="#"  data-size="md" data-label="구매 후기 작성"
-                                    onClick="alert('로그인을 해주세요.'); return false;">
-                                       <div>후기 작성하기</div>
-                                 </a>
-                                       </div>
-                              </c:if> 
-            				<c:if test="${sessionScope.MEMBER_ID ne null and checkBuy ne goodsBasic.GOODS_NUMBER}">
-            				<h2 style="margin-bottom: 0px; font-size: 20px;">상품구매 후기</h2>
-                    <div class="review-write-btn" style="border: 1px solid black; background: #fff; color: black; text-align: center;">
-
-					<a href="#"  data-size="md" data-label="구매 후기 작성"
-                                    onClick="alert('구매후 작성 가능합니다.'); return false;">
-                                       <div>후기 작성하기</div>
-                                 
-                                 </a></div>
-            				</c:if> 
+                        <c:if test="${sessionScope.MEMBER_ID eq null}">
+                                  <h2 style="margin-bottom: 0px; font-size: 20px;">상품 후기</h2>
+                                  <div class="review-write-btn" style="border: 1px solid black; background: #fff; color: black; text-align: center;">
+				
+									<a href="#"  data-size="md" data-label="구매 후기 작성"
+				                               onClick="alert('로그인을 해주세요.'); return false;">후기 작성하기</a>
+				                                  </div>
+                         </c:if> 
+           				<c:if test="${sessionScope.MEMBER_ID ne null and checkBuy ne goodsBasic.GOODS_NUMBER}">
+            				<h2 style="margin-bottom: 0px; font-size: 20px;">상품 후기</h2>
+		                    <div class="review-write-btn" style="border: 1px solid black; background: #fff; color: black; text-align: center;">
+		
+							<a href="#"  data-size="md" data-label="구매 후기 작성"
+		                                    onClick="alert('구매후 작성 가능합니다.'); return false;">후기 작성하기</a></div>
+           				</c:if> 
                               <c:if test="${sessionScope.MEMBER_ID ne null and checkBuy eq goodsBasic.GOODS_NUMBER}">
-                                       <h2 style="margin-bottom: 0px; font-size: 20px;">상품구매 후기</h2>
+                                       <h2 style="margin-bottom: 0px; font-size: 20px;">상품 후기</h2>
+                                       
                         	<div class="review-write-btn" style="border: 1px solid black; background: #fff; color: black; text-align: center;">
-
-                           <a href="/ModuHome/review/reviewForm?GOODS_NUMBER=${goodsBasic.GOODS_NUMBER}" data-toggle="modal" data-target="#myModal">후기 작성하기</a>
-                              </div>
+                           <a href="/ModuHome/review/reviewForm?GOODS_NUMBER=${goodsBasic.GOODS_NUMBER}" 
+                           data-toggle="modal" data-target="#myModal">후기 작성하기</a>
+                            </div>
                               </c:if> 
                               
                            </div>     
@@ -659,7 +656,7 @@ function loginCheckOrder(){
                                     class="power-review-list-box">
                                  <div class="hd-box">
                                     <ul class="desc">
-                                    <li class="pr-list-writer">작성자 : ${goodsReview.MEMBER_NAME}</li><br>
+                                    <li class="pr-list-writer">${goodsReview.MEMBER_NAME}</li><br>
                                     <li class="pr-list-writer"><fmt:formatDate value="${goodsReview.REVIEW_REGDATE}" pattern="YYYY-MM-dd HH:mm" /></li>
                                     </ul>
                                    <div class="star-icon">
@@ -684,23 +681,14 @@ function loginCheckOrder(){
                                  </div><!-- hd-box -->
                            <span class="pr-options" style="display: none;">${goodsReview.REVIEW_CONTENT}</span>   
                            <div class="PR15N01-hd">
-                           <h2>제목 : ${goodsReview.REVIEW_TITLE }</h2>
+                           <h2>${goodsReview.REVIEW_TITLE }</h2>
                            </div>
                            <div class="content">
-                              <p class="content_p"><a class="more-options">내용 : ${goodsReview.REVIEW_CONTENT }</a></p><br>
+                              <p class="content_p"><a class="more-options">${goodsReview.REVIEW_CONTENT }</a></p><br>
                               <c:if test="${goodsReview.REVIEW_IMAGE ne null }">
-                                       <img src="/ModuHome/images/review/${goodsReview.REVIEW_IMAGE}" width="100" height="100">
+                                       <img class="imgScale" src="/ModuHome/images/review/${goodsReview.REVIEW_IMAGE}" width="100" height="100">
                                        </c:if>
-                           <div class="ctr">
-                           <div class="photo-list">
-                                 <ul>
-                                    <li>
-                                       <div>
-                                       
-                                       </div>
-                                    <div class="attach-preview"></div></li>                                    
-                                 </ul>
-                           </div>   
+                           <div>
                                                    
                              <c:if test="${goodsReview.MEMBER_NUMBER eq sessionScope.MEMBER_NUMBER }">
 												<c:url var="viewURL" value="/reviewDelete">
@@ -708,41 +696,42 @@ function loginCheckOrder(){
 													<c:param name="DETAIL" value="1" />
 													<c:param name="GOODS_NUMBER" value="${goodsBasic.GOODS_NUMBER}" />
 													<%-- <c:param name="REVIEW_IMAGE" value="${review.REVIEW_IMAGE }" /> --%>
-							  </c:url>
-							 <a href="${viewURL}" class="delete" onclick="javascript:return confirm('삭제하시겠습니까?');">&nbsp;&nbsp;[삭제]</a>
+							  					</c:url>
+							 <a href="${viewURL}" class="delete" onclick="javascript:return confirm('삭제하시겠습니까?');" style="float:right">&nbsp;&nbsp;[삭제]</a>
 							  </c:if> 
-                              
                            </div><!-- ctr -->
-                           </div><!-- content -->
-
-                                 </li><!-- power-review-list-box -->
-                           </ul><!-- PR15N01-review-wrap -->
+                           </div>
+                                 </li>
+                           </ul>
                            </c:if>
                            </c:if>
                            </c:forEach>
+                           
+                           </div>
+                           </div>
+                           
+                           
                            <c:if test="${reviewSize gt 5 }">
-                           <div style="text-align:center;">
-                           <c:if test="${reviewNowPage ne 1 }">
-                           <a class="pg_prev" style="margin-top: -8px;" href="javascript:ajaxReviewPaging(1,${reviewEndPagingNum},${reviewStartPagingNum},${reviewNowPage});"></a>
-                           </c:if>
-                              <span class="pg_current">${reviewNowPage}</span>
+                           <div style="text-align:center; padding:20px;">
+	                           <c:if test="${reviewNowPage ne 1 }">
+	                           <a class="pg_prev" style="margin-top: -8px;" href="javascript:ajaxReviewPaging(1,${reviewEndPagingNum},${reviewStartPagingNum},${reviewNowPage});">prev</a>
+	                           </c:if>
+                              <span class="pg_current" >${reviewNowPage}</span>
                               <c:if test="${reviewNowPage ne 1 }">
-                              <span class="pg_page">
-                              ${reviewTotalPage}</span>   
+                              <span class="pg_page" >${reviewTotalPage}</span>   
                               </c:if>
-                           <c:if test="${reviewNowPage ne reviewTotalPage }">
-                           <a class="pg_next" style="margin-top: -8px;" href="javascript:ajaxReviewPaging(2,${reviewEndPagingNum},${reviewStartPagingNum},${reviewNowPage});"></a>
-                           </c:if>
+	                           <c:if test="${reviewNowPage ne reviewTotalPage }">
+	                           <a class="pg_next" style="margin-top: -8px;" href="javascript:ajaxReviewPaging(2,${reviewEndPagingNum},${reviewStartPagingNum},${reviewNowPage});">next</a>
+	                           </c:if>
                            </div>
                            </c:if>
-                           </div>
-                           </div><!-- listPowerReview -->
 					</div>
 		<!-- qna 상품문의 -->
-		<div class="product-view-qna-list section box-shadow" id="changeQnaList">
-			<div class="furniture-qna">
-		 		<div class="commerce-title"> 
-		 			<h2 style="margin-bottom: 0px;">Q&A</h2> 
+		<div class="product-view-qna-list section box-shadow" id="changeQnaList" style="width:100%;">
+			<div class="furniture-qna1">
+		 	<div class="commerce-title1" style="padding:5px;"> 
+		 			<h2 style="margin-bottom: 0px;">Q&A</h2>
+		 			
 					<div class="qna-wrapper">
 						<c:if test="${sessionScope.MEMBER_ID eq null}">
                                        <div class="review-write-btn" style="float:right; border: 1px solid black;">
@@ -752,80 +741,66 @@ function loginCheckOrder(){
                               </c:if> 
                                <c:if test="${sessionScope.MEMBER_ID ne null }">
                                  <div class="review-write-btn" style="float:right; border: 1px solid black;">
-                                <%--  <a href="/ModuHome/qna/modal_qnaForm?GOODS_NUMBER=${goodsBasic.GOODS_NUMBER}"
-                                    target="modal" data-size="md" data-label="상품 문의 작성">QNA 작성하기</a> --%>
                                 <a href="/ModuHome/qna/modal_qnaForm?GOODS_NUMBER=${goodsBasic.GOODS_NUMBER}" data-toggle="modal" data-target="#myModal">QNA 작성하기</a>
                                   </div>
                               </c:if> 
 					</div>
 				</div>
+		 			<hr style="color:#99999; width:100%; padding:5px;">
 			</div>
-              <div id="ajax_qna_list">
                <div class="section-body">
                   <ul class="list-dropdown">
-               
                      <c:forEach var="goodsQna" items="${qnaList}" varStatus="stat">
                      <c:if test="${qnaEndPagingNum >= stat.count}">
                      <li>
-                        <div class="brief">
+                         <ul style="float:right; display:inline-block; list-style:none;">
+                         <li class="author">${goodsQna.MEMBER_NAME}</li>
+                         <li class="date">${goodsQna.QNA_REGDATE}</li>
+                         <li>
+                         		<c:if test="${goodsQna.MEMBER_NUMBER eq sessionScope.MEMBER_NUMBER }">
+									<c:url var="viewURL" value="/qnaDelete">
+										<c:param name="QNA_NUMBER" value="${goodsQna.QNA_NUMBER}" />
+										<c:param name="DETAIL" value="1" />
+										<c:param name="GOODS_NUMBER" value="${goodsBasic.GOODS_NUMBER}" />
+									</c:url>
+								    <p style="float:right;"><a href="${viewURL}" style="float:right;" class="delete" onclick="return delchk()">[삭제]</a></p>
+					  			</c:if> 
+                         </li>
+                         </ul>
                         <!-- 질문자 제목 -->
-                           <strong class="title">제목: ${goodsQna.QNA_TITLE}</strong>
-                           <div class="info" style="display:inline;">
-                              <p class="author">작성자: ${goodsQna.MEMBER_NAME}</p>
-                             
-                           </div>
-                        </div>
-                        <div class="detail">
+                        	<div>
+                           <strong class="title">${goodsQna.QNA_TITLE}</strong>
+                        	</div>
                         <!-- 질문자내용 -->
-                           <div class="contents">
-                              <div class="description">
-                                 <p>내용: ${goodsQna.QNA_CONTENT} 
-                                  <c:if test="${goodsQna.MEMBER_NUMBER eq sessionScope.MEMBER_NUMBER }">
-												<c:url var="viewURL" value="/qnaDelete">
-													<c:param name="QNA_NUMBER" value="${goodsQna.QNA_NUMBER}" />
-													<c:param name="DETAIL" value="1" />
-													<c:param name="GOODS_NUMBER" value="${goodsBasic.GOODS_NUMBER}" />
-								</c:url>
- 							    <p style="float:right;"><a href="${viewURL}" style="float:right;" class="delete" onclick="return delchk()">[삭제]</a></p>
- 							  </c:if> 
-                                 </p>
-                                  <p class="date">작성일: ${goodsQna.QNA_REGDATE}</p>
-                                  
-                                  <c:if test="${goodsQna.QNA_IMAGE ne null }">
-                                       <img src="/ModuHome/images/qna/${goodsQna.QNA_IMAGE }" width="100" height="100">
-                                       </c:if>
-                                       
-                                 <%-- <c:if test="${goodsQna.IMAGE ne null }">
-                                    <div class="picture">
-                                       <img
-                                          src="/ModuHome/images/qna/${goodsQna.IMAGE}">
-                                    </div>
-                                 </c:if> --%>
-                                
-                                                              
-                              
-                              </div>
-                              <hr>
-                           </div>
+                        <div>
+                                 <p style="width:60%;">${goodsQna.QNA_CONTENT}</p>
+                        </div>
+                             <%--   
+	                              <div>
+	                                  <c:if test="${goodsQna.QNA_IMAGE ne null }">
+	                                       <img src="/ModuHome/images/qna/${goodsQna.QNA_IMAGE }" width="100" height="100">
+	                                       </c:if>
+	                              </div> --%>
                         <!-- 답변내용 -->
                         <c:if test="${goodsQna.QNA_REPCONTENT ne null}">
                            <div class="answer" style="margin-left: 30px;">
-                              ┗<img src="/ModuHome/theme/admin.png" style="width: 100px;height: 50px;">
-                              <p>${goodsQna.QNA_REPCONTENT}</p>
-                              
+                              <p> <strong>
+                              ┗관리자:
+                              </strong>${goodsQna.QNA_REPCONTENT}</p>
                               <div class="info">
-                                 <p class="author">admin</p>
-                                 <p class="date">/ ${goodsQna.QNA_REPDATE}</p>
+                                 <p class="date">${goodsQna.QNA_REPDATE}</p>
                               </div>
                            </div> 
+                           <hr>
                         </c:if>
                   
-                        </div>
                      </li>
                      </c:if>
                      </c:forEach> 
-                     <!-- 반복끝 -->
                   </ul>
+                        </div>
+                        
+                        
 				<c:if test ="${qnaSize gt 5}">
                   <div style="text-align:center;">
                      <c:if test="${qnaNowPage ne 1 }">
@@ -839,15 +814,10 @@ function loginCheckOrder(){
                         </c:if>   
                      <c:if test="${qnaNowPage ne qnaTotalPage}">   
                      <a class="pg_next" style="margin-top: -8px;" href="javascript:ajaxQnaPaging(2,${qnaEndPagingNum},${qnaStartPagingNum},${qnaNowPage});" >-</a>
-                        
                      </c:if>
                      </div>
-                  </c:if>           
-               </div>
-            </div>
-            
-            
-         </div>  
+                  </c:if>  
+        	 </div>  
 			<c:if test="${not empty relatedGoods}">
 			<div class="furniture-together" style="width: 100%;">
 				<div class="commerce-title">
@@ -875,20 +845,19 @@ function loginCheckOrder(){
 					</div>
 				</div>
 				</c:if>
-			</div>
-		<!--/.furniture-view-->
+</div>
 	<br />
 	<br />
-</div> <!-- container end -->
-
-<!-- modal 삭제금지 -->
-<div class="modal fade bs-example-modal-sm mymodal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<!-- modal trigger 삭제금지 -->
+<div class="modal fade bs-example-modal-sm mymodal" id="myModal" tabindex="-1" role="dialog" 
+aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-sm" style="width:500px;">
+	
 		<div class="modal-content">
 		</div>
 	</div>
 </div>
-<!-- modal 삭제금지 -->
+<!-- modal trigger 삭제금지 -->
 
 <script>
 	Stack
@@ -942,12 +911,12 @@ function loginCheckOrder(){
 function ajaxReviewPaging(i,reviewEndPagingNum,reviewStartPagingNum,reviewNowPage) {
  var pagingReviewOnOff="ON";
  var GOODS_NUMBER='${GOODS_NUMBER}';
- console.log("GOODS_NUMBER:"+GOODS_NUMBER);
- console.log("changeReviewList"+i);
   $.ajax({
      url: "/ModuHome/goods/detail",
        type : "post",
-       data: {"reviewNowPage":reviewNowPage,"reviewStartPagingNum":reviewStartPagingNum,"reviewEndPagingNum":reviewEndPagingNum,"pagingReviewOnOff":pagingReviewOnOff,"i":i,"GOODS_NUMBER":GOODS_NUMBER},
+       data: {"reviewNowPage":reviewNowPage,"reviewStartPagingNum":reviewStartPagingNum,
+    	   "reviewEndPagingNum":reviewEndPagingNum,"pagingReviewOnOff":pagingReviewOnOff,
+    	   "i":i,"GOODS_NUMBER":GOODS_NUMBER},
        success:function(data){
           $("#changeReviewList").html(data);
        }
@@ -957,9 +926,6 @@ function ajaxReviewPaging(i,reviewEndPagingNum,reviewStartPagingNum,reviewNowPag
 function ajaxQnaPaging(i,qnaEndPagingNum,qnaStartPagingNum,qnaNowPage) {
  var pagingQnaOnOff="ON";
  var GOODS_NUMBER='${GOODS_NUMBER}';
- console.log("GOODS_NUMBER:"+GOODS_NUMBER);
- 
- console.log("changeQnaList"+i);
   $.ajax({
        url: "/ModuHome/goods/detail",
        type : "post",

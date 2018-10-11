@@ -1,8 +1,6 @@
 package com.kh.follow;
 
 import java.util.List;
-import java.util.Map;
-
 import com.kh.follow.FollowModel;
 
 

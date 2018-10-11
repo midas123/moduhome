@@ -14,7 +14,7 @@ public class NoticeDAO extends AbstractDAO{
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> selectNoticeList(Map<String, Object> map) throws Exception {
 		// TODO Auto-generated method stub
-		return (List<Map<String, Object>>)selectList("notice.selectNoticeList", map);
+		return selectList("notice.selectNoticeList", map);
 	}
 
 	public void insertNotice(Map<String, Object> map) throws Exception {

@@ -1,7 +1,5 @@
 package com.kh.order;
 
-import java.math.BigDecimal;
-import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import javax.annotation.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -42,45 +39,51 @@ public class OrderController {
 		mv.setViewName("orderForm");
 		HttpSession session = request.getSession();
 		String memn = session.getAttribute("MEMBER_NUMBER").toString();
-		System.out.println("memn:"+memn);
 		commandMap.getMap().put("MEMBER_NUMBER", memn);
-		System.out.println("commandMap.getMap():"+commandMap.getMap());
-		
-		
 		Map<String, Object> orderMember = orderService.orderMember(commandMap.getMap());
-		System.out.println("orderMember:"+orderMember);
 		mv.addObject("orderMember", orderMember);
 		
+		//주문코드 생성
+		StringBuffer temp = new StringBuffer();
+		Random rnd = new Random();
+		for (int i = 0; i < 5; i++) {
+			temp.append((char) ((rnd.nextInt(26)) + 65));
+		}
+		Date d = new Date();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+		String date = sdf.format(d);
+		String ORDER_CODE = ("S" + date + temp);
 		//상품옵션 및 수량정보
 		String[] goods_kinds_number = request.getParameterValues("kinds[]"); 
 		String[] ea = request.getParameterValues("ea[]");
+		String[] goodsno = request.getParameterValues("goodsno[]");
+		String[] goodsName = request.getParameterValues("GOODS_NAME");
 		
+		System.out.println("goodsno[]"+goodsno);
 		List<Map<String, Object>> goods = new ArrayList<Map<String, Object>>();
-
 		
 		for (int i = 0; i < goods_kinds_number.length; i++) {
-
-			System.out.println("ea[" + i + "] = " + ea[i]);
 			commandMap.put("GOODS_NUMBER", request.getParameter("goodsno"));
+			if(goodsno !=null) { //장바구니 구매시 상품번호
+				commandMap.put("GOODS_NUMBER", goodsno[i]);
+				System.out.println("goodsno[" + i + "] = " + goodsno[i]);
+			}
 			commandMap.put("GOODS_KIND_NUMBER", goods_kinds_number[i]);
 			commandMap.put("EA", ea[i]);
 			System.out.println("CommandMap!! :" +commandMap.getMap());
 			
 			Map<String, Object> orderGoods = orderService.orderGoods(commandMap.getMap());
-			
 			System.out.println("orderGoods : " + orderGoods);
 
 			orderGoods.put("EA", ea[i]);
-
 			goods.add(orderGoods);
-
 			System.out.println("goods : " + goods);
 		}
 		
-		mv.addObject("GOODS_NUMBER", request.getParameter("goodsno"));
+		mv.addObject("GOODS_NAME", goodsName[0]);
+		mv.addObject("GOODS_NUMBER", goodsno);
 		mv.addObject("goods", goods);
-		mv.addObject("goods_kind_number", goods_kinds_number);
-		mv.addObject("ea", ea);
+		mv.addObject("ORDER_CODE", ORDER_CODE);
 		
 		return mv;
 	
@@ -102,6 +105,8 @@ public class OrderController {
 		String[] goods_kinds_number = request.getParameterValues("kinds[]");
 		String[] ea = request.getParameterValues("ea[]");
 		String[] goods_number = request.getParameterValues("GOODS_NUMBER");
+		String payType = request.getParameter("payType");
+		System.out.println("payType:"+payType);
 
 		for (int i = 0; i < goods_kinds_number.length; i++) {
 
@@ -120,7 +125,7 @@ public class OrderController {
 		
 		
 		//주문코드 생성
-		StringBuffer temp = new StringBuffer();
+/*		StringBuffer temp = new StringBuffer();
 		Random rnd = new Random();
 
 		for (int i = 0; i < 5; i++) {
@@ -130,8 +135,9 @@ public class OrderController {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		String date = sdf.format(d);
 		String ORDER_CODE = ("S" + date + temp);
+		System.out.println("ORDER_CODE:"+ORDER_CODE);*/
+		String ORDER_CODE = request.getParameter("ORDER_CODE");
 		System.out.println("ORDER_CODE:"+ORDER_CODE);
-
 		
 		//배송정보 저장
 		commandMap.put("ORDER_CODE", ORDER_CODE);

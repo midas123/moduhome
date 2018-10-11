@@ -20,8 +20,6 @@ public class ReviewController {
 	@RequestMapping(value="/review/reviewForm")
 	public ModelAndView reviewForm(CommandMap commandMap, HttpServletRequest request){
 		ModelAndView mv=new ModelAndView("store/review/modal_reviewForm");
-		System.out.println("reivewGoodsNum:"+commandMap.getMap().get("GOODS_NUMBER"));
-		mv.addObject("GOODS_NUMBER", commandMap.getMap().get("GOODS_NUMBER"));
 		return mv;
 	}
 	
@@ -31,10 +29,6 @@ public class ReviewController {
 		System.out.println("ddddddd:"+session.getAttribute("MEMBER_NUMBER"));
 		ModelAndView mv=new ModelAndView("redirect:goods/detail?GOODS_NUMBER="+commandMap.get("GOODS_NUMBER"));
 		commandMap.getMap().put("MEMBER_NUMBER", session.getAttribute("MEMBER_NUMBER").toString());
-		//commandMap.getMap().put("MEMBER_NUMBER", "77");
-		System.out.println("파람" + commandMap.getMap());
-		System.out.println("review Goods_Number : " +commandMap.get("GOODS_NUMBER").toString());
-		System.out.println("reivewRequest:"+request);
 		reviewService.reviewWrite(commandMap.getMap(),request);
 		reviewService.reviewPoint(commandMap.getMap());
 		return mv;

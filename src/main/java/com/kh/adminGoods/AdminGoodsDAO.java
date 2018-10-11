@@ -13,7 +13,7 @@ public class AdminGoodsDAO extends AbstractDAO {
    // 상품 리스트
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> goodsList(Map<String, Object> map) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.selectAdminGoodsList", map);
+      return selectList("adminGoods.selectAdminGoodsList", map);
    }
 
    // 전체 상품수 
@@ -44,13 +44,13 @@ public class AdminGoodsDAO extends AbstractDAO {
    // 상품 수정 폼으로 이동(데이터 들고감)
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> modifyGoodsForm(Map<String, Object> map) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.selectOneGoods", map);
+      return selectList("adminGoods.selectOneGoods", map);
    }
 
    // 상품 이미지 정보
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> modifyGoodsFormImage(Map<String, Object> map) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.selectOneGoodsImage", map);
+      return selectList("adminGoods.selectOneGoodsImage", map);
    }
 
    // 상품 수정
@@ -91,49 +91,49 @@ public class AdminGoodsDAO extends AbstractDAO {
    // 상품 검색(상품 이름)
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> adminGoodsSearch0(String isSearch) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.adminGoodsSearch0", isSearch);
+      return selectList("adminGoods.adminGoodsSearch0", isSearch);
    }
 
    // 상품 검색(상품 번호)
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> adminGoodsSearch1(String isSearch) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.adminGoodsSearch1", isSearch);
+      return selectList("adminGoods.adminGoodsSearch1", isSearch);
    }
 
    // 상품 검색(카테고리 검색)
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> adminGoodsSearch2(String isSearch) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.adminGoodsSearch2", isSearch);
+      return selectList("adminGoods.adminGoodsSearch2", isSearch);
    }
 
    // 상품 검색(판매 활성화 or 비활성화 구분)
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> adminGoodsSearch3(String isSearch) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.adminGoodsSearch3", isSearch);
+      return selectList("adminGoods.adminGoodsSearch3", isSearch);
    }
 
    // 상품 검색(재고0 품절상태)
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> adminGoodsSearch4(String isSearch) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.adminGoodsSearch4");
+      return selectList("adminGoods.adminGoodsSearch4");
    }
 
    // 상품 검색(판매량 많은 순)
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> adminGoodsSearch5(String isSearch) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.adminGoodsSearch5", isSearch);
+      return selectList("adminGoods.adminGoodsSearch5", isSearch);
    }
    
    // 상품 검색(조회수 많은 순)
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> adminGoodsSearch6(String isSearch) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.adminGoodsSearch6", isSearch);
+      return selectList("adminGoods.adminGoodsSearch6", isSearch);
    }
    
    // 상품 검색(상품 브랜드명)
    @SuppressWarnings("unchecked")
    public List<Map<String, Object>> adminGoodsSearch7(String isSearch) throws Exception {
-      return (List<Map<String, Object>>) selectList("adminGoods.adminGoodsSearch7", isSearch);
+      return selectList("adminGoods.adminGoodsSearch7", isSearch);
    }
 
 }

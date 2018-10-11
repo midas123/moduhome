@@ -22,7 +22,7 @@ public class QnaDAO extends AbstractDAO{
 	// 전체 리스트(Admin Page)
 	@SuppressWarnings("unchecked")
 	public List<Map<String, Object>> qnaList(Map<String, Object> map) throws Exception {
-		return (List<Map<String, Object>>) selectList("qna.qnaList", map);
+		return selectList("qna.qnaList", map);
 	}
 	
 	// qna 이미지 등록

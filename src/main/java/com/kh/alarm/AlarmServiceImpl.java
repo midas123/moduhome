@@ -14,23 +14,28 @@ public class AlarmServiceImpl implements AlarmService {
 	@Resource(name = "alarmDAO")
 	private AlarmDAO alarmDAO;
 	
+	@Override
 	public void regAlarm(int writer_id, int reg_id, int alarm_contnum, int alarm_index_no) throws Exception{
 		System.out.println("알람서비스 실행");
 		alarmDAO.regAlarm(writer_id, reg_id, alarm_contnum, alarm_index_no);
 	}
 	
+	@Override
 	public int alarmExist(String id) throws Exception{
 		return alarmDAO.alarmExist(id);
 	}
 
+	@Override
 	public List<AlarmModel> alarmLoad(String id) throws Exception{
 		return alarmDAO.alarmLoad(id);
 	}
 	
+	@Override
 	public void readAlarm(String alarm_seq) throws Exception{
 		alarmDAO.readAlarm(alarm_seq);
 	}
 	
+	@Override
 	public AlarmModel selectAlarmOne(String alarm_seq) throws Exception{
 		return alarmDAO.selectAlarmOne(alarm_seq);
 	}

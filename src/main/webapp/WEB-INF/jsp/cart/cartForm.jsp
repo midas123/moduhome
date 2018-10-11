@@ -17,22 +17,18 @@ var sum = 0;
 var disSum= 0;
 var totSum = 0;
 var delfee =0;
-//var oriprice =$(".oriPriceforDis").eq(index).attr("value");
-//주문요약 금액계산
+
+//체크된 상품 합계금액 계산
 function checkedRows(index){
 	    var index = index;
 	    console.log("주문요약인덱스:"+index);
 	    var tagName = "#checkbox"+index;
 	    var price = $(".price").eq(index).attr("value"); //상품 가격
 	    console.log("price:"+price);
-	    //var disprice = rm_comma($(".disprice").eq(index).html()); //할인 금액
 	    var disprice = $(".disprice").eq(index).attr("value2"); //할인 금액
 	    console.log("총disprice:"+disprice);
-	    //var totprice = $(".totalprice"+index).eq(index).attr("value"); //상품 합계가격
 	    var totprice = rm_comma($("#pricesum"+index).html()); //상품 합계가격
 	    console.log("총totprice:"+totprice);
-	 
-	    
 	    price = parseInt(price, 10);
 	    disprice = parseInt(disprice, 10);
 	    totprice = parseInt(totprice, 10);
@@ -52,14 +48,12 @@ function checkedRows(index){
       			   
 	        	   $("#realtotalPrice").html(comma(totSum));
 	        	   $("#disCountPirce").html(comma(disSum));
-	        	   //$("#totalPrice").html(comma(sum));
 	        	}else{
 	        	    sum = sum-price;
 	        	    disSum = disSum - disprice;
 	        	    totSum = totSum - totprice;
 	        		$("#realtotalPrice").html(comma(totSum));
 	        		$("#disCountPirce").html(comma(disSum));
-	        		//$("#totalPrice").html(comma(sum));
 	        		
 	        		if(totSum >= 30000 || totSum == 0){
 	        			 delfee= 0;
@@ -151,8 +145,6 @@ function checkedRows(index){
 		<hr style="color:#999999; width:90%; padding:20px;">
 		<div id="changeCartGoodlist" class="section-body col-md-12" style="background-color:#fff; !important;">
 			<form name="fmCart" action="/ModuHome/cart/cartDelete">
-			<input type="hidden" name="mode" value="del"><!-- 
-			<div class="container" style="margin: 0px 0px 0px 0px; padding:0px;">	 -->
 			<div class="container">
 			<div class="table-order-list" align="center">
 				<table class="table" >
@@ -160,7 +152,6 @@ function checkedRows(index){
 	  				<col width="12.5px">
 	  				<col width="15px">
 	  				<col width="12.5px">
-	  				<%-- <col width="12.5px"> --%>
 	  				<col width="12.5px">   
 	  				<col width="12.5px">   
 	  				<col width="12.5px">   
@@ -170,25 +161,18 @@ function checkedRows(index){
 						<th scope="col" class="info-img">상품 정보</th>
 						<th scope="col" class="info-caption">&nbsp;</th>
 						<th scope="col" class="payment">상품 가격</th>
-						<!-- <th scope="col" class="sale">할인 금액</th> -->
 						<th scope="col" class="delivery">합계</th>
 						<th scope="col" class="delivery">배송비</th>
 						<th scope="col" class="delete">비고</th>
 					</tr> 
 				</thead>
 				<tbody>
-				
 						<c:if test="${!empty cartList}">
 						<c:forEach var="cartList" items="${cartList}" varStatus="stat">
 						<tr>
 						<td>
-						&nbsp;&nbsp;<c:if test="${!empty sessionScope.MEMBER_ID}">
-						<input type="checkbox" id="checkbox${stat.index}" name="GOODS_KIND_NUMBER" value="${cartList.GOODS_KIND_NUMBER}" onclick="javascript:checkedRows(${stat.index});">
-						</c:if>
-						&nbsp;&nbsp;<c:if test="${empty sessionScope.MEMBER_ID}">
-						<%-- <input type="checkbox" id="checkbox${stat.index}" name="GOODS_KIND_NUMBER" value="${cartList.GOODS_KIND_NUMBER},${cartList.CART_AMOUNT}" onclick="javascript:checkedRows('${stat.index}');"> --%>
+						&nbsp;&nbsp;
 						<input type="checkbox" id="checkbox${stat.index}" name="GOODS_KIND_NUMBER" value="${cartList.GOODS_KIND_NUMBER}" onclick="javascript:checkedRows('${stat.index}');">
-						</c:if>
 						</td>
 						<td class="info-img">
 						<a href="/ModuHome/goodsDetail?GOODS_NUMBER=${cartList.GOODS_NUMBER }">
@@ -205,10 +189,11 @@ function checkedRows(index){
 									<b>${cartList.GOODS_OPTION1} / ${cartList.GOODS_OPTION2}</b>
 									<input type="hidden" name="cart" value="${cartList.CART_NUMBER }">
 									<span id="cartNum${stat.index}" value="${cartList.CART_NUMBER }"></span>
-									<input type="hidden" name="kinds" value="${cartList.GOODS_KIND_NUMBER }">
+									<input type="hidden" name="kinds[]" value="${cartList.GOODS_KIND_NUMBER }">
+									<input type="hidden" name="goodsno[]" value="${cartList.GOODS_NUMBER }">
 									<input type="hidden" class="mstock" value="${cartList.GOODS_AMOUNT }">
 									<span id="mstock${stat.index}" value="${cartList.GOODS_AMOUNT }"></span>
-									<input type="text" name="ea" value="${cartList.CART_AMOUNT }" class="input_ea${stat.index}" size="2" readonly>
+									<input type="text" name="ea[]" value="${cartList.CART_AMOUNT }" class="input_ea${stat.index}" size="2" readonly>
 									
 									<span class="ea">
 										<a class="btn-ea-up${stat.index}" onclick="javascript:eaUp(${stat.index});">
@@ -268,24 +253,11 @@ function checkedRows(index){
 						</td> 
 						<!-- 삭제버튼 -->
 						<td class="delete">
-						<c:if test="${!empty sessionScope.MEMBER_ID}">
-						<a href="/ModuHome/cart/cartDelete?GOODS_KIND_NUMBER=${cartList.GOODS_KIND_NUMBER}" onClick='return confirm("정말로 장바구니를 삭제하시겠습니까?");'> <span class="button-label">삭제</span>
-						</a>
-						</c:if>
-						<c:if test="${empty sessionScope.MEMBER_ID}">
-						<a href="/ModuHome/cart/cartDelete?GOODS_KIND_NUMBER=${cartList.GOODS_KIND_NUMBER}"> <span class="button-label">삭제</span>
-						</a>
-						</c:if>
-					
+						<span class="button-label-delete" value="${cartList.GOODS_KIND_NUMBER}">삭제</span>
 						</td> 
 					</tr>
-					
 					</c:forEach>
 					</c:if>
-					
-					<c:set var="doneLoop" value="false"/>
-					<c:set var="index" value="1" /> 
-					
 						<c:if test="${empty cartList }">
 						<c:if test="${empty sessionScope.CartSession}">
 							<tr>
@@ -347,23 +319,17 @@ function checkedRows(index){
 		<div class="sum">
 			총 주문금액&nbsp;&nbsp;&nbsp;<strong id="realtotalPrice">0</strong>원
 		</div>
-		<!-- <div class="sum-order">
-			총 금액 합계&nbsp;&nbsp;&nbsp;<strong id="totalPrice">0</strong>원
-		</div> -->
 		<div class="item-label">
 			배송비&nbsp;&nbsp;&nbsp;<strong id="delfee">0</strong>원
 		</div>
 	</div>
 </div>
-
-
 </td>
 </tr>
 <tr>
 <td align="center">
 <div class="button-group">
 		<button type="button" id="buy-button" onclick="cartBuy();">구매하기</button>
-		<!-- <button type="button" id="cancel-button" onclick="location.href='/ModuHome/goods'">쇼핑 계속</button> -->
 		<button type="button" id="cancel-button" onclick="javascript:history.back();">이전 페이지로</button>
 </div>
 </td>
@@ -375,9 +341,7 @@ function checkedRows(index){
 
 <script>
 function cartBuy(){
-		
 		var fm = document.fmCart;
-		
 		if($("input:checkbox[name='GOODS_KIND_NUMBER']").is(":checked") == false) {
 			alert("상품을 선택해 주세요.");
 			return false;
@@ -388,10 +352,9 @@ function cartBuy(){
 			return false;
 		}
 		
-		fm.mode.value = "cart";
+		//fm.mode.value = "cart";
 		fm.target = "_self";
-		fm.action = "/ModuHome/cart/cartOrder";
-		//if (mode=="order") fm.action = "../order";
+		fm.action = "/ModuHome/order";
 		fm.submit();
 	}
 </script>
@@ -415,50 +378,53 @@ $("#btn-checked-one").click(function(){
 	
 	if(confirm("정말로 상품을 삭제하시겠습니까?")){
 	//선택상품 삭제로직
-	//var goodsNum = [];
 	var goodsNum = new Array();
 	$(".order-shoppingBag input[name='GOODS_KIND_NUMBER']:checked").each(function() {
 		goodN = $(this).attr("value");
 		goodsNum.push(goodN);
 	});
-	console.log("goodsNum:"+goodsNum);
-	
 	$.ajax({
 	     url: "/ModuHome/cart/cartDelete",
 	       type : "post",
 	       data: {"GOODS_KIND_NUMBER":goodsNum},
 	       success:function(data){
-	    	   console.log("선택삭제 에이작스");
-	    	  //location.href="/ModuHome/cart/cartList";
 	    	  $("#changeCartGoodlist").html(data);
 	       }
 	    });  
-	
 	}
 	}
 	return false;
 	
 });
-});
 
+$("span.button-label-delete").click(function(){
+		var goodsNum = $(this).attr("value");
+		$.ajax({
+		     url: "/ModuHome/cart/cartDelete",
+		       type : "post",
+		       data: {"GOODS_KIND_NUMBER":goodsNum},
+		       success:function(data){
+		    	  $("#changeCartGoodlist").html(data);
+		       }
+		    });  
+	});
+});
 </script>
 <script>
-
 function ajaxChangeEa(cartNum, index, idx) {
-	var idx = idx;
-	var index = index;
+	var idx = idx; //상품 수량
+	var index = index;//장바구니 목록 중 상품의 인덱스
 	var ea = parseInt($(".input_ea"+index).val(), 10);
 	$.ajax({
 		url: "/ModuHome/cart/modifyEa",
 		data: {"CART_NUMBER": cartNum, "CART_AMOUNT":idx},
 		dataType: "json",
 		success:function(data){
+			//수량 변경
 			$(".input_ea"+index).val(idx+ea);
-			console.log("ajax수량변경:"+$(".input_ea"+index).val());
 		}
 	});
 }
-
 
 //콤마 추가
 function comma(num){
@@ -475,7 +441,6 @@ function comma(num){
         point += 3; 
     } 
     return str;
- 
 } 
 //콤마 삭제
 function rm_comma(num){
@@ -490,7 +455,7 @@ function change_ea(index,idx){
 
 function eaUp(index){
 var index = index;
-console.log("Upindex:"+index);
+
 //수량 증가
 $(document).off().on("click", ".btn-ea-up"+index, function(e) {
 	var ea = parseInt($(".input_ea"+index).val());
@@ -501,8 +466,6 @@ $(document).off().on("click", ".btn-ea-up"+index, function(e) {
     var total = parseInt(rm_comma($("#pricesum"+index).html()), 10); //합계
     var orgprice = parseInt($(".orgprice"+index).attr("value"), 10);
     var cartNum = $("#cartNum"+index).attr("value");
-    
-    console.log("cartNum:"+cartNum);
 	
 	if($("#checkbox"+index).is(":checked")){
 		alert("수량변경은 선택해제 후 가능합니다.");		
@@ -523,7 +486,6 @@ $(document).off().on("click", ".btn-ea-up"+index, function(e) {
 	inputEa = inputEa + 1
     total = price + total;
     
-    
   //배송비
   	var delfee = 0;
 	if(total < 30000){
@@ -534,12 +496,7 @@ $(document).off().on("click", ".btn-ea-up"+index, function(e) {
 			$("#delivery"+index).html(comma(delfee));
 		   } 
     
-    console.log("comma(inputEa*disprice)"+comma(inputEa*disprice));
-   // $("#orgprice"+index).html(comma(inputEa*orgprice)); //상품원가
-    //$("#disprice"+index).html(comma(inputEa*disprice)); //할인금액
    $("#disprice"+index).attr("value2", inputEa*disprice); //할인금액
-   console.log("attr확인:"+ $("#disprice"+index).attr("value2"));
-    //$("#priceid"+index).html(comma(inputEa*price)); //상품 가격
     $("#pricesum"+index).html(comma(total)); //합계
     
 });
@@ -549,7 +506,6 @@ $(document).off().on("click", ".btn-ea-up"+index, function(e) {
 //수량감소
 function eaDown(index){
 var index = index;
-console.log("Downindex:"+index);
 
 $(document).off().on("click", "li a.btn-ea-dn"+index, function(e) {
 	var eaup = ".input_ea"+index;
@@ -562,27 +518,21 @@ $(document).off().on("click", "li a.btn-ea-dn"+index, function(e) {
     var total = parseInt(rm_comma($("#pricesum"+index).html()), 10); //합계
     var orgprice = parseInt($(".orgprice"+index).attr("value"), 10);
 
-	console.log("ea수량감소:"+ea);
-	
 	if($("#checkbox"+index).is(":checked")){
 		alert("이미 선택한 상품입니다.");		
 		return false;
 	}
-	
 	if(ea <= 1){
 		alert("1개 이상을 주문하셔야 합니다");
 		return false;
 	}
-    
 	if('${sessionScope.MEMBER_ID}' == null || '${sessionScope.MEMBER_ID}' == ''){
 		change_ea(index,-1); 
 	} else {
 		ajaxChangeEa(cartNum, index, -1);
 	}
-	
     total = total - price;
     inputEa = inputEa - 1
-    
   //배송비
   	var delfee = 0;
 	if(total < 30000){
@@ -592,13 +542,7 @@ $(document).off().on("click", "li a.btn-ea-dn"+index, function(e) {
 			 delfee= 0;
 			$("#delivery"+index).html(comma(delfee));
 		   } 
-	
-	console.log("comma(inputEa*disprice)"+comma(inputEa*disprice));
-    //$("#orgprice"+index).html(comma(inputEa*orgprice)); //상품원가
-   //$("#disprice"+index).html(comma(inputEa*disprice)); //할인금액
-    //$("#priceid"+index).html(comma(inputEa*price)); //상품 가격
     $("#disprice"+index).attr("value2", inputEa*disprice);
-    console.log("attr확인:"+ $("#disprice"+index).attr("value2"));
     $("#pricesum"+index).html(comma(total)); //합계
 });
 }
