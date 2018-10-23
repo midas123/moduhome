@@ -236,7 +236,7 @@ public class CartController {
 							cartSession.remove(i);}
 					}
 				}}}
-		mv.setViewName("store/cartGoods");
+		mv.setViewName("store/cart/cartGoods");
 		return mv;
 	    }
 	

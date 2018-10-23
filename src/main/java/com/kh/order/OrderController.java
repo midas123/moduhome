@@ -36,7 +36,7 @@ public class OrderController {
 	@RequestMapping(value="/order")
 	public ModelAndView orderForm(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("orderForm");
+		mv.setViewName("/order/orderForm");
 		HttpSession session = request.getSession();
 		String memn = session.getAttribute("MEMBER_NUMBER").toString();
 		commandMap.getMap().put("MEMBER_NUMBER", memn);
@@ -92,10 +92,7 @@ public class OrderController {
 	@RequestMapping(value="/orderEnd")
 	public ModelAndView orderEnd(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("orderEnd");
-		//멤버 넘버가 세션으로 넘어오도록
-		//mv.setViewName("redirect:/orderEnd");
-		System.out.println("orderendMap:"+commandMap.getMap());
+		mv.setViewName("/order/orderEnd");
 		commandMap.put("MEMBER_NUMBER", request.getParameter("MEMBER_NUMBER"));
 		
 		Map<String, Object> orderMember = orderService.orderMember(commandMap.getMap());

@@ -454,7 +454,7 @@
 	
 	<!-- 장바구니 -->	
 	<definition name="cartList" extends="layout-store">
-	<put-attribute name="body" value="/WEB-INF/jsp/cart/cartForm.jsp"/>
+	<put-attribute name="body" value="/WEB-INF/jsp/store/cart/cartForm.jsp"/>
 	</definition>
 
 </tiles-definitions>
