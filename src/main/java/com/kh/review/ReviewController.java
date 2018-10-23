@@ -26,7 +26,6 @@ public class ReviewController {
 	//리뷰 등록
 	@RequestMapping(value="/reviewWrite")
 	public ModelAndView reviewWrite(CommandMap commandMap, HttpServletRequest request, HttpSession session) throws Exception{
-		System.out.println("ddddddd:"+session.getAttribute("MEMBER_NUMBER"));
 		ModelAndView mv=new ModelAndView("redirect:goods/detail?GOODS_NUMBER="+commandMap.get("GOODS_NUMBER"));
 		commandMap.getMap().put("MEMBER_NUMBER", session.getAttribute("MEMBER_NUMBER").toString());
 		reviewService.reviewWrite(commandMap.getMap(),request);
@@ -39,15 +38,16 @@ public class ReviewController {
 		@ResponseBody
 		public ModelAndView deleteReview(CommandMap commandMap, HttpServletRequest request) throws Exception {
 			ModelAndView mv = new ModelAndView();
+			//글 삭제
 			reviewService.reviewDelete(commandMap.getMap());
 			
 			if(commandMap.getMap().get("DETAIL")!=null) {
-				String temp = (String)commandMap.getMap().get("DETAIL");
-				if(temp.equals("1")){
+				String temp = (String)commandMap.getMap().get("DETAIL");//마이페이지,상세페이지 구분
+				if(temp.equals("1")){//상품 상세페이지
 					String GOODS_NUMBER = (String)commandMap.getMap().get("GOODS_NUMBER");
 					mv.setViewName("redirect:/goods/detail?GOODS_NUMBER="+GOODS_NUMBER);
 				}
-			}else {
+			}else {//마이 페이지
 			mv.setViewName("redirect:/mypage#review");
 			}
 

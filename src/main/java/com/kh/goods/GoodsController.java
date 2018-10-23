@@ -173,40 +173,35 @@ public class GoodsController {
 		         System.out.println("checkBuy:"+checkBuy);
 	         
 	      }
-		    
 		     mv.addObject("goodsDetail", goodsDetail);
 		     mv.addObject("relatedGoods", relatedGoods);
 			 mv.addObject("goodsImage", goodsImage);
-		
-		
 		}
 		
 	    //상품후기 리스트
-		
 	    List<Map<String, Object>> reviewList = goodsService.selectReview(Map.getMap());
-	    System.out.println("reviewList:"+reviewList);
-	    
+	      int pagingSet = 5;
 	      int reviewEndPagingNum = pagingSet;
 	      int reviewStartPagingNum = 0;
 	      int reviewNowPage = 1;
-
+	      
 	      String pagingReviewOnOff = (String) Map.getMap().get("pagingReviewOnOff");
 	      
 	      //상품 후기 ajax 페이징
-	      if (pagingReviewOnOff != null) {
-	         String i = (String) Map.getMap().get("i");
-	         reviewEndPagingNum = Integer.parseInt((String) Map.getMap().get("reviewEndPagingNum"));
-	         reviewStartPagingNum = Integer.parseInt((String) Map.getMap().get("reviewStartPagingNum"));
-	         reviewNowPage = Integer.parseInt((String) Map.getMap().get("reviewNowPage"));
-	         if (i.equals("1"))// prev 클릭
+	      if (pagingReviewOnOff != null) {//ajax 페이징 on 
+	         String pagingCheck = (String) Map.getMap().get("pagingCheck");//next/prev 구분
+	         reviewEndPagingNum = Integer.parseInt((String) Map.getMap().get("reviewEndPagingNum"));//마지막 게시글
+	         reviewStartPagingNum = Integer.parseInt((String) Map.getMap().get("reviewStartPagingNum"));//처음 게시글
+	         reviewNowPage = Integer.parseInt((String) Map.getMap().get("reviewNowPage"));//현재 페이지 번호
+	         
+	         if (pagingCheck.equals("1"))// prev 클릭
 	         {
-	            if (reviewEndPagingNum == pagingSet) {
-	            } else {
+	            if (reviewEndPagingNum != pagingSet) {
 	               reviewStartPagingNum = reviewStartPagingNum - pagingSet;
 	               reviewEndPagingNum = reviewEndPagingNum - pagingSet;
 	               reviewNowPage = reviewNowPage - 1;
 	            }
-	         } else if (i.equals("2")) // next 클릭
+	         } else if (pagingCheck.equals("2")) // next 클릭
 	         {
 	            if (reviewEndPagingNum < reviewList.size()) {
 	               reviewStartPagingNum = reviewStartPagingNum + pagingSet;
@@ -237,48 +232,38 @@ public class GoodsController {
 	      System.out.println("상품문의pagingQnaOnOff:"+pagingQnaOnOff);
 	      System.out.println("pagingQnaOnOff: " + (String) Map.getMap().get("pagingQnaOnOff"));
 	      if (pagingQnaOnOff != null) {
-	         String i = (String) Map.getMap().get("i");
+	         String pagingCheck = (String) Map.getMap().get("pagingCheck");
 	         qnaEndPagingNum = Integer.parseInt((String) Map.getMap().get("qnaEndPagingNum"));
 	         qnaStartPagingNum = Integer.parseInt((String) Map.getMap().get("qnaStartPagingNum"));
 	         qnaNowPage = Integer.parseInt((String) Map.getMap().get("qnaNowPage"));
-	         if (i.equals("1"))// prev 클릭
+	         if (pagingCheck.equals("1"))// prev 클릭
 	         {
-	            if (qnaEndPagingNum == pagingSet) {
-	               System.out.println("첫페이지");
-	            } else {
+	            if (qnaEndPagingNum != pagingSet) {
 	               qnaStartPagingNum = qnaStartPagingNum - pagingSet;
 	               qnaEndPagingNum = qnaEndPagingNum - pagingSet;
 	               qnaNowPage = qnaNowPage - 1;
-	               System.out.println("전페이지이동");
 	            }
-	         } else if (i.equals("2")) // next 클릭
+	         } else if (pagingCheck.equals("2")) // next 클릭
 	         {
 	            if (qnaEndPagingNum < qnaList.size()) {
 	               qnaStartPagingNum = qnaStartPagingNum + pagingSet;
 	               qnaEndPagingNum = qnaEndPagingNum + pagingSet;
 	               qnaNowPage = qnaNowPage + 1;
-	               System.out.println("다음페이지이동");
-	            } else {
-	               System.out.println("마지막페이지");
 	            }
 
 	         }
-	         System.out.println("qnaEndPagingNum 연산결과  :" + qnaEndPagingNum);
 	         mv.setViewName("store/qna/goodsDetail_Qna");
 	      }
 
 	      int qnaTotalPage = (int) Math.ceil((double) qnaList.size() / pagingSet);
-	      System.out.println("총 페이지 갯수 :" + qnaTotalPage);
 	      mv.addObject("qnaEndPagingNum", qnaEndPagingNum);
 	      mv.addObject("qnaStartPagingNum", qnaStartPagingNum);
 	      mv.addObject("qnaNowPage", qnaNowPage);
 	      mv.addObject("qnaSize", qnaList.size());
 	      mv.addObject("qnaTotalPage", qnaTotalPage);
-	    
 	     mv.addObject("qnaList", qnaList);
 	     mv.addObject("reviewList", reviewList);
 	     mv.addObject("GOODS_NUMBER", Map.getMap().get("GOODS_NUMBER"));
-	     
 		
 		return mv;
 	}

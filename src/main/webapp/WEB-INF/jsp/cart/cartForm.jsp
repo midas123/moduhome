@@ -458,15 +458,13 @@ var index = index;
 
 //수량 증가
 $(document).off().on("click", ".btn-ea-up"+index, function(e) {
-	var ea = parseInt($(".input_ea"+index).val());
-    var inputEa = parseInt($("input.input_ea"+index).val(), 10);
-    var mStock = parseInt($("#mstock"+index).attr("value"), 10); 
+    var inputEa = parseInt($("input.input_ea"+index).val(), 10); //입력 수량
+    var mStock = parseInt($("#mstock"+index).attr("value"), 10); //재고수량
     var price = parseInt($("#priceid"+index).attr("value"), 10); //상품 단가
     var disprice = parseInt($("#disprice"+index).attr("value"), 10); //할인금액
     var total = parseInt(rm_comma($("#pricesum"+index).html()), 10); //합계
-    var orgprice = parseInt($(".orgprice"+index).attr("value"), 10);
-    var cartNum = $("#cartNum"+index).attr("value");
-	
+    var cartNum = $("#cartNum"+index).attr("value"); //카트번호
+    
 	if($("#checkbox"+index).is(":checked")){
 		alert("수량변경은 선택해제 후 가능합니다.");		
 		return false;

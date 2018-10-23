@@ -37,20 +37,6 @@ public class GoodsServiceImpl implements GoodsService{
 	public List<Map<String, Object>> sortGoodsCategory(Map<String, Object> map) throws Exception {		
 		return goodsDAO.sortGoodsCategory(map);
 	}
-
-	/*@Override
-	public List<Map<String, Object>> colorToLower(List<Map<String, Object>> goodsList) throws Exception {
-		
-		for(int i=0; i<goodsList.size();i++) {
-			//System.out.println("컬러 변환전 = " + goodsList.get(i).get("COLORKIND"));
-			String tempColor = ((String)goodsList.get(i).get("COLORKIND")).toLowerCase();
-			goodsList.get(i).remove("COLORKIND"); //기존값삭제
-			String[] colorKind = tempColor.split(","); //템프이용해서 (,)로 스플릿
-			goodsList.get(i).put("COLORKIND",colorKind); //스트링배열로 다시추가
-			//System.out.println("변환 후 = " + ((String[])goodsList.get(i).get("COLORKIND")).length);
-		}
-		return goodsList;
-	}*/
 	
 	@Override
 	public List<Map<String, Object>> goodsSubCategory(Map<String, Object> map) throws Exception {
@@ -138,15 +124,6 @@ public class GoodsServiceImpl implements GoodsService{
 	   return goodsDAO.goodsSearchList(map);
 	}
 	
-	/*@Override
-	public List<Map<String, Object>> goodsColorSearchList(Map<String, Object> map) throws Exception {
-	   return goodsDAO.goodsColorSearchList(map);
-	}
-	
-	@Override
-	public List<Map<String, Object>> goodsSizeSearchList(Map<String, Object> map) throws Exception {
-	   return goodsDAO.goodsSizeSearchList(map);
-	}*/
 	
 	@Override
 	public List<Map<String,Object>> selectCategoryCount(String category1) throws Exception{

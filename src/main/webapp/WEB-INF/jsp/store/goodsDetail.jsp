@@ -908,7 +908,7 @@ aria-labelledby="myLargeModalLabel" aria-hidden="true">
 	Naruto.begin();
 </script>
 <script>
-function ajaxReviewPaging(i,reviewEndPagingNum,reviewStartPagingNum,reviewNowPage) {
+function ajaxReviewPaging(pagingCheck,reviewEndPagingNum,reviewStartPagingNum,reviewNowPage) {
  var pagingReviewOnOff="ON";
  var GOODS_NUMBER='${GOODS_NUMBER}';
   $.ajax({
@@ -916,20 +916,20 @@ function ajaxReviewPaging(i,reviewEndPagingNum,reviewStartPagingNum,reviewNowPag
        type : "post",
        data: {"reviewNowPage":reviewNowPage,"reviewStartPagingNum":reviewStartPagingNum,
     	   "reviewEndPagingNum":reviewEndPagingNum,"pagingReviewOnOff":pagingReviewOnOff,
-    	   "i":i,"GOODS_NUMBER":GOODS_NUMBER},
+    	   "pagingCheck":pagingCheck,"GOODS_NUMBER":GOODS_NUMBER},
        success:function(data){
           $("#changeReviewList").html(data);
        }
     });     
 }
 
-function ajaxQnaPaging(i,qnaEndPagingNum,qnaStartPagingNum,qnaNowPage) {
+function ajaxQnaPaging(pagingCheck,qnaEndPagingNum,qnaStartPagingNum,qnaNowPage) {
  var pagingQnaOnOff="ON";
  var GOODS_NUMBER='${GOODS_NUMBER}';
   $.ajax({
        url: "/ModuHome/goods/detail",
        type : "post",
-       data: {"qnaNowPage":qnaNowPage,"qnaStartPagingNum":qnaStartPagingNum,"qnaEndPagingNum":qnaEndPagingNum,"pagingQnaOnOff":pagingQnaOnOff,"i":i,"GOODS_NUMBER":GOODS_NUMBER},
+       data: {"qnaNowPage":qnaNowPage,"qnaStartPagingNum":qnaStartPagingNum,"qnaEndPagingNum":qnaEndPagingNum,"pagingQnaOnOff":pagingQnaOnOff,"pagingCheck":pagingCheck,"GOODS_NUMBER":GOODS_NUMBER},
        success:function(data){
           $("#changeQnaList").html(data);
        }

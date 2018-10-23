@@ -147,7 +147,7 @@ function sendGoods() {
 		 alert("결제방법을 선택해주세요.")
 		 return false;
 	 }
-	 if ($('input[name=payType]:checked').val() == "kakaopay") {
+	 if ($('input[name=payType]:checked').val() == "inicisPay") {
 		 IMP.request_pay({
     pg : 'html5_inicis', // version 1.1.0부터 지원.
     pay_method : 'card',
@@ -176,12 +176,8 @@ function sendGoods() {
 		 return false;
 	 }
 	 
-	 
 	$('#frmOrder').submit();
-	  
-	
 }
-
 </script>
 <script>
 
@@ -741,7 +737,7 @@ function copydata2() {
                                  <input type="radio" name="payType" value="cash"><p> 무통장 입금 : <span style="color: #0054A6;">농협중앙회 301-0548-7870-42 (예금주:(주)모두의집 ))</span> 
                                  </div>
                                  <div>
-                                <input type="radio" name="payType" value="kakaopay"><p> 이니시스 페이</p>
+                                <input type="radio" name="payType" value="inicisPay"><p> 이니시스 페이</p>
                                 </div>
                                  </div>
                            <div class="lastprice-footer">
