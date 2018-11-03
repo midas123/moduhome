@@ -8,7 +8,7 @@
 
 운영환경 : Apach Tomcat 6.0
 
-사용기술 : JAVA8, Spring-mcv,Javascript, jQuery, Ajax, HTML, CSS
+사용기술 : JAVA, Spring-mcv,Javascript, jQuery, Ajax, HTML, CSS
 
 프레임워크 : Spring4.0 Framework, MyBatis, Bootstrap4
 
