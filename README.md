@@ -10,6 +10,6 @@
 
 사용기술 : JAVA, Spring-mcv,Javascript, jQuery, Ajax, HTML, CSS
 
-프레임워크 : Spring4.0 Framework, MyBatis, Bootstrap4
+프레임워크 : Spring4.0 Framework, MyBatis, Bootstrap
 
 개발도구 : eclipse
