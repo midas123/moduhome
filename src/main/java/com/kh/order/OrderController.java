@@ -36,11 +36,13 @@ public class OrderController {
 	@RequestMapping(value="/order")
 	public ModelAndView orderForm(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/order/orderForm");
+		mv.setViewName("store/order/orderForm");
 		HttpSession session = request.getSession();
 		String memn = session.getAttribute("MEMBER_NUMBER").toString();
+		System.out.println("memn:"+memn);
 		commandMap.getMap().put("MEMBER_NUMBER", memn);
 		Map<String, Object> orderMember = orderService.orderMember(commandMap.getMap());
+		System.out.println("orderMember:"+orderMember);
 		mv.addObject("orderMember", orderMember);
 		
 		//주문코드 생성
@@ -92,7 +94,7 @@ public class OrderController {
 	@RequestMapping(value="/orderEnd")
 	public ModelAndView orderEnd(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/order/orderEnd");
+		mv.setViewName("store/order/orderEnd");
 		commandMap.put("MEMBER_NUMBER", request.getParameter("MEMBER_NUMBER"));
 		
 		Map<String, Object> orderMember = orderService.orderMember(commandMap.getMap());
@@ -121,18 +123,6 @@ public class OrderController {
 		}
 		
 		
-		//주문코드 생성
-/*		StringBuffer temp = new StringBuffer();
-		Random rnd = new Random();
-
-		for (int i = 0; i < 5; i++) {
-			temp.append((char) ((rnd.nextInt(26)) + 65));
-		}
-		Date d = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		String date = sdf.format(d);
-		String ORDER_CODE = ("S" + date + temp);
-		System.out.println("ORDER_CODE:"+ORDER_CODE);*/
 		String ORDER_CODE = request.getParameter("ORDER_CODE");
 		System.out.println("ORDER_CODE:"+ORDER_CODE);
 		
