@@ -220,8 +220,6 @@ public class GoodsController {
 	    
 	    //QnA 리스트
 	    List<Map<String, Object>> qnaList = goodsService.selectQNA(Map.getMap());
-	    System.out.println("qnaList:"+qnaList);
-	    System.out.println("qnaListSIze:"+qnaList.size());
 	    
 	    //QNA 페이징
 	    int qnaEndPagingNum = pagingSet; // 5
@@ -229,8 +227,6 @@ public class GoodsController {
         int qnaNowPage = 1;
 
 	      String pagingQnaOnOff = (String) Map.getMap().get("pagingQnaOnOff");
-	      System.out.println("상품문의pagingQnaOnOff:"+pagingQnaOnOff);
-	      System.out.println("pagingQnaOnOff: " + (String) Map.getMap().get("pagingQnaOnOff"));
 	      if (pagingQnaOnOff != null) {
 	         String pagingCheck = (String) Map.getMap().get("pagingCheck");
 	         qnaEndPagingNum = Integer.parseInt((String) Map.getMap().get("qnaEndPagingNum"));
@@ -263,6 +259,7 @@ public class GoodsController {
 	      mv.addObject("qnaTotalPage", qnaTotalPage);
 	     mv.addObject("qnaList", qnaList);
 	     mv.addObject("reviewList", reviewList);
+	     mv.addObject("reviewSize", reviewList.size());
 	     mv.addObject("GOODS_NUMBER", Map.getMap().get("GOODS_NUMBER"));
 		
 		return mv;

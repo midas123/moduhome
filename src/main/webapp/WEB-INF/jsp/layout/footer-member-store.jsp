@@ -36,10 +36,10 @@
             </table>
             <hr/>
             <table>
-              <tr><td><a href="http://localhost:8080/ModuHome/noticeDetail?NOTICE_NUMBER=164">홈페이지 리뉴얼 및 시스템 점검으로 인한 접속 제한 공지</a></td></tr>
-              <tr><td><a href="http://localhost:8080/ModuHome/noticeDetail?NOTICE_NUMBER=163">10월 20일(토)부터 우체국 택배는 토요일에 배달하지 않습니다.</a></td></tr>
-              <tr><td><a href="http://localhost:8080/ModuHome/noticeDetail?NOTICE_NUMBER=162">택배사 변경 안내</a></td></tr>
-              <tr><td><a href="http://localhost:8080/ModuHome/noticeDetail?NOTICE_NUMBER=161">추석연휴 고객상담/배송 일정 안내</a></td></tr>
+              <tr><td><a href="/ModuHome/noticeDetail?NOTICE_NUMBER=164">홈페이지 리뉴얼 및 시스템 점검으로 인한 접속 제한 공지</a></td></tr>
+              <tr><td><a href="/ModuHome/noticeDetail?NOTICE_NUMBER=163">10월 20일(토)부터 우체국 택배는 토요일에 배달하지 않습니다.</a></td></tr>
+              <tr><td><a href="/ModuHome/noticeDetail?NOTICE_NUMBER=162">택배사 변경 안내</a></td></tr>
+              <tr><td><a href="/ModuHome/noticeDetail?NOTICE_NUMBER=161">추석연휴 고객상담/배송 일정 안내</a></td></tr>
             </table>
           </div>
           <div class="col-md-4">
@@ -111,10 +111,10 @@
       </div>
     </footer>
 
-    <script src="/ModuHome/style/js/scripts.min.js"></script>
+  <!--   <script src="/ModuHome/style/js/scripts.min.js"></script>
     <script src="/ModuHome/style/js/custom.min.js"></script>
  
- 
+  -->
 <script>
 	function bank_open(url, name, option) {
 	window.open(url, name, option);
