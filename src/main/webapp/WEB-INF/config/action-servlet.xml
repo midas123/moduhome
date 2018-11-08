@@ -26,6 +26,7 @@
 	<mvc:resources location="/images/**" mapping="/images/**" />
 	<mvc:resources location="/style/**" mapping="/style/**" />
 
+
 	<!-- Map을 이용해 데이터를 주고 받을 수 있도록 -->
 	<mvc:annotation-driven>
 		<mvc:argument-resolvers>
