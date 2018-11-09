@@ -19,6 +19,17 @@
 	rel="stylesheet">
 <link rel="stylesheet" href="/ModuHome/style/css/styles-merged.css">
 <link rel="stylesheet" href="/ModuHome/style/css/style.min.css">
+<script>
+function logincheck(){
+	var loginCheck= "${sessionScope.MEMBER_ID}";
+	
+	if(loginCheck == null || loginCheck==''){
+		alert("로그인 후 보실 수 있습니다.");
+		return false;
+	}
+}
+</script>
+
 </head>
 <body>
 
@@ -68,7 +79,7 @@
 			<div
 				class="col-md-12 text-center section-heading probootstrap-animate"
 				data-animate-effect="fadeIn">
-				<div class="col-md-12" style="font-size: 50px; color: #212121; text-align:left; "><font face='Serif'>신상품</font></div>
+				<div class="col-md-12" style="font-size: 50px; color: #212121; text-align:left; "><font size="7" face='Serif'>신상품</font></div>
 				
 				<div class="col-md-12 "><hr style="border:solid 1px #212121; "></div>
 				
@@ -81,7 +92,7 @@
 
 		</div>
 
-		<div class="row">
+		<div class="row" style="width:80%; margin:0 auto;" >
 			<c:forEach items="${newItem}" var="newItem" begin="0" end="5"
 				step="1" varStatus="status">
 				<c:url var="goodsUrl"
@@ -143,7 +154,7 @@
 					<c:param name="MG_NUMBER" value="${mgList.MG_NUMBER}" />
 					<c:param name="MEMBER_NUMBER" value="${sessionScope.MEMBER_NUMBER}" />
 				</c:url>
-				<a href="${viewURL}">
+				<a href="${viewURL}" onclick="return logincheck();">
 
 					<div class="col-md-6">
 						<div class="probootstrap-service-2 probootstrap-animate" style="height:600px">
