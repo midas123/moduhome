@@ -230,7 +230,7 @@ public class MgController {
 	public ModelAndView mgDetail(HttpSession session, CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
-		int MEMBER_NUMBER = Integer.parseInt(commandMap.get("MEMBER_NUMBER").toString());
+		int MEMBER_NUMBER =Integer.parseInt(session.getAttribute("MEMBER_NUMBER").toString());
 		System.out.println("새 파라미터로 넘어온 멤버넘버는?"+MEMBER_NUMBER);
 		
 		List<Map<String, Object>> memberList = memberService.memberList(commandMap.getMap());

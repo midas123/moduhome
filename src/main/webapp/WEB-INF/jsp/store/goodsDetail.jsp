@@ -679,7 +679,7 @@ body {
                                  <div class="hd-box">
                                     <ul class="desc">
                                     <li class="pr-list-writer">${goodsReview.MEMBER_NAME}</li><br>
-                                    <li class="pr-list-writer"><fmt:formatDate value="${goodsReview.REVIEW_REGDATE}" pattern="YYYY-MM-dd HH:mm" /></li>
+                                    <li class="pr-list-writer"><fmt:formatDate value="${goodsReview.REVIEW_REGDATE}" pattern="YYYY-MM-dd" /></li>
                                     </ul>
                                    <div class="star-icon">
 	                                    <span class="star">
@@ -778,7 +778,8 @@ body {
                      <li>
                          <ul style="float:right; display:inline-block; list-style:none;">
                          <li class="author">${goodsQna.MEMBER_NAME}</li>
-                         <li class="date">${goodsQna.QNA_REGDATE}</li>
+                         <li class="date">
+                         <fmt:formatDate value="${goodsQna.QNA_REPDATE}" pattern="yyyy-MM-dd"/></li>
                          <li>
                          		<c:if test="${goodsQna.MEMBER_NUMBER eq sessionScope.MEMBER_NUMBER }">
 									<c:url var="viewURL" value="/qnaDelete">
@@ -809,10 +810,7 @@ body {
                            <div class="answer" style="margin-left: 30px;">
                               <p> <strong>
                               ┗관리자:
-                              </strong>${goodsQna.QNA_REPCONTENT}</p>
-                              <div class="info">
-                                 <p class="date">${goodsQna.QNA_REPDATE}</p>
-                              </div>
+                              </strong>${goodsQna.QNA_REPCONTENT}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;<fmt:formatDate value="${goodsQna.QNA_REPDATE}" pattern="yyyy-MM-dd"/></p>
                            </div> 
                            <hr>
                         </c:if>
