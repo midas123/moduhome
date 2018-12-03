@@ -26,9 +26,12 @@
 <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 <script type="text/javascript" src="/ModuHome/theme/slick/slick.min.js"></script>	
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/ModuHome/css/snslist/bootstrap.css">
+<script type="text/javascript" src="/ModuHome/js/snslist/bootstrap.min.js"></script> -->
 <script>
 	var loginCheck = '${sessionScope.MEMBER_ID}';
-
 	function _exec(mode) {
 		if (mode == 'restock') {
 			document.location.href = "./restock";
@@ -37,11 +40,10 @@
 				alert("옵션을 선택해주세요");
 				return;
 			}
-			if(loginCheck == null || loginCheck==''){
-				console.log("상품상세페이지세션쳌:"+loginCheck);
-				alert("로그인 후 구매가능 합니다.")
+			if(loginCheck == null || loginCheck==''){			
+				alert('로그인 후 이용 가능합니다.');
 				return false;
-			}
+				}
 			
 			var fm = document.fmOrder;
 			fm.mode.value = mode;
@@ -58,10 +60,17 @@
 			fm.mode.value = mode;
 			fm.target = "_self";
 			fm.action = "/ModuHome/cart/cartAdd";
-			//if (mode=="wishlist") fm.action = "../mypage/wishlist";
 			fm.submit();
 		}
 	}
+	
+	function loginChecking(){
+		if(loginCheck == null || loginCheck==''){			
+		alert('로그인 후 이용 가능합니다.');
+		return false;
+		}
+	}
+
 </script>
 
 <script>
@@ -165,10 +174,8 @@
 			//기본 선택 위치로
 			$("option:eq(0)").prop("selected", true);
 		});
-	});
+
 	//수량증가
-	$(document).ready(
-			function() {
 				$("#MK_innerOpt_01").on("click","li a.MK_btn-up",
 						function(e) {
 							//현재 옵션의 리스트 인덱스							
@@ -198,7 +205,8 @@
 									comma(price * inputEa) + "원");
 							$("#MK_txt-won").data("price", totprice);
 							$("#MK_txt-won").html(comma(totprice) + "원");
-						});
+						}
+				);
 				//수량 감소
 				$("#MK_innerOpt_01").on(
 						"click",
@@ -238,11 +246,6 @@
 </script>
 
 <script>
-function loginCheckOrder(){
-	alert('로그인을 해주세요.'); 
-	return false;
-}
-
 function simpleLightbox(imageUrl, bgColor, maxWidth){
     if(typeof bgColor === 'undefined'){
         bgColor = '#000';
@@ -516,15 +519,6 @@ body {
 	<div class="container" style="margin: auto;">
 		<div class="furniture-view">
 			<div class="row" style="display: block; margin: auto;">
-			<%-- 	<div class="col-xs-6 furniture-view-image monday-slick">
-						<div class="furniture-view-image-wrapper">
-									<c:forEach var="goodsImage" items="${goodsImage}" varStatus="stat" begin="0" end="1">
-									<div class="furniture-image">
-									<img src="/ModuHome/images/goods/${goodsImage.IMAGE}" onerror="this.src='/ModuHome/images/noimg_130.gif'" />
-									</div>
-									</c:forEach>
-							</div > 
-				</div> --%>
 				<div class="product-slider" style="width: 400px; height:400px; float:left; margin-top: 60px;">
 					<c:forEach var="goodsImage" items="${goodsImage}" varStatus="stat" begin="0" end="1">
 					<div >
@@ -650,7 +644,7 @@ body {
 		                    <div class="review-write-btn" style="border: 1px solid black; background: #fff; color: black; text-align: center;">
 		
 							<a href="#"  data-size="md" data-label="구매 후기 작성"
-		                                    onClick="alert('구매후 작성 가능합니다.'); return false;">후기 작성하기</a></div>
+		                                    onClick="alert('구매 후 작성 가능합니다.'); return false;">후기 작성하기</a></div>
            				</c:if> 
                               <c:if test="${sessionScope.MEMBER_ID ne null and checkBuy eq goodsBasic.GOODS_NUMBER}">
                                        <h2 style="margin-bottom: 0px; font-size: 20px;">상품 후기</h2>
@@ -719,7 +713,7 @@ body {
 													<c:param name="GOODS_NUMBER" value="${goodsBasic.GOODS_NUMBER}" />
 													<%-- <c:param name="REVIEW_IMAGE" value="${review.REVIEW_IMAGE }" /> --%>
 							  					</c:url>
-							 <a href="${viewURL}" class="delete" onclick="javascript:return confirm('삭제하시겠습니까?');" style="float:right">&nbsp;&nbsp;[삭제]</a>
+							 <a href="${viewURL}" class="delete" onclick="javascript:return confirm('삭제하시겠습니까?'); return false;" style="float:right">&nbsp;&nbsp;[삭제]</a>
 							  </c:if> 
                            </div><!-- ctr -->
                            </div>
@@ -754,7 +748,7 @@ body {
 						<c:if test="${sessionScope.MEMBER_ID eq null}">
                                        <div class="review-write-btn" style="float:right; border: 1px solid black;">
                                  <a href="#"  data-size="md" data-label="상품 문의 작성"
-                                    onClick="alert('로그인을 해주세요.'); return false;">QNA 작성하기
+                                    onClick="alert('로그인 후 작성 가능합니다.'); return false;">QNA 작성하기
                                  </a></div>
                               </c:if> 
                                <c:if test="${sessionScope.MEMBER_ID ne null }">
@@ -799,12 +793,6 @@ body {
                         <div>
                                  <p style="width:60%;">${goodsQna.QNA_CONTENT}</p>
                         </div>
-                             <%--   
-	                              <div>
-	                                  <c:if test="${goodsQna.QNA_IMAGE ne null }">
-	                                       <img src="/ModuHome/images/qna/${goodsQna.QNA_IMAGE }" width="100" height="100">
-	                                       </c:if>
-	                              </div> --%>
                         <!-- 답변내용 -->
                         <c:if test="${goodsQna.QNA_REPCONTENT ne null}">
                            <div class="answer" style="margin-left: 30px;">
@@ -844,26 +832,6 @@ body {
 				<div class="commerce-title">
 					<h2>추천 상품</h2>
 				</div>
-		<%-- 		<div id="furniture-together-list"
-					class="row furniture-item-group-3 furniture-related-wrapper" style="width: 100%;">
-					<c:forEach items="${relatedGoods}" var="relatedGoods">
-					<div class="furniture-slick-item">
-						<a href="/ModuHome/goods/detail?GOODS_NUMBER=${relatedGoods.GOODS_NUMBER }"> <img
-							src="/ModuHome/images/goods/${relatedGoods.GOODS_THUMBNAIL}" />
-						</a>
-						<div class="description">
-							<div class="name"><a href="/ModuHome/goods/detail?GOODS_NUMBER=${relatedGoods.GOODS_NUMBER }">${relatedGoods.GOODS_NAME }</a></div>
-							<div class="price_original">
-								<s><fmt:formatNumber value="${relatedGoods.GOODS_PRICE }" type="number"/>원</s>
-							</div>
-							<div class="price_discount">
-								<span><fmt:formatNumber value="${relatedGoods.GOODS_DISPRICE }" type="number"/></span>원 
-								(<fmt:formatNumber value="${(relatedGoods.GOODS_PRICE - relatedGoods.GOODS_DISPRICE)*100 / relatedGoods.GOODS_PRICE}" type="number"/>%)
-							</div>
-						</div>
-					</div>
-					</c:forEach>
-					</div> --%>
 				<div class="product-recommend-slider" style="width: 100%; display: block;">
 					<c:forEach items="${relatedGoods}" var="relatedGoods">
 					<div style="width: 400px; height:auto;">

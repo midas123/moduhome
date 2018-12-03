@@ -92,7 +92,7 @@ function logincheck(){
 
 		</div>
 
-		<div class="row" style="width:80%; margin:0 auto;" >
+		<div class="row" style="width:95%; margin:0 auto;" >
 			<c:forEach items="${newItem}" var="newItem" begin="0" end="5"
 				step="1" varStatus="status">
 				<c:url var="goodsUrl"
