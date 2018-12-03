@@ -36,7 +36,7 @@ public class OrderController {
 	@RequestMapping(value="/order")
 	public ModelAndView orderForm(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("store/order/orderForm");
+		mv.setViewName("orderForm");
 		HttpSession session = request.getSession();
 		String memn = session.getAttribute("MEMBER_NUMBER").toString();
 		System.out.println("memn:"+memn);

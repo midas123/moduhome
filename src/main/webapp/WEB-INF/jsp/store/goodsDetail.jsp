@@ -8,27 +8,30 @@
 <html>
 <head>
 
-<c:set var="checkBuy" value="600"/> 
+<%-- <c:set var="checkBuy" value="600"/>  --%>
 
-<!-- CSS Offset -->
 <link type="text/css" rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 <link type="text/css" rel="stylesheet"
 	href="https://fonts.googleapis.com/earlyaccess/nanumgothic.css" />
-<script type="text/javascript"
-	src="//cdn.ggumim.co.kr/resource/house_interior_web/ggumim.stack-1.2.05.min.js"></script>
-	
+
 <link type="text/css" rel="stylesheet" href="/ModuHome/css/store/ggumim-1.2.04.min.css"/>
 <link rel="stylesheet" href="/ModuHome/theme/aboki/power_review_custom.2.css">
 <link rel="stylesheet" href="/ModuHome/theme/aboki/main.css">
 
-<script src="/ModuHome/dist/jquery/jquery-1.11.0.min.js"></script>
-<script src="/ModuHome/dist/jquery/jquery-ui.js"></script>
-<script src="/ModuHome/dist/jquery/jquery-migrate-1.2.1.min.js"></script>	
-	
+<link rel="stylesheet" type="text/css" href="/ModuHome/theme/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="/ModuHome/theme/slick/slick-theme.css"/>	
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="/ModuHome/theme/slick/slick.min.js"></script>	
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- <link rel="stylesheet" type="text/css" href="/ModuHome/css/snslist/bootstrap.css">
+<script type="text/javascript" src="/ModuHome/js/snslist/bootstrap.min.js"></script> -->
 <script>
 	var loginCheck = '${sessionScope.MEMBER_ID}';
-
 	function _exec(mode) {
 		if (mode == 'restock') {
 			document.location.href = "./restock";
@@ -37,11 +40,10 @@
 				alert("옵션을 선택해주세요");
 				return;
 			}
-			if(loginCheck == null || loginCheck==''){
-				console.log("상품상세페이지세션쳌:"+loginCheck);
-				alert("로그인 후 구매가능 합니다.")
+			if(loginCheck == null || loginCheck==''){			
+				alert('로그인 후 이용 가능합니다.');
 				return false;
-			}
+				}
 			
 			var fm = document.fmOrder;
 			fm.mode.value = mode;
@@ -58,10 +60,17 @@
 			fm.mode.value = mode;
 			fm.target = "_self";
 			fm.action = "/ModuHome/cart/cartAdd";
-			//if (mode=="wishlist") fm.action = "../mypage/wishlist";
 			fm.submit();
 		}
 	}
+	
+	function loginChecking(){
+		if(loginCheck == null || loginCheck==''){			
+		alert('로그인 후 이용 가능합니다.');
+		return false;
+		}
+	}
+
 </script>
 
 <script>
@@ -165,10 +174,8 @@
 			//기본 선택 위치로
 			$("option:eq(0)").prop("selected", true);
 		});
-	});
+
 	//수량증가
-	$(document).ready(
-			function() {
 				$("#MK_innerOpt_01").on("click","li a.MK_btn-up",
 						function(e) {
 							//현재 옵션의 리스트 인덱스							
@@ -198,7 +205,8 @@
 									comma(price * inputEa) + "원");
 							$("#MK_txt-won").data("price", totprice);
 							$("#MK_txt-won").html(comma(totprice) + "원");
-						});
+						}
+				);
 				//수량 감소
 				$("#MK_innerOpt_01").on(
 						"click",
@@ -238,11 +246,6 @@
 </script>
 
 <script>
-function loginCheckOrder(){
-	alert('로그인을 해주세요.'); 
-	return false;
-}
-
 function simpleLightbox(imageUrl, bgColor, maxWidth){
     if(typeof bgColor === 'undefined'){
         bgColor = '#000';
@@ -259,7 +262,6 @@ $('.imgScale').on('click', function(){
 });
 
 </script>
-
 
 <style>
 body {
@@ -498,6 +500,14 @@ body {
 }
 
 
+.slick-prev:before {
+  color: #999;
+}
+.slick-next:before {
+  color: #999;
+}
+
+
 </style>
 </head>
 <div class="col-md-12" style="background-color:#85C8DD; height: 90px; width: 100%; margin-top: 0px;">
@@ -508,18 +518,18 @@ body {
 				<input type="hidden" name="GOODS_NAME" value="${goodsBasic.GOODS_NAME}">
 	<div class="container" style="margin: auto;">
 		<div class="furniture-view">
-			<div class="row">
-				<div class="col-xs-6 furniture-view-image monday-slick">
-						<div class="furniture-view-image-wrapper">
-									<c:forEach var="goodsImage" items="${goodsImage}" varStatus="stat" begin="0" end="1">
-									<div class="furniture-image">
-									<img src="/ModuHome/images/goods/${goodsImage.IMAGE}" onerror="this.src='/ModuHome/images/noimg_130.gif'" />
-									</div>
-									</c:forEach>
-							</div > 
+			<div class="row" style="display: block; margin: auto;">
+				<div class="product-slider" style="width: 400px; height:400px; float:left; margin-top: 60px;">
+					<c:forEach var="goodsImage" items="${goodsImage}" varStatus="stat" begin="0" end="1">
+					<div >
+					<img src="/ModuHome/images/goods/${goodsImage.IMAGE}" onerror="this.src='/ModuHome/images/noimg_130.gif'" 
+					style="width: 400px; height:400px;"/>
+					</div>
+					</c:forEach>
 				</div>
+								
 				<!--/.left menu end-->
-				<div class="col-xs-6 furniture-view-infomation">
+				<div class="col-xs-6 furniture-view-infomation"  style="float:right;">
 							<div class="furniture-view-brand">${goodsBasic.GOODS_BRNAME}</div>
 							<div class="furniture-view-name">${goodsBasic.GOODS_NAME}</div>
 							<div class="furniture-view-cost">
@@ -634,7 +644,7 @@ body {
 		                    <div class="review-write-btn" style="border: 1px solid black; background: #fff; color: black; text-align: center;">
 		
 							<a href="#"  data-size="md" data-label="구매 후기 작성"
-		                                    onClick="alert('구매후 작성 가능합니다.'); return false;">후기 작성하기</a></div>
+		                                    onClick="alert('구매 후 작성 가능합니다.'); return false;">후기 작성하기</a></div>
            				</c:if> 
                               <c:if test="${sessionScope.MEMBER_ID ne null and checkBuy eq goodsBasic.GOODS_NUMBER}">
                                        <h2 style="margin-bottom: 0px; font-size: 20px;">상품 후기</h2>
@@ -644,8 +654,14 @@ body {
                            data-toggle="modal" data-target="#myModal">후기 작성하기</a>
                             </div>
                               </c:if> 
-                              
+                              <hr style="color:#99999; width:100%; padding:5px;">
                            </div>     
+                         	<c:if test="${reviewSize == 0}">
+		                  	<div style="text-align:center; padding:20px;color: #8b8e94; line-height: 28px;font-size: 15px;">
+		                  	작성된 상품 후기가 없습니다.
+		                  	</div>
+		                  	</c:if> 
+                           
                            
                            <div id="listPowerReview" class="MS_power_review_list">
                            <c:forEach var="goodsReview" items="${reviewList}" varStatus="stat">
@@ -657,7 +673,7 @@ body {
                                  <div class="hd-box">
                                     <ul class="desc">
                                     <li class="pr-list-writer">${goodsReview.MEMBER_NAME}</li><br>
-                                    <li class="pr-list-writer"><fmt:formatDate value="${goodsReview.REVIEW_REGDATE}" pattern="YYYY-MM-dd HH:mm" /></li>
+                                    <li class="pr-list-writer"><fmt:formatDate value="${goodsReview.REVIEW_REGDATE}" pattern="YYYY-MM-dd" /></li>
                                     </ul>
                                    <div class="star-icon">
 	                                    <span class="star">
@@ -697,7 +713,7 @@ body {
 													<c:param name="GOODS_NUMBER" value="${goodsBasic.GOODS_NUMBER}" />
 													<%-- <c:param name="REVIEW_IMAGE" value="${review.REVIEW_IMAGE }" /> --%>
 							  					</c:url>
-							 <a href="${viewURL}" class="delete" onclick="javascript:return confirm('삭제하시겠습니까?');" style="float:right">&nbsp;&nbsp;[삭제]</a>
+							 <a href="${viewURL}" class="delete" onclick="javascript:return confirm('삭제하시겠습니까?'); return false;" style="float:right">&nbsp;&nbsp;[삭제]</a>
 							  </c:if> 
                            </div><!-- ctr -->
                            </div>
@@ -706,11 +722,8 @@ body {
                            </c:if>
                            </c:if>
                            </c:forEach>
-                           
                            </div>
                            </div>
-                           
-                           
                            <c:if test="${reviewSize gt 5 }">
                            <div style="text-align:center; padding:20px;">
 	                           <c:if test="${reviewNowPage ne 1 }">
@@ -728,15 +741,14 @@ body {
 					</div>
 		<!-- qna 상품문의 -->
 		<div class="product-view-qna-list section box-shadow" id="changeQnaList" style="width:100%;">
-			<div class="furniture-qna1">
-		 	<div class="commerce-title1" style="padding:5px;"> 
-		 			<h2 style="margin-bottom: 0px;">Q&A</h2>
-		 			
+			<div>
+		 	<div style="padding:5px;"> 
+		 			<h2>Q&A</h2>
 					<div class="qna-wrapper">
 						<c:if test="${sessionScope.MEMBER_ID eq null}">
                                        <div class="review-write-btn" style="float:right; border: 1px solid black;">
                                  <a href="#"  data-size="md" data-label="상품 문의 작성"
-                                    onClick="alert('로그인을 해주세요.'); return false;">QNA 작성하기
+                                    onClick="alert('로그인 후 작성 가능합니다.'); return false;">QNA 작성하기
                                  </a></div>
                               </c:if> 
                                <c:if test="${sessionScope.MEMBER_ID ne null }">
@@ -746,16 +758,22 @@ body {
                               </c:if> 
 					</div>
 				</div>
-		 			<hr style="color:#99999; width:100%; padding:5px;">
+		 			<hr style="color:#99999; width:100%;">
 			</div>
                <div class="section-body">
+                  	<c:if test="${qnaSize == 0}">
+                  	<div style="text-align:center; padding:20px;color: #8b8e94; line-height: 28px;font-size: 15px;">
+                  	작성된 qna가 없습니다.
+                  	</div>
+                  	</c:if>
                   <ul class="list-dropdown">
                      <c:forEach var="goodsQna" items="${qnaList}" varStatus="stat">
                      <c:if test="${qnaEndPagingNum >= stat.count}">
                      <li>
                          <ul style="float:right; display:inline-block; list-style:none;">
                          <li class="author">${goodsQna.MEMBER_NAME}</li>
-                         <li class="date">${goodsQna.QNA_REGDATE}</li>
+                         <li class="date">
+                         <fmt:formatDate value="${goodsQna.QNA_REPDATE}" pattern="yyyy-MM-dd"/></li>
                          <li>
                          		<c:if test="${goodsQna.MEMBER_NUMBER eq sessionScope.MEMBER_NUMBER }">
 									<c:url var="viewURL" value="/qnaDelete">
@@ -775,21 +793,12 @@ body {
                         <div>
                                  <p style="width:60%;">${goodsQna.QNA_CONTENT}</p>
                         </div>
-                             <%--   
-	                              <div>
-	                                  <c:if test="${goodsQna.QNA_IMAGE ne null }">
-	                                       <img src="/ModuHome/images/qna/${goodsQna.QNA_IMAGE }" width="100" height="100">
-	                                       </c:if>
-	                              </div> --%>
                         <!-- 답변내용 -->
                         <c:if test="${goodsQna.QNA_REPCONTENT ne null}">
                            <div class="answer" style="margin-left: 30px;">
                               <p> <strong>
                               ┗관리자:
-                              </strong>${goodsQna.QNA_REPCONTENT}</p>
-                              <div class="info">
-                                 <p class="date">${goodsQna.QNA_REPDATE}</p>
-                              </div>
+                              </strong>${goodsQna.QNA_REPCONTENT}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;<fmt:formatDate value="${goodsQna.QNA_REPDATE}" pattern="yyyy-MM-dd"/></p>
                            </div> 
                            <hr>
                         </c:if>
@@ -819,16 +828,15 @@ body {
                   </c:if>  
         	 </div>  
 			<c:if test="${not empty relatedGoods}">
-			<div class="furniture-together" style="width: 100%;">
+			<div class="bottom-product-list" style="width: 100%;">
 				<div class="commerce-title">
 					<h2>추천 상품</h2>
 				</div>
-				<div id="furniture-together-list"
-					class="row furniture-item-group-3 furniture-related-wrapper" style="width: 100%;">
+				<div class="product-recommend-slider" style="width: 100%; display: block;">
 					<c:forEach items="${relatedGoods}" var="relatedGoods">
-					<div class="furniture-slick-item">
+					<div style="width: 400px; height:auto;">
 						<a href="/ModuHome/goods/detail?GOODS_NUMBER=${relatedGoods.GOODS_NUMBER }"> <img
-							src="/ModuHome/images/goods/${relatedGoods.GOODS_THUMBNAIL}" />
+							src="/ModuHome/images/goods/${relatedGoods.GOODS_THUMBNAIL}" style="width: 350px; height:auto;"/>
 						</a>
 						<div class="description">
 							<div class="name"><a href="/ModuHome/goods/detail?GOODS_NUMBER=${relatedGoods.GOODS_NUMBER }">${relatedGoods.GOODS_NAME }</a></div>
@@ -842,7 +850,8 @@ body {
 						</div>
 					</div>
 					</c:forEach>
-					</div>
+					</div> 
+					
 				</div>
 				</c:if>
 </div>
@@ -860,55 +869,8 @@ aria-labelledby="myLargeModalLabel" aria-hidden="true">
 <!-- modal trigger 삭제금지 -->
 
 <script>
-	Stack
-			.add(function() {
-				FurnitureView.init("29976");
-				FurnitureView
-						.setUnit('{"56885-":{"unitIdx":219575,"price":20800,"name":"\ub9c8\ud638\uac00\ub2c8","count":241,"count_type":0,"status":1,"sold":1},"56886-":{"unitIdx":219576,"price":20800,"name":"\uc5d0\ubcf4\ub2c8","count":241,"count_type":0,"status":1,"sold":1}}');
-				FurnitureView.setExtraUnit('[]');
-				FurnitureView.setOptionStatus('{"56886-":1,"56885-":1}');
-				FurnitureView
-						.setOption('{"56885":{"idx":56885,"parent_idx":56884,"type":2,"name":"\ub9c8\ud638\uac00\ub2c8","price":0,"url":"","map":"","color":"#FFFFFF","parent_name":"\uceec\ub7ec"},"56886":{"idx":56886,"parent_idx":56884,"type":2,"name":"\uc5d0\ubcf4\ub2c8","price":0,"url":"","map":"","color":"#FFFFFF","parent_name":"\uceec\ub7ec"}}');
-				FurnitureView.setOptionSet('[[56885,56886]]');
-				FurnitureView.vars.dept = 1;
-				FurnitureView.vars.outsideLink = '';
-				var option_count = $(".option-item").length;
-
-				if (option_count > 4) {
-					$(".furniture-view-extra-option").css("margin-top",
-							"100px");
-				}
-				FurnitureView.visibility = '1';
-				FurnitureView.naverPay.stock = "Y";
-			});
-
-</script>
-
-<script type="text/javascript" async
-	src="//cdn-aitg.widerplanet.com/js/wp_astg_4.0.js"></script>
-<script type="text/javascript"
-	src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
-<script type="text/javascript"
-	src="https://pay.naver.com/customer/js/naverPayButton.js"
-	charset="UTF-8"></script>
-<script type="text/javascript"
-	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js"
-	charset="utf-8"></script>
-<script type="text/javascript"
-	src="//cdn.ggumim.co.kr/resource/house_interior_web/ggumim-1.2.05.min.js"></script>
-<script>
-	var api_url = "https://api.ggumim.co.kr";
-	//  쌍였던 애들 처리
-	Stack.process();
-
-	// 너무 많이 페이지 내러가면, 업 버튼 생기기
-	Scrolltop.begin();
-
-	// 갤러리!
-	Naruto.begin();
-</script>
-<script>
 function ajaxReviewPaging(pagingCheck,reviewEndPagingNum,reviewStartPagingNum,reviewNowPage) {
+ var tempScrollTop = $("#changeReviewList").offset().top-100;
  var pagingReviewOnOff="ON";
  var GOODS_NUMBER='${GOODS_NUMBER}';
   $.ajax({
@@ -919,11 +881,13 @@ function ajaxReviewPaging(pagingCheck,reviewEndPagingNum,reviewStartPagingNum,re
     	   "pagingCheck":pagingCheck,"GOODS_NUMBER":GOODS_NUMBER},
        success:function(data){
           $("#changeReviewList").html(data);
+          $(window).scrollTop(tempScrollTop);
        }
     });     
 }
 
-function ajaxQnaPaging(pagingCheck,qnaEndPagingNum,qnaStartPagingNum,qnaNowPage) {
+function ajaxQnaPaging(pagingCheck,qnaEndPagingNum,qnaStartPagingNum,qnaNowPage) { 
+ var tempScrollTop = $("#changeQnaList").offset().top-100;
  var pagingQnaOnOff="ON";
  var GOODS_NUMBER='${GOODS_NUMBER}';
   $.ajax({
@@ -932,11 +896,42 @@ function ajaxQnaPaging(pagingCheck,qnaEndPagingNum,qnaStartPagingNum,qnaNowPage)
        data: {"qnaNowPage":qnaNowPage,"qnaStartPagingNum":qnaStartPagingNum,"qnaEndPagingNum":qnaEndPagingNum,"pagingQnaOnOff":pagingQnaOnOff,"pagingCheck":pagingCheck,"GOODS_NUMBER":GOODS_NUMBER},
        success:function(data){
           $("#changeQnaList").html(data);
+          $(window).scrollTop(tempScrollTop);
        }
     });     
 } 
-
 </script>   
+
+<script type="text/javascript">
+
+$(document).ready(function(){
+	  $('.product-slider').slick({
+		  autoplay :true
+	  	});
+	  
+	  $('.product-recommend-slider').slick({
+		  infinite: false,
+		  slidesToShow: 3,
+		  responsive: [
+		    {
+		      breakpoint: 450,
+		      settings: {
+		    	  arrows: true,
+		        slidesToShow: 3
+		      }
+		    },
+		    {
+		      breakpoint: 450,
+		      settings: {
+		    	  arrows: true,
+		        slidesToShow: 1
+		      }
+		    }
+		  ]
+	  	});
+	  });
+	
+</script>
 	
 </form>
 </body>

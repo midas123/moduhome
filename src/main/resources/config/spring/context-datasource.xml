@@ -12,6 +12,7 @@
 
     <context:property-placeholder location="classpath:DBconnection.properties"/> 
 
+
     <bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
         <property name="url" value="${DB.url}" />
