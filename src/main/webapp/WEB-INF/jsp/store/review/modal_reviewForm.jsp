@@ -68,8 +68,7 @@ star-input>.input.focus{outline:1px dotted #ddd;}
       <button type="submit" class="btn btn btn-warning" style="background-color:#85c8dd;" >
 	<span class="button-label">확인</span>
      </button>
-     <button class="btn btn btn-warning" style="background-color:#85c8dd;"  data-dismiss="modal" 
-     onclick="window.location.reload()">
+     <button class="btn btn btn-warning" style="background-color:#85c8dd;"  data-dismiss="modal">
 	<span class="button-label">닫기</span>
     </button>
      </div>

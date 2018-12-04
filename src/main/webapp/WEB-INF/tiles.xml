@@ -445,7 +445,7 @@
 	</definition>
 
 	<definition name="orderForm" extends="layout-store">
-	<put-attribute name="body" value="/WEB-INF/jsp/store/orderForm.jsp"/>
+	<put-attribute name="body" value="/WEB-INF/jsp/store/order/orderForm.jsp"/>
 	</definition>
 	
 	<definition name="orderEnd" extends="layout-store">

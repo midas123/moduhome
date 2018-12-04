@@ -47,11 +47,11 @@ if('${message}' != ""){
 
               <div class="form-group">
                 <label for="id">아이디</label>
-                <input type="text" class="form-control" id="MEMBER_ID" name="MEMBER_ID">
+                <input type="text" class="form-control" id="MEMBER_ID" name="MEMBER_ID" placeholder="ID: hong11">
               </div>
               <div class="form-group">
                 <label for="password">비밀번호</label>
-                <input type="password" class="form-control" id="MEMBER_PASSWORD" name="MEMBER_PASSWORD">
+                <input type="password" class="form-control" id="MEMBER_PASSWORD" name="MEMBER_PASSWORD" placeholder="PW: 1111">
               </div>
               
 

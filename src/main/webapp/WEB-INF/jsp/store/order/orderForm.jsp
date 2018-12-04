@@ -9,9 +9,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-
-
-
 <script src="/ModuHome/dist/jquery/jquery-1.11.0.min.js"></script>
 <script src="/ModuHome/dist/jquery/jquery-ui.js"></script>
 <script src="/ModuHome/dist/jquery/jquery-migrate-1.2.1.min.js"></script>
@@ -457,7 +454,7 @@ function copydata2() {
                                         <select 
                           id="emergency11" name="guestPhone1" class="MS_select MS_tel">
                           <option value="">선택</option>
-                          <option value="010">010</option>
+                          <option value="010" selected>010</option>
                           <option value="011">011</option>
                           <option value="016">016</option>
                           <option value="017">017</option>
