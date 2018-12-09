@@ -35,7 +35,7 @@ public class QnaController {
 	@RequestMapping(value = "/qna/modal_qnaForm")
 	public ModelAndView modal_qanFormRepAop(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView("store/qna/modal_qnaForm");
-		
+		System.out.println("qna컨트롤러");
 		return mv;
 	}
 

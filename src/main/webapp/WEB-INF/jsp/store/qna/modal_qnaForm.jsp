@@ -16,8 +16,8 @@
            </div>
         </div>
      </div>
-<form method="post" action="/ModuHome/qna/modalqnaWrite" class="form-horizontal" enctype="multipart/form-data">
       <div class="modal-body">
+<form name="submitqna" id="submit_qna" method="post" action="/ModuHome/qna/modalqnaWrite" class="form-horizontal">
          <div class="container-fluid">
           <div class="row">
               <div class="col-xs-12" style="text-align:left;align:left;" > 
@@ -28,25 +28,35 @@
                          <input type="hidden" name="MEMBER_NUMBER" value="${sessionScope.MEMBER_NUMBER}">
 					제목:<input type="text" id="is-title" name="QNA_TITLE" class="form-control" maxlength="20" required=""><br />
 					문의 내용: <textarea name="QNA_CONTENT" id="is-contents" rows="4" maxlength="100" class="form-control" required=""></textarea>
-				    이미지 첨부: <input type="file" id="is-file" name="QNA_IMAGE" class="xx-control" >		
+				   <!--  이미지 첨부: <input type="file" id="is-file" name="QNA_IMAGE" class="xx-control" >		 -->
 	                    </div>
 	                 </div>
 	             </div>
 	          </div>  
 	       </div>
-	   </div>
-   <div class="modal-footer">
          <div class="form-group">
-         <div class="col-xs-12" style="text-align:right;">
-           <button type="submit" class="btn btn btn-warning" style="background-color:#85c8dd;" >
-			<span class="button-label">확인</span>
-		     </button>
+         <div class="col-xs-12" style="text-align:right; padding-top: 20px;">
+          <button type="submit" id="qnasub" class="btn btn btn-warning" style="background-color:#85c8dd;" >
+			<span class="button-label">작성하기</span>
+		     </button> 
+		     <!-- <input type="submit" id="qnasub" class="btn btn btn-warning" style="background-color:#85c8dd;" > -->
+		     
 		     <button class="btn btn btn-warning" style="background-color:#85c8dd;"  data-dismiss="modal">
 			<span class="button-label">닫기</span>
 		</button>
-		     </div>
+		</div>
     </div>
-	</div>
 	</form>
+	   </div>
+   <div class="modal-footer">
+	</div>
+<script>
+
+$("#qnasub").on("click", function(){
+    $("#submit_qna").submit(function(){
+    });
+});
+
+</script>		
 </body>
 </html>

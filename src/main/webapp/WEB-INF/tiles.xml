@@ -449,7 +449,7 @@
 	</definition>
 	
 	<definition name="orderEnd" extends="layout-store">
-	<put-attribute name="body" value="/WEB-INF/jsp/store/orderEnd.jsp"/>
+	<put-attribute name="body" value="/WEB-INF/jsp/store/order/orderEnd.jsp"/>
 	</definition>
 	
 	<!-- 장바구니 -->	

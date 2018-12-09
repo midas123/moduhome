@@ -137,13 +137,12 @@ public class GoodsController {
 	public ModelAndView goodsDetail(HttpServletResponse response, HttpServletRequest request, CommandMap Map, HttpSession session) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		
-		//상품페이지 첫 요청시 (ajax 요청이 아닐 경우)
+		//상품 상페페이지 첫 요청시 (ajax 요청이 아닐 경우)
 		if(Map.getMap().get("pagingReviewOnOff") == null && Map.getMap().get("pagingQnaOnOff") == null) {
 			System.out.println("상품페이지 첫 요청");
 			mv.setViewName("goodsDetail");
-			int checkBuy;
 			
-			goodsService.goodsCountUp(Map.getMap());
+			//goodsService.goodsCountUp(Map.getMap());
 			System.out.println("goodsdetailMap:"+Map.getMap());
 			List<Map<String, Object>> goodsDetail = goodsService.selectOneGood(Map.getMap());
 		    List<Map<String, Object>> goodsImage = goodsService.selectImage(Map.getMap());
@@ -154,15 +153,18 @@ public class GoodsController {
 		    mv.addObject("goodsBasic", goodsBasic);
 		    mv.addObject("GOODS_NUMBER", goodsDetail.get(0).get("GOODS_NUMBER"));
 		
-		    
 		    List<Map<String, Object>> relatedGoods = goodsService.selectRelatedGoods(goodsBasic);
 		    
+		    //상품 구매여부 확인 값 생성
 		    if (session.getAttribute("MEMBER_NUMBER") != null) {
+		    	 int checkBuy;
 		         String mem_num = session.getAttribute("MEMBER_NUMBER").toString();
+		         String goods_num = request.getParameter("GOODS_NUMBER");
 		         Map.put("MEMBER_NUMBER", mem_num);
+		         Map.put("GOODS_NUMBER", goods_num);
+		        
 		         
 		         try { 
-	
 		            checkBuy = goodsService.checkBuy(Map.getMap());
 		            mv.addObject("checkBuy", checkBuy);
 		            
@@ -170,7 +172,6 @@ public class GoodsController {
 		            checkBuy = 0;
 		            mv.addObject("checkBuy", checkBuy);
 		         }
-		         System.out.println("checkBuy:"+checkBuy);
 	         
 	      }
 		     mv.addObject("goodsDetail", goodsDetail);

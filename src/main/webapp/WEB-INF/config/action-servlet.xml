@@ -23,8 +23,9 @@
 	<mvc:resources location="/theme/**" mapping="/theme/**"/>
 	<mvc:resources location="/dist/**" mapping="/dist/**"/>
 	<mvc:resources location="/resources/**" mapping="/resources/**"/>
-	<mvc:resources location="/images/**" mapping="/images/**" />
+	<!-- <mvc:resources location="/images/**" mapping="/images/**" /> -->
 	<mvc:resources location="/style/**" mapping="/style/**" />
+	<mvc:resources location="C:\Users\yk\Desktop\upload\images\**" mapping="/images**" />
 
 
 	<!-- Map을 이용해 데이터를 주고 받을 수 있도록 -->
@@ -77,6 +78,18 @@
 		</property>
 		<property name="preparerFactoryClass" value="org.springframework.web.servlet.view.tiles2.SpringBeanPreparerFactory"/>
 	</bean>
+	
+	
+	<mvc:interceptors>
+    <bean id="webContentInterceptor" class="org.springframework.web.servlet.mvc.WebContentInterceptor">
+        <property name="cacheSeconds" value="0" />
+        <property name="useExpiresHeader" value="true" />
+        <property name="useCacheControlHeader" value="true" />
+        <property name="useCacheControlNoStore" value="true" />
+    </bean>
+	</mvc:interceptors>
+
+
 	
 	<!-- Login 체크 AOP -->
 	<aop:config>

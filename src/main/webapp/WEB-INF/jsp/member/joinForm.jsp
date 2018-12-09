@@ -169,7 +169,7 @@
         <!-- END row -->
         <div class="row">
           <div class="col-md-12 copyright text-center">
-            <p>&copy; 2017 <a href="https://probootstrap.com/">uiCookies:FineOak</a>. All Rights Reserved. <br> Designed &amp; Developed with <i class="icon icon-heart"></i> by <a href="https://probootstrap.com/">uicookies.com</a></p>
+            <p>&copy; 2017 <a href="https://probootstrap.com/">uiCookies:FineOak</a>. All Rights Reserved. <br> Designed &amp; Developed with by <a href="https://probootstrap.com/">uicookies.com</a></p>
           </div>
         </div>
       </div>

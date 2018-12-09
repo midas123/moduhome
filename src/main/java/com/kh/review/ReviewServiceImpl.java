@@ -18,8 +18,7 @@ import com.kh.moduhome.GoodsImageUtils;
 @Service("reviewService")
 public class ReviewServiceImpl implements ReviewService {
 
-	private static final String filePath = "C:\\Users\\user\\git\\moduhome\\src\\main\\webapp\\images\\review\\";
-	//private static final String filePath = "C:\\Users\\hyk\\git\\moduhome\\src\\main\\webapp\\images\\review\\";
+	private static final String filePath = "C:\\Users\\yk\\Desktop\\upload\\images\\review\\";
 	
 	@Resource(name = "reviewDAO")
 	private ReviewDAO reviewDAO;
@@ -30,9 +29,7 @@ public class ReviewServiceImpl implements ReviewService {
 
 	@Override
 	public void reviewWrite(Map<String, Object> map, HttpServletRequest request) throws Exception {
-		System.out.println("셀렉키삽입전" + map.get("REVIEW_NUMBER"));
 		reviewDAO.reviewWrite(map);
-		System.out.println("셀렉키삽입후" + map.get("REVIEW_NUMBER"));
 
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		MultipartFile multipartFile = multipartHttpServletRequest.getFile("REVIEW_IMAGE");

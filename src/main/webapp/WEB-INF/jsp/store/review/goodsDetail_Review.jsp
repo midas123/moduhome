@@ -16,7 +16,7 @@
                         <div id="powerReview">
                            <div class="hd-t">
                              <c:if test="${sessionScope.MEMBER_ID eq null}">
-                                       <h2 style="margin-bottom: 0px; font-size: 20px;">상품구매 후기</h2>
+                                       <h2 style="margin-bottom: 0px; font-size: 20px;">상품 후기</h2>
                                        <div class="review-write-btn" style="border: 1px solid black; background: #fff; color: black; text-align: center;">
 
 										<a href="#"  data-size="md" data-label="구매 후기 작성"
@@ -26,7 +26,7 @@
                                        </div>
                               </c:if> 
             				<c:if test="${sessionScope.MEMBER_ID ne null and checkBuy ne goodsBasic.GOODS_NUMBER}">
-            				<h2 style="margin-bottom: 0px; font-size: 20px;">상품구매 후기</h2>
+            				<h2 style="margin-bottom: 0px; font-size: 20px;">상품 후기</h2>
                     <div class="review-write-btn" style="border: 1px solid black; background: #fff; color: black; text-align: center;">
 
 					<a href="#"  data-size="md" data-label="구매 후기 작성"
@@ -36,7 +36,7 @@
                                  </a></div>
             				</c:if> 
                               <c:if test="${sessionScope.MEMBER_ID ne null and checkBuy eq goodsBasic.GOODS_NUMBER}">
-                                       <h2 style="margin-bottom: 0px; font-size: 20px;">상품구매 후기</h2>
+                                       <h2 style="margin-bottom: 0px; font-size: 20px;">상품 후기</h2>
                         	<div class="review-write-btn" style="border: 1px solid black; background: #fff; color: black; text-align: center;">
 
                            <a href="/ModuHome/review/reviewForm?GOODS_NUMBER=${goodsBasic.GOODS_NUMBER}" data-toggle="modal" data-target="#myModal">후기 작성하기</a>
@@ -45,7 +45,7 @@
                               
                            </div>     
                            
-                           <div id="listPowerReview" class="MS_power_review_list">
+                        	  <div id="listPowerReview" class="MS_power_review_list">
                            <c:forEach var="goodsReview" items="${reviewList}" varStatus="stat">
                            <c:if test="${reviewEndPagingNum >= stat.count}">
                            <c:if test="${reviewStartPagingNum < stat.count}">
@@ -55,7 +55,7 @@
                                  <div class="hd-box">
                                     <ul class="desc">
                                     <li class="pr-list-writer">${goodsReview.MEMBER_NAME}</li><br>
-                                    <li class="pr-list-writer"><fmt:formatDate value="${goodsReview.REVIEW_REGDATE}" pattern="YYYY-MM-dd HH:mm" /></li>
+                                    <li class="pr-list-writer"><fmt:formatDate value="${goodsReview.REVIEW_REGDATE}" pattern="YYYY-MM-dd" /></li>
                                     </ul>
                                    <div class="star-icon">
 	                                    <span class="star">
@@ -77,25 +77,22 @@
 	                                    </span>
 	                                    </div> 
                                  </div><!-- hd-box -->
-                           <span class="pr-options" style="display: none;">${goodsReview.REVIEW_CONTENT}</span>   
                            <div class="PR15N01-hd">
                            <h2>${goodsReview.REVIEW_TITLE }</h2>
                            </div>
                            <div class="content">
                               <p class="content_p"><a class="more-options">${goodsReview.REVIEW_CONTENT }</a></p><br>
-                              <c:if test="${goodsReview.REVIEW_IMAGE ne null }">
-                                       <img class="imgScale" src="/ModuHome/images/review/${goodsReview.REVIEW_IMAGE}" width="100" height="100">
-                                       </c:if>
-                           <div>
-                                                   
+                              <c:if test="${goodsReview.REVIEW_IMAGE ne null }">                       
+								<img class="imgScale" src="/ModuHome/images/review/${goodsReview.REVIEW_IMAGE}" width="100" height="100" onclick="detailView(this)">
+                              </c:if>
+                           <div>                 
                              <c:if test="${goodsReview.MEMBER_NUMBER eq sessionScope.MEMBER_NUMBER }">
 												<c:url var="viewURL" value="/reviewDelete">
 													<c:param name="REVIEW_NUMBER" value="${goodsReview.REVIEW_NUMBER}" />
 													<c:param name="DETAIL" value="1" />
 													<c:param name="GOODS_NUMBER" value="${goodsBasic.GOODS_NUMBER}" />
-													<%-- <c:param name="REVIEW_IMAGE" value="${review.REVIEW_IMAGE }" /> --%>
 							  					</c:url>
-							 <a href="${viewURL}" class="delete" onclick="javascript:return confirm('삭제하시겠습니까?');">&nbsp;&nbsp;[삭제]</a>
+							 <a href="${viewURL}" class="delete" onclick="delchk();" style="float:right">&nbsp;&nbsp;[삭제]</a>
 							  </c:if> 
                            </div><!-- ctr -->
                            </div>
@@ -104,7 +101,6 @@
                            </c:if>
                            </c:if>
                            </c:forEach>
-                           
                            </div>
                            </div>
                            

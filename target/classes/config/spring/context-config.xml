@@ -4,6 +4,10 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd"> 
    
 <configuration> 
+ 	 <settings>
+        <setting name="cacheEnabled" value="false" />
+        <setting name="jdbcTypeForNull" value="NULL" />
+    </settings>
 
  	<typeAliases> 
 		<typeAlias type="com.kh.follow.MemberModel" alias="memberModel" />
@@ -12,5 +16,5 @@
 		<typeAlias type="com.kh.collecting.CollectingModel" alias="collectingModel" />
 		<typeAlias type="com.kh.alarm.AlarmModel" alias="alarmModel" />
  	</typeAliases> 
-
+ 	
 </configuration>

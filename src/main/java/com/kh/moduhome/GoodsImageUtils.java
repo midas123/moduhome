@@ -23,9 +23,9 @@ public class GoodsImageUtils {
 	   private static final String filePath3 = "C:\\java\\maven-app\\MODA\\src\\main\\webapp\\file\\faqFile\\";
 	   
 	   //private static final String filePath4 = "C:\\java\\maven-app\\MODA\\src\\main\\webapp\\file\\reviewFile\\";
-	   private static final String filePath4 = "C:\\Users\\hyk\\git\\moduhome\\src\\main\\webapp\\images\\review\\";
+	   private static final String filePath4 = "C:\\Users\\yk\\Desktop\\upload\\images\\review\\";
 	   
-	   private static final String filePath5 = "C:\\java\\maven-app\\MODA\\src\\main\\webapp\\file\\qnaFile\\";
+	  // private static final String filePath5 = "C:\\java\\maven-app\\MODA\\src\\main\\webapp\\file\\qnaFile\\";
 	   private static final String filePath6 = "C:\\Users\\J\\git\\moduhome\\src\\main\\webapp\\style\\img\\";
 	   private static final String filePath7 = "C:\\Users\\J\\Desktop\\ModuHome\\src\\main\\webapp\\images\\mgContent\\";
 	   private static final String filePath8 = "C:\\Users\\예영\\git\\moduhome\\src\\main\\webapp\\images\\snsMain\\";
@@ -236,12 +236,12 @@ public class GoodsImageUtils {
 	   }
 	   
 	   //QNA 이미지 삭제
-	   public void qnaImageDelete(Map<String, Object> map) throws Exception {
+	 /*  public void qnaImageDelete(Map<String, Object> map) throws Exception {
 	      if(map.get("QNA_IMAGE1") != null) {
 	         File removeFile = new File(filePath5 + map.get("QNA_IMAGE1"));
 	         removeFile.delete();
 	      }
-	   }
+	   }*/
 
 	   // 공지사항 이미지 등록
 	   public List<Map<String, Object>> notifyImage(Map<String, Object> map, HttpServletRequest request)

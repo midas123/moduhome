@@ -97,7 +97,7 @@
               <a href="https://uicookies.com/">홈 |</a>
               <a href="https://uicookies.com/">회사소개 |</a>
               <a href="https://uicookies.com/">이용약관 |</a>
-              <a href="https://uicookies.com/">개인정보 취급방침 |</a> COPYRIGHTⓒ2018 (주)잘풀리는집  ALL RIGHTS RESERVED  <i class="icon icon-heart"></i> by <a href="https://uicookies.com/">KH10004</a></p>
+              <a href="https://uicookies.com/">개인정보 취급방침 |</a> COPYRIGHTⓒ2018 (주)잘풀리는집  ALL RIGHTS RESERVED by <a href="https://uicookies.com/">KH10004</a></p>
           </div>
         </div>
         

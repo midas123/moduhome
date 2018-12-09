@@ -41,9 +41,9 @@ public class AdminQnaServiceImpl implements AdminQnaService {
 	@Override
 	public void adminQnaDelete(Map<String, Object> map) throws Exception {
 		
-		Map<String, Object> image = new HashMap<String, Object>();
-		image = adminQnaDAO.qnaDetail(map);
-		goodsImageUtils.qnaImageDelete(image);
+		//Map<String, Object> image = new HashMap<String, Object>();
+		//image = adminQnaDAO.qnaDetail(map);
+		//goodsImageUtils.qnaImageDelete(image);
 		adminQnaDAO.adminQnaDelete(map);
 	}
 	

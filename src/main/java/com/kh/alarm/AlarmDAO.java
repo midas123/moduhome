@@ -17,7 +17,7 @@ public class AlarmDAO extends AbstractDAO{
 		System.out.println("alarmDAO실행/ alarmCheck은" + alarmCheck.size());
 		
 		if(alarmCheck.size() == 0){
-			Map param = new HashMap();
+			Map<String, Integer> param = new HashMap<String, Integer>();
 			param.put("alarm_index_no", alarm_index_no);
 			param.put("alarm_contnum", alarm_contnum);
 			param.put("alarm_id", writer_id);

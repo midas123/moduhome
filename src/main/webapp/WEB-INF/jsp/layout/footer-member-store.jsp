@@ -3,12 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>uiCookies:FineOak &mdash; Free Bootstrap Theme, Free Responsive Bootstrap Website Template</title>
-    <meta name="description" content="Free Bootstrap Theme by uicookies.com">
-    <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
-    
+    <meta charset="utf-8">    
     <link href="https://fonts.googleapis.com/css?family=Bellefair|Open+Sans" rel="stylesheet">
     <link rel="stylesheet" href="/ModuHome/style/css/styles-merged.css">
     <link rel="stylesheet" href="/ModuHome/style/css/style.css">
@@ -97,7 +92,7 @@
               <a href="https://uicookies.com/">홈 |</a>
               <a href="https://uicookies.com/">회사소개 |</a>
               <a href="https://uicookies.com/">이용약관 |</a>
-              <a href="https://uicookies.com/">개인정보 취급방침 |</a> COPYRIGHTⓒ2018 (주)잘풀리는집  ALL RIGHTS RESERVED  <i class="icon icon-heart"></i> by <a href="https://uicookies.com/">KH10004</a></p>
+              <a href="https://uicookies.com/">개인정보 취급방침 |</a> COPYRIGHTⓒ2018 (주)잘풀리는집  ALL RIGHTS RESERVED by <a href="https://uicookies.com/">KH10004</a></p>
           </div>
         </div>
         

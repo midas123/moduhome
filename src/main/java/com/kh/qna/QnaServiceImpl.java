@@ -1,25 +1,16 @@
 package com.kh.qna;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
+import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-
 import com.kh.moduhome.GoodsImageUtils;
 
 @Service("qnaService")
 public class QnaServiceImpl implements QnaService {
 	
-	private static final String filePath = "C:\\Users\\user\\git\\moduhome\\src\\main\\webapp\\images\\qna\\";
-	//private static final String filePath = "C:\\Users\\hyk\\git\\moduhome\\src\\main\\webapp\\images\\qna\\";
+	//private static final String filePath = "C:\\Users\\yk\\Desktop\\upload\\qna\\";
 	
 	@Resource(name = "qnaDAO")
 	private QnaDAO qnaDAO;
@@ -30,7 +21,7 @@ public class QnaServiceImpl implements QnaService {
 	@Override
 	public void insertModalQna(Map<String, Object> map, HttpServletRequest request) throws Exception {
 		qnaDAO.insertModalQna(map);
-		MultipartFile multipartFile = null;
+	/*	MultipartFile multipartFile = null;
 		MultipartHttpServletRequest multipartHttpServletRequest = (MultipartHttpServletRequest) request;
 		multipartFile = multipartHttpServletRequest.getFile("QNA_IMAGE");
 
@@ -63,21 +54,16 @@ public class QnaServiceImpl implements QnaService {
 			System.out.println("QNA_IMAGE = " + IMAGE);
 			System.out.println("listMap = " + listMap);
 		}
+	 */
 		
 	}
-	//QnA 리스트
-	
-	
-	
 	
 	// 문의 삭제(Admin Page)
 		@Override
 		public void qnaDelete(Map<String, Object> map) throws Exception {
-			List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
-			
-			listMap = qnaDAO.qnaList(map);
-			
-			goodsImageUtils.qnaImageDelete(listMap.get(0));
+			//List<Map<String, Object>> listMap = new ArrayList<Map<String, Object>>();
+			//listMap = qnaDAO.qnaList(map);
+			//goodsImageUtils.qnaImageDelete(listMap.get(0));
 			
 			qnaDAO.qnaDelete(map);
 

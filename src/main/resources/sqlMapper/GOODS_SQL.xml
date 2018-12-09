@@ -194,7 +194,7 @@ order by REVIEWCOUNT DESC
 
 
 <!-- 상품 구매 여부 확인 -->
-<select id="checkbuy" resultType="hashMap" parameterType="hashMap">
+<select id="checkBuy" resultType="java.lang.Integer" parameterType="hashMap">
 <![CDATA[
 		SELECT GOODS_NUMBER FROM ORDERLIST WHERE MEMBER_NUMBER = #{MEMBER_NUMBER} AND 
 		GOODS_NUMBER = #{GOODS_NUMBER} group by GOODS_NUMBER
@@ -293,7 +293,7 @@ select G.GOODS_NUMBER,
 	'${RECEIVER_NUMBER}',
 	'${DELIVERY_MESSAGE}',
 	'${TOTALPRICE}')
-]]>
+]]>  
 </insert>
 
 <!-- 주문내역 저장 -->
@@ -317,7 +317,7 @@ select G.GOODS_NUMBER,
 	'${GOODS_NUMBER}',
 	'${ORDER_CODE}',
 	'${ORDER_AMOUNT}',
-	SYSDATE,
+	'${ORDER_DATE}',
 	'결제대기',
 	'${ORDER_TOTAL_PRICE}',
 	'결제대기',

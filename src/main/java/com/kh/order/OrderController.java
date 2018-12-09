@@ -1,5 +1,6 @@
 package com.kh.order;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,14 +92,15 @@ public class OrderController {
 	
 	}
 	
+	
 	@RequestMapping(value="/orderEnd")
 	public ModelAndView orderEnd(CommandMap commandMap, HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("store/order/orderEnd");
+		mv.setViewName("orderEnd");
 		commandMap.put("MEMBER_NUMBER", request.getParameter("MEMBER_NUMBER"));
 		
+		System.out.println("주문처리:"+ commandMap.getMap().toString());
 		Map<String, Object> orderMember = orderService.orderMember(commandMap.getMap());
-
 		List<Map<String, Object>> goods = new ArrayList<Map<String, Object>>();
 
 		String[] goods_kinds_number = request.getParameterValues("kinds[]");
@@ -106,22 +108,25 @@ public class OrderController {
 		String[] goods_number = request.getParameterValues("GOODS_NUMBER");
 		String payType = request.getParameter("payType");
 		System.out.println("payType:"+payType);
+		
+		//현재 날짜와 시각
+		Date date = new Date();
+		//SimpleDateFormat 생성자에 날짜 형식을 포함한다.
+		SimpleDateFormat sf  = new SimpleDateFormat("YY/MM/dd");
+		//SimpleDateFormat sf  = new SimpleDateFormat("YY/MM/dd HH:MM");
+		//SimpleDateFormat 클래스의 format 메소드로 타입을 Date -> String으로 변환
+		String orderDate = sf.format(date);
+				
 
 		for (int i = 0; i < goods_kinds_number.length; i++) {
-
 			commandMap.put("GOODS_KIND_NUMBER", goods_kinds_number[i]);
 			commandMap.put("EA", ea[i]);
 			commandMap.put("GOODS_NUMBER", goods_number[i]);
-
 			Map<String, Object> orderGoods = orderService.orderGoods(commandMap.getMap());
-
 			orderGoods.put("EA", ea[i]);
-
 			goods.add(orderGoods);
-
 			System.out.println("주문한 상품목록 : " + goods);
 		}
-		
 		
 		String ORDER_CODE = request.getParameter("ORDER_CODE");
 		System.out.println("ORDER_CODE:"+ORDER_CODE);
@@ -148,16 +153,16 @@ public class OrderController {
 		commandMap.put("DELIVERY_MESSAGE", request.getParameter("DELIVERY_MESSAGE"));
 		commandMap.put("RECEIVER_NUMBER", request.getParameter("RECEIVER_PHONE"));
 		commandMap.put("TOTALPRICE", request.getParameter("TOTALPRICE"));
+		commandMap.put("ORDER_DATE", orderDate);
 		
-		//주문정보 저장
+		//주문 상품 정보 저장
 		for (int i = 0; i < goods_kinds_number.length; i++) {
-
 			commandMap.put("GOODS_KIND_NUMBER", goods_kinds_number[i]);
 			commandMap.put("ORDER_AMOUNT", ea[i]);
 			commandMap.put("ORDER_TOTAL_PRICE", request.getParameter("TOTALPRICE"));
 			commandMap.put("GOODS_NUMBER", goods_number[i]);
-
 		}
+		
 		//상품 구매 트랜잭션 처리
 		orderService.orderGoodsAction(commandMap.getMap());
 
@@ -181,6 +186,7 @@ public class OrderController {
 		mv.addObject("RECEIVER_ADDRESS2", commandMap.get("RECEIVER_ADDRESS2"));
 		mv.addObject("DELIVERY_MESSAGE", commandMap.get("DELIVERY_MESSAGE"));
 		mv.addObject("RECEIVER_PHONE", commandMap.get("RECEIVER_NUMBER"));
+		mv.addObject("orderDate", orderDate);
 		
 		return mv;
 	}

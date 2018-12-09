@@ -104,13 +104,14 @@ function comment_Enroll(sns_number) {
        var html="";
         if(MEMBER_NUMBER != "0"){
        $.ajax({
+           url : '/ModuHome/snsCommentInsert',
           type : 'post',
-           url : 'snsCommentInsert',
            data : ({MEMBER_NUMBER:member_number,
                    SNS_CM_CONTENT:comment_content,
                    SNS_NUMBER:snsnumber
                    }),
            success:function(data){
+        	   console.log("sns코멘트 ajax 성공")
               var cm_tb=$('#cm_table'+snsnumber);
                html += "<tr id='cm"+data.SNS_CM_NUMBER+"'>"
                    +   "<td><img src='/ModuHome/images/member/"+data.STORED_FILE_NAME+"' width='50px' style='border-radius: 50%; float: left; margin-right: 30px'></td>"

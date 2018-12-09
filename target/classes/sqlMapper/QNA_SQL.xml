@@ -96,8 +96,7 @@
 			MEMBER_NUMBER, 
 			QNA_CONTENT, 
 			QNA_REGDATE, 
-			QNA_TITLE,
-			QNA_IMAGE
+			QNA_TITLE
 			) 
 			
 			VALUES (
@@ -108,8 +107,7 @@
 			#{MEMBER_NUMBER, jdbcType=INTEGER},  
 			#{QNA_CONTENT, jdbcType=VARCHAR}, 
 			SYSDATE, 
-			#{QNA_TITLE, jdbcType=VARCHAR}, 
-			#{QNA_IMAGE, jdbcType=VARCHAR}
+			#{QNA_TITLE, jdbcType=VARCHAR}
 			)
 		]]>
 	</insert>

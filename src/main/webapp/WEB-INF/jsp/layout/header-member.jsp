@@ -13,7 +13,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>uiCookies:FineOak &mdash; Free Bootstrap Theme, Free Responsive Bootstrap Website Template</title>
+    <title>모두의집에 오신 것을 환영합니다.</title>
     <meta name="description" content="Free Bootstrap Theme by uicookies.com">
     <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
     
@@ -38,7 +38,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/ModuHome/" title="uiCookies:FineOak">FineOak</a>
+         <a class="navbar-brand" href="/ModuHome/" title="모두의 집">모두의 집</a>
         </div>
 
         <div id="navbar-collapse" class="navbar-collapse collapse">

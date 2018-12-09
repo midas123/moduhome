@@ -13,13 +13,13 @@
 <body>
  	<div class="product-view-qna-list section box-shadow" id="changeQnaList" style="width:100%;">
 			<div>
-		 	<div style="padding:40px;"> 
-		 			<h2 style="margin-bottom: 0px;">Q&A</h2> 
+		 	<div style="padding:5px;"> 
+		 			<h2>Q&A</h2>
 					<div class="qna-wrapper">
 						<c:if test="${sessionScope.MEMBER_ID eq null}">
                                        <div class="review-write-btn" style="float:right; border: 1px solid black;">
                                  <a href="#"  data-size="md" data-label="상품 문의 작성"
-                                    onClick="alert('로그인을 해주세요.'); return false;">QNA 작성하기
+                                    onClick="alert('로그인 후 작성 가능합니다.'); return false;">QNA 작성하기
                                  </a></div>
                               </c:if> 
                                <c:if test="${sessionScope.MEMBER_ID ne null }">
@@ -29,18 +29,22 @@
                               </c:if> 
 					</div>
 				</div>
-				<hr style="color:#99999; width:100%;">
+		 			<hr style="color:#99999; width:100%;">
 			</div>
-              <div id="ajax_qna_list">
                <div class="section-body">
+                  	<c:if test="${qnaSize == 0}">
+                  	<div style="text-align:center; padding:20px;color: #8b8e94; line-height: 28px;font-size: 15px;">
+                  	작성된 qna가 없습니다.
+                  	</div>
+                  	</c:if>
                   <ul class="list-dropdown">
                      <c:forEach var="goodsQna" items="${qnaList}" varStatus="stat">
                      <c:if test="${qnaEndPagingNum >= stat.count}">
-                     <c:if test="${qnaStartPagingNum < stat.count}">
                      <li>
                          <ul style="float:right; display:inline-block; list-style:none;">
                          <li class="author">${goodsQna.MEMBER_NAME}</li>
-                         <li class="date">${goodsQna.QNA_REGDATE}</li>
+                         <li class="date">
+                         <fmt:formatDate value="${goodsQna.QNA_REPDATE}" pattern="yyyy-MM-dd"/></li>
                          <li>
                          		<c:if test="${goodsQna.MEMBER_NUMBER eq sessionScope.MEMBER_NUMBER }">
 									<c:url var="viewURL" value="/qnaDelete">
@@ -48,7 +52,7 @@
 										<c:param name="DETAIL" value="1" />
 										<c:param name="GOODS_NUMBER" value="${goodsBasic.GOODS_NUMBER}" />
 									</c:url>
-								    <p style="float:right;"><a href="${viewURL}" style="float:right;" class="delete" onclick="return delchk()">[삭제]</a></p>
+								    <p style="float:right;"><a href="${viewURL}" style="float:right;" class="delete" onclick="delchk();">[삭제]</a></p>
 					  			</c:if> 
                          </li>
                          </ul>
@@ -60,35 +64,22 @@
                         <div>
                                  <p style="width:60%;">${goodsQna.QNA_CONTENT}</p>
                         </div>
-                             <%--   
-	                              <div>
-	                                  <c:if test="${goodsQna.QNA_IMAGE ne null }">
-	                                       <img src="/ModuHome/images/qna/${goodsQna.QNA_IMAGE }" width="100" height="100">
-	                                       </c:if>
-	                              </div> --%>
                         <!-- 답변내용 -->
                         <c:if test="${goodsQna.QNA_REPCONTENT ne null}">
                            <div class="answer" style="margin-left: 30px;">
                               <p> <strong>
                               ┗관리자:
-                              </strong>${goodsQna.QNA_REPCONTENT}</p>
-                              <div class="info">
-                                 <p class="date">${goodsQna.QNA_REPDATE}</p>
-                              </div>
+                              </strong>${goodsQna.QNA_REPCONTENT}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;<fmt:formatDate value="${goodsQna.QNA_REPDATE}" pattern="yyyy-MM-dd"/></p>
                            </div> 
                            <hr>
                         </c:if>
                   
                      </li>
                      </c:if>
-                     </c:if>
                      </c:forEach> 
                   </ul>
                         </div>
                         
-                  
-                  
-                  
 				<c:if test ="${qnaSize gt 5}">
                   <div style="text-align:center;">
                      <c:if test="${qnaNowPage ne 1 }">

@@ -10,26 +10,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>uiCookies:FineOak &mdash; Free Bootstrap Theme, Free Responsive Bootstrap Website Template</title>
-    <meta name="description" content="Free Bootstrap Theme by uicookies.com">
-    <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>모두의집에 오신 것을 환영합니다.</title>
+<meta name="description" content="Free Bootstrap Theme by uicookies.com">
+<meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="/ModuHome/theme/slick/slick.min.js"></script>	
     
-    <link href="https://fonts.googleapis.com/css?family=Bellefair|Open+Sans" rel="stylesheet">
-    <link rel="stylesheet" href="/ModuHome/style/css/styles-merged.css">
-    <link rel="stylesheet" href="/ModuHome/style/css/style.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!--[if lt IE 9]>
       <script src="/moduhome/style/js/vendor/html5shiv.min.js"></script>
       <script src="/moduhome/style/js/vendor/respond.min.js"></script>
     <![endif]-->
-    
-    <!-- css의 경로는 artifact를 따라가게 된다. 프로젝트 ㅇ이름은 moduhome_member이지만 moduhome으로 써줘여함 -->
 </head>
 <body>
- 
-    <nav class="navbar navbar-default navbar-fixed-top probootstrap-navbar" >
+    <nav class="navbar navbar-default navbar-fixed-top probootstrap-navbar" style="background-color: #85C8DD;">
       <div class="container" style="margin-top:0px;">
          <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false" aria-controls="navbar">
@@ -38,7 +36,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/ModuHome/" title="uiCookies:FineOak">FineOak</a>
+          <a class="navbar-brand" href="/ModuHome/" title="모두의 집">모두의 집</a>
         </div>
 
         <div id="navbar-collapse" class="navbar-collapse collapse">
@@ -93,7 +91,7 @@
             <li style="margin-left: 150px;">
 				<a href="/ModuHome/cart/cartList">
 					<span class="my_menu"> 
-						<img src="/ModuHome/style/img/i_pc_cart.png" alt="arlam_img" style="width:33px;height:31px;" />
+						<img src="/ModuHome/style/img/i_pc_cart.png" alt="arlam_img" style="width:33px;height:31px;" id="cartmenu" data-toggle="popover" data-placement="bottom"/>
 					</span>
 				</a>            
             </li>    
@@ -151,15 +149,9 @@
 							  </ul>
 							<!-- </div>  -->           
             </li>
-            
-
-            
-            
-            
           </ul>
         </div>
       </div>
     </nav>
-
 </body>
 </html>
