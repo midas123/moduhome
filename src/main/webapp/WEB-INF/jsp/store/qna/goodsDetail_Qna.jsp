@@ -12,8 +12,8 @@
 </head>
 <body>
  	<div class="product-view-qna-list section box-shadow" id="changeQnaList" style="width:100%;">
-			<div class="furniture-qna">
-		 	<div class="commerce-title" style="padding:40px;"> 
+			<div>
+		 	<div style="padding:40px;"> 
 		 			<h2 style="margin-bottom: 0px;">Q&A</h2> 
 					<div class="qna-wrapper">
 						<c:if test="${sessionScope.MEMBER_ID eq null}">
@@ -29,6 +29,7 @@
                               </c:if> 
 					</div>
 				</div>
+				<hr style="color:#99999; width:100%;">
 			</div>
               <div id="ajax_qna_list">
                <div class="section-body">

@@ -138,7 +138,7 @@ public class LoginController {
       if (session != null)
          session.invalidate();
       ModelAndView mv = new ModelAndView();
-      mv.setViewName("redirect:/home");
+      mv.setViewName("redirect:/");
       return mv;
    }
 }
